@@ -33,7 +33,8 @@ public static class CharacterDirectionUtils
         throw new System.NotSupportedException();
     }
 
-    public static int ToInteger(this CharacterDirection self) {
+    public static int ToInteger(this CharacterDirection self)
+    {
         return (int)self;
     }
 

@@ -30,7 +30,8 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
         m_rigidbody2D.AddForce(new Vector2(x, y) * controlsForceMultiplier, ForceMode2D.Force);
-        if (m_rigidbody2D.velocity.magnitude > m_character.maxSpeed) {
+        if (m_rigidbody2D.velocity.magnitude > m_character.maxSpeed)
+        {
             m_rigidbody2D.velocity = m_rigidbody2D.velocity.normalized * m_character.maxSpeed;
         }
     }

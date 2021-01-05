@@ -30,13 +30,15 @@ public class Character : MonoBehaviour
         {
             SetLookDirection(m_gameSingletons.MouseWorldPosition - (Vector2)transform.position);
             m_freezeDirectionUntilTime = Time.time + 0.3f;
-        } else if (Time.time > m_freezeDirectionUntilTime)
+        }
+        else if (Time.time > m_freezeDirectionUntilTime)
         {
             SetLookDirection(m_rigidbody2D.velocity);
         }
     }
 
-    void SetLookDirection(Vector2 dir) {
+    void SetLookDirection(Vector2 dir)
+    {
         if (Mathf.Approximately(dir.sqrMagnitude, 0))
             return;
 
