@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Multiplier for axis values to get desired speed.")]
     public float controlsForceMultiplier = 1;
 
-    private Rigidbody2D m_rigidbody2D;
-    private Character m_character;
+    Rigidbody2D m_rigidbody2D;
+    Character m_character;
 
     // Start is called before the first frame update
     void Start()

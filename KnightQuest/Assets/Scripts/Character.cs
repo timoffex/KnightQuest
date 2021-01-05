@@ -10,9 +10,9 @@ public class Character : MonoBehaviour
 
     public CharacterDirection Direction { get; private set; }
 
-    private Rigidbody2D m_rigidbody2D;
-    private GameSingletons m_gameSingletons;
-    private float m_freezeDirectionUntilTime;
+    Rigidbody2D m_rigidbody2D;
+    GameSingletons m_gameSingletons;
+    float m_freezeDirectionUntilTime;
 
     void Awake()
     {

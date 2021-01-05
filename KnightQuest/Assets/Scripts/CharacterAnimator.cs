@@ -5,9 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class CharacterAnimator : MonoBehaviour
 {
-    private Animator m_animator;
-    private Rigidbody2D m_rigidbody2D;
-    private Character m_character;
+    Animator m_animator;
+    Rigidbody2D m_rigidbody2D;
+    Character m_character;
 
     void Start()
     {

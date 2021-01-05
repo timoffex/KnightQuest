@@ -16,7 +16,7 @@ public class GameSingletons : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private Camera mainCamera;
+    [SerializeField] Camera mainCamera;
 
     public Vector2 MouseWorldPosition =>
         mainCamera.ScreenToWorldPoint(Input.mousePosition);
