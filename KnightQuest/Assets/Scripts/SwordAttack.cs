@@ -5,9 +5,18 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class SwordAttack : MonoBehaviour
 {
-    private Animator m_animator;
-    private GameSingletons m_gameSingletons;
-    private Quaternion m_initialRotation;
+    Animator m_animator;
+    GameSingletons m_gameSingletons;
+    Quaternion m_initialRotation;
+
+    public void OnCollidedWith(Collider2D other)
+    {
+        var attackable = other.GetComponent<Attackable>();
+        if (attackable != null)
+        {
+            attackable.OnHit();
+        }
+    }
 
     void Start()
     {
@@ -18,17 +27,16 @@ public class SwordAttack : MonoBehaviour
     }
 
     void Update()
-    {   
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 clickPosition = m_gameSingletons.MouseWorldPosition;
-            
             // Rotate based on player direction.
-            float angle = 
+            Vector2 clickPosition = m_gameSingletons.MouseWorldPosition;
+            float angle =
                 Vector2.SignedAngle(Vector2.right, clickPosition - (Vector2)transform.position);
-
             transform.rotation = m_initialRotation * Quaternion.Euler(0, 0, angle);
 
+            // Trigger animation.
             m_animator.SetTrigger("attack");
         }
     }
