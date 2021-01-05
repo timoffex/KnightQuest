@@ -8,7 +8,19 @@ public class Character : MonoBehaviour
     [Tooltip("Maximum speed in units / second.")]
     public float maxSpeed;
 
+    [Tooltip("The center of the character around which weapons rotate.")]
+    [SerializeField]
+    Transform weaponCenterPoint;
+
+    [Tooltip("The distance from the center point at which weapons should appear.")]
+    [SerializeField]
+    float weaponRadius;
+
     public CharacterDirection Direction { get; private set; }
+
+    public Transform WeaponCenterPoint => weaponCenterPoint;
+
+    public float WeaponRadius => weaponRadius;
 
     Rigidbody2D m_rigidbody2D;
     GameSingletons m_gameSingletons;
@@ -45,5 +57,11 @@ public class Character : MonoBehaviour
             return;
 
         Direction = CharacterDirectionUtils.CharacterDirectionFromNonzero(dir);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(weaponCenterPoint.position, weaponRadius);
     }
 }

@@ -3,48 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class SwordAttack : MonoBehaviour
+public class SwordAttack : Weapon
 {
     [SerializeField] float attackStrength = 1;
 
     Animator m_animator;
-    GameSingletons m_gameSingletons;
-    Quaternion m_initialRotation;
     Character m_character;
-
-    Vector2 m_attackDirection;
 
     public void OnCollidedWith(Collider2D other)
     {
         var attackable = other.GetComponent<Attackable>();
         if (attackable != null)
         {
-            attackable.OnHit(m_attackDirection * attackStrength);
+            attackable.OnHit(Direction * attackStrength);
         }
     }
 
-    void Start()
+    protected override void Start()
     {
-        m_gameSingletons = GameSingletons.Instance;
+        base.Start();
 
         m_character = GetComponentInParent<Character>();
         m_animator = GetComponent<Animator>();
-        m_initialRotation = transform.rotation;
     }
 
-    void Update()
+    protected override void Attack()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            // Rotate based on click direction.
-            var clickPosition = m_gameSingletons.MouseWorldPosition;
-            m_attackDirection = clickPosition - (Vector2)transform.position;
-            float angle = Vector2.SignedAngle(Vector2.right, m_attackDirection);
-            transform.rotation = m_initialRotation * Quaternion.Euler(0, 0, angle);
-
-            // Trigger animation, which should enable colliders.
-            m_animator.SetTrigger("attack");
-            m_character.AttackFreezeFrame(clickPosition - (Vector2)m_character.transform.position);
-        }
+        m_animator.SetTrigger("attack");
+        m_character.AttackFreezeFrame(Direction);
     }
 }

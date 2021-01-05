@@ -121,38 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &286145811
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 286145812}
-  m_Layer: 0
-  m_Name: Bow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &286145812
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 286145811}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 906909552}
-  - {fileID: 2019563237}
-  m_Father: {fileID: 1284785438}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,12 +204,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &906909552 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8825121094829491031, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
-    type: 3}
-  m_PrefabInstance: {fileID: 8825121095063442471}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1284785437 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4935736696234886926, guid: f0d0ee89a4fb945469371c32955728af,
@@ -414,36 +376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61c61c6d4477014a9308b8b571186d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2019563236
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2019563237}
-  m_Layer: 0
-  m_Name: Bow Rotation Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2019563237
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2019563236}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0016999245, y: 0.06639999, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 286145812}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4935736695353278995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -518,27 +450,17 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 286145812}
+    m_TransformParent: {fileID: 1284785438}
     m_Modifications:
-    - target: {fileID: 2152766277956610436, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8825121094829491016, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
         type: 3}
       propertyPath: m_Name
       value: Bow
       objectReference: {fileID: 0}
-    - target: {fileID: 8825121094829491030, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
-        type: 3}
-      propertyPath: rotationPoint
-      value: 
-      objectReference: {fileID: 2019563237}
     - target: {fileID: 8825121094829491031, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8825121094829491031, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
         type: 3}

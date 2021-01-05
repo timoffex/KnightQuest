@@ -46,7 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowSpawner: {fileID: 11400000, guid: 47356645936654e4095d6f925d255859, type: 2}
   arrowSpeed: 5
-  rotationPoint: {fileID: 0}
 --- !u!1 &9119579927026311017
 GameObject:
   m_ObjectHideFlags: 0
