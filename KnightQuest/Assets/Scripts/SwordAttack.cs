@@ -36,7 +36,7 @@ public class SwordAttack : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // Rotate based on player direction.
+            // Rotate based on click direction.
             var clickPosition = m_gameSingletons.MouseWorldPosition;
             m_attackDirection = clickPosition - (Vector2)transform.position;
             float angle = Vector2.SignedAngle(Vector2.right, m_attackDirection);
