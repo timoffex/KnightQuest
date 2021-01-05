@@ -14,6 +14,13 @@ public class Character : MonoBehaviour
     GameSingletons m_gameSingletons;
     float m_freezeDirectionUntilTime;
 
+    /// Momentarily freezes Direction for attack animations.
+    public void AttackFreezeFrame(Vector2 direction)
+    {
+        SetLookDirection(direction);
+        m_freezeDirectionUntilTime = Time.time + 0.3f;
+    }
+
     void Awake()
     {
         m_rigidbody2D = GetComponent<Rigidbody2D>();
@@ -26,12 +33,7 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            SetLookDirection(m_gameSingletons.MouseWorldPosition - (Vector2)transform.position);
-            m_freezeDirectionUntilTime = Time.time + 0.3f;
-        }
-        else if (Time.time > m_freezeDirectionUntilTime)
+        if (Time.time > m_freezeDirectionUntilTime)
         {
             SetLookDirection(m_rigidbody2D.velocity);
         }

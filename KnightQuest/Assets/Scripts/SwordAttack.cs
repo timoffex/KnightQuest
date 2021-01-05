@@ -8,6 +8,7 @@ public class SwordAttack : MonoBehaviour
     Animator m_animator;
     GameSingletons m_gameSingletons;
     Quaternion m_initialRotation;
+    Character m_character;
 
     public void OnCollidedWith(Collider2D other)
     {
@@ -22,6 +23,7 @@ public class SwordAttack : MonoBehaviour
     {
         m_gameSingletons = GameSingletons.Instance;
 
+        m_character = GetComponentInParent<Character>();
         m_animator = GetComponent<Animator>();
         m_initialRotation = transform.rotation;
     }
@@ -31,13 +33,14 @@ public class SwordAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // Rotate based on player direction.
-            Vector2 clickPosition = m_gameSingletons.MouseWorldPosition;
+            var clickPosition = m_gameSingletons.MouseWorldPosition;
             float angle =
                 Vector2.SignedAngle(Vector2.right, clickPosition - (Vector2)transform.position);
             transform.rotation = m_initialRotation * Quaternion.Euler(0, 0, angle);
 
             // Trigger animation.
             m_animator.SetTrigger("attack");
+            m_character.AttackFreezeFrame(clickPosition - (Vector2)m_character.transform.position);
         }
     }
 }
