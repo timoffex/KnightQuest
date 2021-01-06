@@ -113,13 +113,22 @@ work well with prefab inheritance).
 any `GameObject`, although there could be other object components. `Character` and `Weapon` are
 noun components. Note how it doesn't make sense to have both on the same `GameObject`.
 
+There are "abstract" and "concrete" nouns. Abstract nouns never correspond to any prefab, whereas
+concrete nouns (usually) correspond to at least one prefab. The corresponding C# classes should be
+abstract and concrete respectively.
+
+A concrete class can correspond to more than one prefab: there are many `Character`s, for instance.
+`Character` variants can opt to replace `Character` by a more specific subclass for the purpose
+of overridding some behavior, but I haven't found a good reason to do this yet.
+
 #### "Adjective" objects
 
 "Adjective" object components add functionality to a `GameObject` but don't correspond to their own
 prefab hierarchies. For example, `Attackable` is an adjective component. It doesn't make sense
 to have an `Attackable` prefab, but you can add an `Attackable` component on a `Character` object.
 
-I'm also tempted to call these "mixin objects" or "mixins".
+I'm also tempted to call these "mixin objects" or "mixins". Note that they're used like regular
+objects by the code, but they're mixins in terms of what they do to a Unity `GameObject`.
 
 When thinking about what should be a prefab, keep in mind that there is a fundamental difference
 between nouns and adjectives: adjectives can be composed. Prefabs should be _simple nouns_ (no
