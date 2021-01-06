@@ -9,11 +9,10 @@ using UnityEngine;
 /// A weapon is configured by attaching it to a <see cref="Character"/>. (Note to self: obviously
 /// you can't reattach a weapon to a different character. Just instantiate a new one.)
 /// </remarks>
+[RequireComponent(typeof(WeaponData))]
 public abstract class Weapon : MonoBehaviour
 {
-    [SerializeField]
-    bool followMouse = true;
-
+    WeaponData m_data;
     Character m_character;
     GameSingletons m_gameSingletons;
 
@@ -21,6 +20,11 @@ public abstract class Weapon : MonoBehaviour
     bool m_alignedToMouse = false;
 
     public Vector2 Direction => m_direction;
+
+    protected virtual void Awake()
+    {
+        m_data = GetComponent<WeaponData>();
+    }
 
     protected virtual void Start()
     {
@@ -32,7 +36,7 @@ public abstract class Weapon : MonoBehaviour
     {
         m_alignedToMouse = false;
 
-        if (followMouse)
+        if (m_data.followMouse)
         {
             AlignToMouse();
         }

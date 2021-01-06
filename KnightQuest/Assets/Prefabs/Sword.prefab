@@ -137,7 +137,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6139008061830323879}
   - component: {fileID: 6139008061830323878}
-  - component: {fileID: 6139008061830323881}
+  - component: {fileID: 6784287413849331053}
+  - component: {fileID: -6902805227848971226}
+  - component: {fileID: -2299941448356412906}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -179,7 +181,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6139008061830323881
+--- !u!114 &6784287413849331053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6139008061830323876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5201bb4fb509f934eac12937e68fd611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackStrength: 1
+--- !u!114 &-6902805227848971226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6139008061830323876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4357b7aaa53a314d818dc5154e072c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followMouse: 0
+--- !u!114 &-2299941448356412906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,5 +219,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9b3583176797f439a1efe2f8c80b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followMouse: 0
-  attackStrength: 1

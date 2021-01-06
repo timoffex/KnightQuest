@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Character))]
-public class PlayerMovement : MonoBehaviour
+public sealed class PlayerMovement : MonoBehaviour
 {
     [Tooltip("Multiplier for axis values to get desired speed.")]
     public float controlsForceMultiplier = 1;

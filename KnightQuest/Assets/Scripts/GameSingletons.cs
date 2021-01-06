@@ -18,7 +18,7 @@ using UnityEngine;
 /// (for example after loading a game from the main menu). The object should remain alive until
 /// the user exits the main mode of the game.
 /// </remarks>
-public class GameSingletons : MonoBehaviour
+public sealed class GameSingletons : MonoBehaviour
 {
     #region Singleton
     public static GameSingletons Instance { get; private set; }

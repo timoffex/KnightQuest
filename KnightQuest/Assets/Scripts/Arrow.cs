@@ -5,36 +5,37 @@ using UnityEngine;
 /// Controller script for an arrow that can hit <see cref="Attackable"/> instances.
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(ArrowData))]
 public class Arrow : MonoBehaviour
 {
-    [SerializeField] float liveTime = 2;
-
+    ArrowData m_data;
     Rigidbody2D m_rigidbody2D;
     Collider2D m_collider2D;
 
     float deathTime;
 
-    public void Initialize(Vector2 velocity)
+    public virtual void Initialize(Vector2 velocity)
     {
         transform.rotation = Quaternion.FromToRotation(Vector2.right, velocity);
         m_rigidbody2D.velocity = velocity;
 
-        deathTime = Time.time + liveTime;
+        deathTime = Time.time + m_data.liveTime;
     }
 
-    void Awake()
+    protected virtual void Awake()
     {
+        m_data = GetComponent<ArrowData>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
         m_collider2D = GetComponent<Collider2D>();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (Time.time > deathTime)
             Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    protected virtual void OnTriggerEnter2D(Collider2D collider)
     {
         var attackable = collider.GetComponent<Attackable>();
         if (attackable != null)
