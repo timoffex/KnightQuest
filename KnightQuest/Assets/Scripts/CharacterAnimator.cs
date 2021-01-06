@@ -20,7 +20,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         m_animator.SetFloat(
             "speedPercentage",
-            Mathf.Clamp01(m_rigidbody2D.velocity.magnitude / m_character.maxSpeed));
+            Mathf.Clamp01(m_rigidbody2D.velocity.magnitude / m_character.MaxSpeed));
         m_animator.SetInteger("direction", m_character.Direction.ToInteger());
     }
 }

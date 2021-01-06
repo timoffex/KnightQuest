@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 4935736696234886925}
   - component: {fileID: 4935736696234886963}
   - component: {fileID: 4935736696234886924}
+  - component: {fileID: 4192939855935710095}
   - component: {fileID: 453151993581348160}
   m_Layer: 0
   m_Name: Knight
@@ -197,6 +198,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &4192939855935710095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4935736696234886926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4582396a56ac5439c28f8faa3571bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 0.2
+  weaponCenterPoint: {fileID: 761293028980754042}
+  weaponRadius: 0.11
 --- !u!114 &453151993581348160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,9 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b455c2c9672913041a22eb787d44be63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0.2
-  weaponCenterPoint: {fileID: 761293028980754042}
-  weaponRadius: 0.11
 --- !u!1 &5842541617857733078
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,25 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CharacterData))]
 public class Character : MonoBehaviour
 {
-    [Tooltip("Maximum speed in units / second.")]
-    public float maxSpeed;
-
-    [Tooltip("The center of the character around which weapons rotate.")]
-    [SerializeField]
-    Transform weaponCenterPoint;
-
-    [Tooltip("The distance from the center point at which weapons should appear.")]
-    [SerializeField]
-    float weaponRadius;
 
     public CharacterDirection Direction { get; private set; }
 
-    public Transform WeaponCenterPoint => weaponCenterPoint;
+    public float MaxSpeed => m_data.maxSpeed;
 
-    public float WeaponRadius => weaponRadius;
+    public Transform WeaponCenterPoint => m_data.weaponCenterPoint;
 
+    public float WeaponRadius => m_data.weaponRadius;
+
+    CharacterData m_data;
     Rigidbody2D m_rigidbody2D;
     GameSingletons m_gameSingletons;
     float m_freezeDirectionUntilTime;
@@ -35,6 +29,7 @@ public class Character : MonoBehaviour
 
     void Awake()
     {
+        m_data = GetComponent<CharacterData>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -61,7 +56,12 @@ public class Character : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
+        if (m_data == null)
+            m_data = GetComponent<CharacterData>();
+        if (m_data == null || WeaponCenterPoint == null)
+            return;
+
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(weaponCenterPoint.position, weaponRadius);
+        Gizmos.DrawWireSphere(WeaponCenterPoint.position, WeaponRadius);
     }
 }
