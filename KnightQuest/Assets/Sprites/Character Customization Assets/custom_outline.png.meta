@@ -1,52 +1,52 @@
 fileFormatVersion: 2
-guid: 6f39215aacbfe3740800c7bb31d975ae
+guid: 83cb9ebe9f371534782da4ce4fcf08d4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8546616663204323054
-    second: KnightQuest_CustomPlayerChar2_0
+      213: -7776491166362086433
+    second: KnightQuest_CustomPlayerChar1_0
   - first:
-      213: -5738327798966750629
-    second: KnightQuest_CustomPlayerChar2_1
+      213: 5175745422303379612
+    second: KnightQuest_CustomPlayerChar1_1
   - first:
-      213: -8855495243161879044
-    second: KnightQuest_CustomPlayerChar2_2
+      213: -247741047457250720
+    second: KnightQuest_CustomPlayerChar1_2
   - first:
-      213: 4785437738744892095
-    second: KnightQuest_CustomPlayerChar2_3
+      213: -2015887304270557614
+    second: KnightQuest_CustomPlayerChar1_3
   - first:
-      213: -7398640457141558692
-    second: KnightQuest_CustomPlayerChar2_4
+      213: 6894566217472572166
+    second: KnightQuest_CustomPlayerChar1_4
   - first:
-      213: 8677576561119067657
-    second: KnightQuest_CustomPlayerChar2_5
+      213: -5833828477980498695
+    second: KnightQuest_CustomPlayerChar1_5
   - first:
-      213: 7861400504250824729
-    second: KnightQuest_CustomPlayerChar2_6
+      213: 6246204197896603997
+    second: KnightQuest_CustomPlayerChar1_6
   - first:
-      213: 6398264235678825632
-    second: KnightQuest_CustomPlayerChar2_7
+      213: 8932858393181489464
+    second: KnightQuest_CustomPlayerChar1_7
   - first:
-      213: -5409571105258426952
-    second: KnightQuest_CustomPlayerChar2_8
+      213: -1604581079050221101
+    second: KnightQuest_CustomPlayerChar1_8
   - first:
-      213: -6052265441367595698
-    second: KnightQuest_CustomPlayerChar2_9
+      213: 140498553240331418
+    second: KnightQuest_CustomPlayerChar1_9
   - first:
-      213: -1148004904720759219
-    second: KnightQuest_CustomPlayerChar2_10
+      213: 8416264975974164384
+    second: KnightQuest_CustomPlayerChar1_10
   - first:
-      213: 5490303681785191398
-    second: KnightQuest_CustomPlayerChar2_11
+      213: 3959414859074808189
+    second: KnightQuest_CustomPlayerChar1_11
   - first:
-      213: -5025930773310353758
-    second: KnightQuest_CustomPlayerChar2_12
+      213: -1783630663370209250
+    second: KnightQuest_CustomPlayerChar1_12
   - first:
-      213: 594625013352128554
-    second: KnightQuest_CustomPlayerChar2_13
+      213: -6343561481439090459
+    second: KnightQuest_CustomPlayerChar1_13
   - first:
-      213: -7791083245851145517
-    second: KnightQuest_CustomPlayerChar2_14
+      213: 5993857738092355305
+    second: KnightQuest_CustomPlayerChar1_14
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -132,7 +132,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_0
+      name: KnightQuest_CustomPlayerChar1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -146,14 +146,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eee5ab1c29eab9670800000000000000
-      internalID: 8546616663204323054
+      spriteID: fd3560e5c7a541490800000000000000
+      internalID: -7776491166362086433
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_1
+      name: KnightQuest_CustomPlayerChar1_1
       rect:
         serializedVersion: 2
         x: 32
@@ -167,14 +167,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5276d1154d5d50b0800000000000000
-      internalID: -5738327798966750629
+      spriteID: c904f301a01f3d740800000000000000
+      internalID: 5175745422303379612
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_2
+      name: KnightQuest_CustomPlayerChar1_2
       rect:
         serializedVersion: 2
         x: 64
@@ -188,14 +188,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfdbc29aef5fa1580800000000000000
-      internalID: -8855495243161879044
+      spriteID: 062070674d8df8cf0800000000000000
+      internalID: -247741047457250720
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_3
+      name: KnightQuest_CustomPlayerChar1_3
       rect:
         serializedVersion: 2
         x: 0
@@ -209,14 +209,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fba43a0e44a496240800000000000000
-      internalID: 4785437738744892095
+      spriteID: 25ecbb96d212604e0800000000000000
+      internalID: -2015887304270557614
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_4
+      name: KnightQuest_CustomPlayerChar1_4
       rect:
         serializedVersion: 2
         x: 32
@@ -230,14 +230,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c526e3334bfb25990800000000000000
-      internalID: -7398640457141558692
+      spriteID: 60b7cd0227b6eaf50800000000000000
+      internalID: 6894566217472572166
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_5
+      name: KnightQuest_CustomPlayerChar1_5
       rect:
         serializedVersion: 2
         x: 64
@@ -251,14 +251,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90ef1c418e1fc6870800000000000000
-      internalID: 8677576561119067657
+      spriteID: 9f42a6188e31a0fa0800000000000000
+      internalID: -5833828477980498695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_6
+      name: KnightQuest_CustomPlayerChar1_6
       rect:
         serializedVersion: 2
         x: 0
@@ -272,14 +272,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91872fc6b1e491d60800000000000000
-      internalID: 7861400504250824729
+      spriteID: d594e2acf99fea650800000000000000
+      internalID: 6246204197896603997
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_7
+      name: KnightQuest_CustomPlayerChar1_7
       rect:
         serializedVersion: 2
         x: 32
@@ -293,14 +293,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0acf8b24c633bc850800000000000000
-      internalID: 6398264235678825632
+      spriteID: 839037a5163e7fb70800000000000000
+      internalID: 8932858393181489464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_8
+      name: KnightQuest_CustomPlayerChar1_8
       rect:
         serializedVersion: 2
         x: 64
@@ -314,14 +314,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bdaadbadb75de4b0800000000000000
-      internalID: -5409571105258426952
+      spriteID: 3d906e192026bb9e0800000000000000
+      internalID: -1604581079050221101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_9
+      name: KnightQuest_CustomPlayerChar1_9
       rect:
         serializedVersion: 2
         x: 0
@@ -335,14 +335,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4569e8b5a8020ca0800000000000000
-      internalID: -6052265441367595698
+      spriteID: a94a85590b623f100800000000000000
+      internalID: 140498553240331418
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_10
+      name: KnightQuest_CustomPlayerChar1_10
       rect:
         serializedVersion: 2
         x: 32
@@ -356,14 +356,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4686bd1f977110f0800000000000000
-      internalID: -1148004904720759219
+      spriteID: 0a7608487649cc470800000000000000
+      internalID: 8416264975974164384
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_11
+      name: KnightQuest_CustomPlayerChar1_11
       rect:
         serializedVersion: 2
         x: 64
@@ -377,14 +377,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6eb53d51c1a713c40800000000000000
-      internalID: 5490303681785191398
+      spriteID: d79ae8126daa2f630800000000000000
+      internalID: 3959414859074808189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_12
+      name: KnightQuest_CustomPlayerChar1_12
       rect:
         serializedVersion: 2
         x: 0
@@ -398,14 +398,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2aec127179e404ab0800000000000000
-      internalID: -5025930773310353758
+      spriteID: e18035b9c554f37e0800000000000000
+      internalID: -1783630663370209250
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_13
+      name: KnightQuest_CustomPlayerChar1_13
       rect:
         serializedVersion: 2
         x: 32
@@ -419,14 +419,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a206a679c48804800800000000000000
-      internalID: 594625013352128554
+      spriteID: 5e8e8f7317427f7a0800000000000000
+      internalID: -6343561481439090459
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightQuest_CustomPlayerChar2_14
+      name: KnightQuest_CustomPlayerChar1_14
       rect:
         serializedVersion: 2
         x: 64
@@ -440,8 +440,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3da8b8b111380e390800000000000000
-      internalID: -7791083245851145517
+      spriteID: 9ee98312bd57e2350800000000000000
+      internalID: 5993857738092355305
       vertices: []
       indices: 
       edges: []
