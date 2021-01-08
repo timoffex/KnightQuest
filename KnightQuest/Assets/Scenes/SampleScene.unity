@@ -386,7 +386,7 @@ PrefabInstance:
     - target: {fileID: 2598872426133434837, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
       propertyPath: m_Name
-      value: Naked Guy
+      value: Cyberpunk Tribute
       objectReference: {fileID: 0}
     - target: {fileID: 2598872426133434838, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}

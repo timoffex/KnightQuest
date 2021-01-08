@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 6511675617714197844}
   - component: {fileID: 7361034336212112283}
   - component: {fileID: 6676350517848176411}
+  - component: {fileID: 913627240724243462}
   m_Layer: 0
-  m_Name: Naked Guy
+  m_Name: Cyberpunk Tribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,6 +128,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlsForceMultiplier: 7
+--- !u!114 &913627240724243462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598872426133434837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a05feb59efd003479f76ba306ca0b9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMaximumHealth: 100
+  currentHealth: 100
 --- !u!1 &3565353685017286413
 GameObject:
   m_ObjectHideFlags: 0

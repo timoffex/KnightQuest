@@ -12,14 +12,17 @@ public class Arrow : MonoBehaviour
     Rigidbody2D m_rigidbody2D;
     Collider2D m_collider2D;
 
-    float deathTime;
+    float m_deathTime;
+    CombatStatsModifier m_statsModifier;
 
-    public virtual void Initialize(Vector2 velocity)
+    public virtual void Initialize(Vector2 velocity, CombatStatsModifier statsModifier)
     {
+        m_statsModifier = statsModifier;
+
         transform.rotation = Quaternion.FromToRotation(Vector2.right, velocity);
         m_rigidbody2D.velocity = velocity;
 
-        deathTime = Time.time + m_data.liveTime;
+        m_deathTime = Time.time + m_data.liveTime;
     }
 
     protected virtual void Awake()
@@ -31,7 +34,7 @@ public class Arrow : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (Time.time > deathTime)
+        if (Time.time > m_deathTime)
             Destroy(gameObject);
     }
 
@@ -40,7 +43,7 @@ public class Arrow : MonoBehaviour
         var attackable = collider.GetComponent<Attackable>();
         if (attackable != null)
         {
-            attackable.OnHit(m_rigidbody2D.velocity * m_rigidbody2D.mass);
+            attackable.OnHit(m_rigidbody2D.velocity * m_rigidbody2D.mass, m_statsModifier);
             Destroy(gameObject);
         }
     }

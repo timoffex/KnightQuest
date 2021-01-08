@@ -8,10 +8,10 @@ public class ArrowSpawner : ScriptableObject
 {
     [SerializeField] Arrow prefab;
 
-    public Arrow Spawn(Vector2 position, Vector2 velocity)
+    public Arrow Spawn(Vector2 position, Vector2 velocity, CombatStatsModifier statsModifier)
     {
         Arrow arrow = Instantiate(prefab, position, Quaternion.identity);
-        arrow.Initialize(velocity);
+        arrow.Initialize(velocity, statsModifier);
         return arrow;
     }
 }

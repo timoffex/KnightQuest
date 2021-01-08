@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
+  m_Name: custom_hair_controller
   m_Controller: {fileID: 9100000, guid: fbe190ef76b3cf8439ea0c24ad1a8147, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 43041baa593b9454b923c83fecffd738, type: 2}

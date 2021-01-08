@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CombatStats))]
 [RequireComponent(typeof(CharacterData))]
 public class Character : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Character : MonoBehaviour
     public float WeaponRadius => m_data.weaponRadius;
 
     CharacterData m_data;
+    CombatStats m_combatStats;
     Rigidbody2D m_rigidbody2D;
     GameSingletons m_gameSingletons;
     float m_freezeDirectionUntilTime;
@@ -27,18 +29,35 @@ public class Character : MonoBehaviour
         m_freezeDirectionUntilTime = Time.time + 0.3f;
     }
 
-    void Awake()
+    public void ApplyStatsModifier(CombatStatsModifier statsModifier)
+    {
+        statsModifier.Modify(m_combatStats);
+
+        if (m_combatStats.CurrentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Debug.Log($"{gameObject.name} died. Congrats! (Or condolences)");
+        Destroy(gameObject);
+    }
+
+    protected virtual void Awake()
     {
         m_data = GetComponent<CharacterData>();
+        m_combatStats = GetComponent<CombatStats>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-    void Start()
+    protected virtual void Start()
     {
         m_gameSingletons = GameSingletons.Instance;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (Time.time > m_freezeDirectionUntilTime)
         {
@@ -46,7 +65,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    void SetLookDirection(Vector2 dir)
+    protected virtual void SetLookDirection(Vector2 dir)
     {
         if (Mathf.Approximately(dir.sqrMagnitude, 0))
             return;
@@ -54,7 +73,7 @@ public class Character : MonoBehaviour
         Direction = CharacterDirectionUtils.CharacterDirectionFromNonzero(dir);
     }
 
-    void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         if (m_data == null)
             m_data = GetComponent<CharacterData>();
