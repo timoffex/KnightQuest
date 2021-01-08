@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.Animations;
 using UnityEditor;
 using System.Linq;
 using System.IO;
 
 public class CharacterAnimationGenerator : MonoBehaviour
 {
+    public AnimatorController characterAnimator;
     public Sprite[] frames;
 
     public int numColumns = 3;
-    public int numRows = 5;
 
     [ContextMenu("Generate Clips")]
     public void Generate()
@@ -20,6 +21,8 @@ public class CharacterAnimationGenerator : MonoBehaviour
         NamePrefix = Path.GetFileNameWithoutExtension(AssetPath);
 
         AssetDatabase.StartAssetEditing();
+
+        OverrideController = new AnimatorOverrideController(characterAnimator);
 
         CreateClipAsset("down", ClipFromSprites(GetRow(0), flipped: false));
 
@@ -34,29 +37,67 @@ public class CharacterAnimationGenerator : MonoBehaviour
 
         CreateClipAsset("up", ClipFromSprites(GetRow(4), flipped: false));
 
+        SaveOverrideController();
+        CreateLayer();
+
         AssetDatabase.StopAssetEditing();
         AssetDatabase.SaveAssets();
     }
+
+    AnimatorOverrideController OverrideController { get; set; }
+    string AssetPath { get; set; }
+    string FolderPath { get; set; }
+    string NamePrefix { get; set; }
 
     void CreateClipAsset(string direction, AnimationClip clip)
     {
         var name = $"{NamePrefix}_{direction}.anim";
         var path = Path.Combine(FolderPath, name);
 
+        var savedClip = UpdateAsset(path, clip);
+
+        OverrideController[$"move_{direction}"] = savedClip;
+    }
+
+    void SaveOverrideController()
+    {
+        var name = $"{NamePrefix}_controller.overrideController";
+        var path = Path.Combine(FolderPath, name);
+
+        OverrideController = UpdateAsset(path, OverrideController);
+    }
+
+    void CreateLayer()
+    {
+        var go = new GameObject($"{NamePrefix}_layer");
+
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = frames[0];
+
+        var animator = go.AddComponent<Animator>();
+        animator.runtimeAnimatorController = OverrideController;
+
+        go.AddComponent<CharacterAnimator>();
+
+        var path = Path.Combine(FolderPath, $"{go.name}.prefab");
+        PrefabUtility.SaveAsPrefabAsset(go, path);
+        DestroyImmediate(go);
+    }
+
+    T UpdateAsset<T>(string path, T asset) where T : Object
+    {
         var existingAsset = AssetDatabase.LoadMainAssetAtPath(path);
         if (existingAsset != null)
         {
-            EditorUtility.CopySerialized(clip, existingAsset);
+            EditorUtility.CopySerialized(asset, existingAsset);
+            return (T)existingAsset;
         }
         else
         {
-            AssetDatabase.CreateAsset(clip, path);
+            AssetDatabase.CreateAsset(asset, path);
+            return asset;
         }
     }
-
-    string AssetPath { get; set; }
-    string FolderPath { get; set; }
-    string NamePrefix { get; set; }
 
     Sprite[] GetRow(int r) =>
         Enumerable
@@ -67,6 +108,12 @@ public class CharacterAnimationGenerator : MonoBehaviour
     AnimationClip ClipFromSprites(Sprite[] sprites, bool flipped)
     {
         var clip = new AnimationClip();
+
+        // Make it loop using undocumented Unity magic. This is what I hate about Unity...
+        var settings = AnimationUtility.GetAnimationClipSettings(clip);
+        settings.loopTime = true;
+        AnimationUtility.SetAnimationClipSettings(clip, settings);
+
         float deltaTime = 0.5f / sprites.Length;
         Sprite[] frames = sprites.Concat(sprites.Reverse().Take(1)).ToArray();
 
