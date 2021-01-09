@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031f2ad0e2bbf404496006d29ff66b02, type: 3}
+  m_Name: random_grass
+  m_EditorClassIdentifier: 
+  options:
+  - sprite: {fileID: -8535745775437010797, guid: dc1eee5c4a86d468298c0bf62d8d3fd9,
+      type: 3}
+    frequency: 1
+  - sprite: {fileID: 8929703626691452757, guid: dc1eee5c4a86d468298c0bf62d8d3fd9,
+      type: 3}
+    frequency: 1
+  - sprite: {fileID: 5753850456907828003, guid: dc1eee5c4a86d468298c0bf62d8d3fd9,
+      type: 3}
+    frequency: 1
+  - sprite: {fileID: -1335488091280990916, guid: dc1eee5c4a86d468298c0bf62d8d3fd9,
+      type: 3}
+    frequency: 1
