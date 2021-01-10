@@ -6,9 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(Character))]
 public sealed class PlayerMovement : MonoBehaviour
 {
-    [Tooltip("Multiplier for axis values to get desired speed.")]
-    public float controlsForceMultiplier = 1;
-
     Rigidbody2D m_rigidbody2D;
     Character m_character;
 
@@ -29,10 +26,6 @@ public sealed class PlayerMovement : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-        m_rigidbody2D.AddForce(new Vector2(x, y) * controlsForceMultiplier, ForceMode2D.Force);
-        if (m_rigidbody2D.velocity.magnitude > m_character.MaxSpeed)
-        {
-            m_rigidbody2D.velocity = m_rigidbody2D.velocity.normalized * m_character.MaxSpeed;
-        }
+        m_character.MoveInDirection(new Vector2(x, y));
     }
 }

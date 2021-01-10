@@ -45,6 +45,11 @@ public class Character : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void MoveInDirection(Vector2 normalizedDir)
+    {
+        m_rigidbody2D.AddForce(normalizedDir * m_data.movementForce, ForceMode2D.Force);
+    }
+
     protected virtual void Awake()
     {
         m_data = GetComponent<CharacterData>();

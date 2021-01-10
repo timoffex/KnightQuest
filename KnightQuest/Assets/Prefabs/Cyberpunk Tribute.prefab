@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2598872426133434838}
-  - component: {fileID: 2598872426133434856}
+  - component: {fileID: 8445736608278232098}
   - component: {fileID: 2598872426133434839}
   - component: {fileID: 6511675617714197844}
   - component: {fileID: 7361034336212112283}
@@ -38,11 +38,12 @@ Transform:
   - {fileID: 7838763994833270597}
   - {fileID: 7709855892026192033}
   - {fileID: 5025637129735927611}
+  - {fileID: 2501903277747393493}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &2598872426133434856
-BoxCollider2D:
+--- !u!58 &8445736608278232098
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -54,19 +55,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.023319572}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.11479306, y: 0.0690338}
-  m_EdgeRadius: 0
+  m_Radius: 0.05
 --- !u!50 &2598872426133434839
 Rigidbody2D:
   serializedVersion: 4
@@ -80,7 +71,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 7
+  m_LinearDrag: 14
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -103,6 +94,7 @@ MonoBehaviour:
   maxSpeed: 0.2
   weaponCenterPoint: {fileID: 7709855892026192033}
   weaponRadius: 0.11
+  movementForce: 2
 --- !u!114 &7361034336212112283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8bebf8b17c4b264586f2568fe22e485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlsForceMultiplier: 7
 --- !u!114 &913627240724243462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,6 +162,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2598872426133434838}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6940825604525254178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2501903277747393493}
+  m_Layer: 0
+  m_Name: Ground Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2501903277747393493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940825604525254178}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2598872426133434838}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &171281500245231907
 PrefabInstance:
