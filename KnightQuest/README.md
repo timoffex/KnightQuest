@@ -1,4 +1,40 @@
+# Scene design notes
+
+## Pathfinding & character sizes
+
+All characters should use a circle collider with radius 0.5 because that's the size for which I
+generate a pathfinding grid. I can allow for larger characters by creating different layers of
+grids (the Seeker component allows a "grid mask" which I can use to separate grids based on the
+target character size).
+
 # Coding notes
+
+## Thoughts
+
+My usage of subclassing has been working very well for me! For example, I was writing `EnemyAI`
+when I realized that even if I require all characters to use `Rigidbody2D` physics for movement,
+I might still want to control properties like movement speed on a type-by-type basis. For example,
+I already have `maxSpeed` in the `Character` class. Solution: make `EnemyAI` abstract and create a
+`CharacterEnemyAI` subclass that implements enemy AI movement for `Character` objects. This also
+gave me an opportunity to move movement logic completely into `Character` so that neither
+`CharacterEnemyAI` nor `PlayerMovement` are aware of `Rigidbody2D`. Incremental development FTW!
+
+For all of this to work well, I have a collection of unwritten rules about when to use
+`GetComponent` vs `GetComponentInParent` and when to subclass vs create a separate component.
+I should really write those down: this is the first time I'm having such an easy time developing a
+game. Roughly, there are two kinds of `GameObject`: "primary" and "attachment". Every
+`MonoBehaviour` class hierarchy is targeted for one of those; for example `Character` and `EnemyAI`
+go on a primary `GameObject`, whereas `CharacterAnimator` and `Attackable` go on an attachment.
+Actually, it's very important that `Attackable` can go on an attachment: this allowed me to
+use separate colliders for hitboxes and character movement.
+
+Speaking of using separate colliders, I think I have another implicit rule here: only one instance
+of any component type on any `GameObject`. I could have put multiple colliders on the same object
+and stored references to the correct ones in serializable properties, but besides the chance that
+this could break random Unity things and the fact that filling references to components on the
+same object is massively inconvenient, this would also force me to remember how my code works when
+I'm adding those components in the inspector. This implicit rule helped a lot with the 30-second
+refactor to create separate hitbox colliders.
 
 ## Rules
 
