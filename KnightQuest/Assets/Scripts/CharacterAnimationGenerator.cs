@@ -73,6 +73,7 @@ public class CharacterAnimationGenerator : MonoBehaviour
 
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = frames[0];
+        sr.spriteSortPoint = SpriteSortPoint.Pivot;
 
         var animator = go.AddComponent<Animator>();
         animator.runtimeAnimatorController = OverrideController;

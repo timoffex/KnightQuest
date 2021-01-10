@@ -1,7 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Character))]
 public class AttackableCharacter : Attackable
 {
     Rigidbody2D m_rigidbody2D;
@@ -16,7 +14,7 @@ public class AttackableCharacter : Attackable
 
     protected virtual void Start()
     {
-        m_rigidbody2D = GetComponent<Rigidbody2D>();
-        m_character = GetComponent<Character>();
+        m_rigidbody2D = GetComponentInParent<Rigidbody2D>();
+        m_character = GetComponentInParent<Character>();
     }
 }
