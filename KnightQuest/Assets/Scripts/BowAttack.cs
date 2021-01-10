@@ -13,8 +13,10 @@ public class BowAttack : Weapon
 
     bool m_charging = false;
 
-    protected float ChargePercentage =>
-        m_charging ? (Time.time - m_chargeStartTime) / m_data.chargeTime : 0;
+    public float ChargePercentage =>
+        m_charging
+            ? Mathf.Clamp01((Time.time - m_chargeStartTime) / m_data.chargeTime)
+            : 0;
 
     protected override void Awake()
     {
