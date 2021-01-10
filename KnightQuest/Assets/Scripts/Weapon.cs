@@ -44,9 +44,20 @@ public abstract class Weapon : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (!m_alignedToMouse) AlignToMouse();
-            Attack();
+            OnAttackButtonDown();
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            OnAttackButtonUp();
         }
     }
+
+    protected virtual void OnAttackButtonDown()
+    {
+        Attack();
+    }
+
+    protected virtual void OnAttackButtonUp() { }
 
     protected abstract void Attack();
 

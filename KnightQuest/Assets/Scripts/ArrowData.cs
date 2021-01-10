@@ -4,5 +4,6 @@ using UnityEngine;
 
 sealed class ArrowData : MonoBehaviour
 {
-    public float liveTime = 2;
+    [Tooltip("The time after which the arrow stops flying.")]
+    public float liveTime = 0.5f;
 }
