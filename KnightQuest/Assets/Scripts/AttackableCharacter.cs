@@ -5,7 +5,7 @@ public class AttackableCharacter : Attackable
     Rigidbody2D m_rigidbody2D;
     Character m_character;
 
-    public override void OnHit(Vector2 impactImpulse, CombatStatsModifier statsModifier)
+    protected override void OnHit(Vector2 impactImpulse, CombatStatsModifier statsModifier)
     {
         base.OnHit(impactImpulse, statsModifier);
         m_rigidbody2D.AddForce(impactImpulse, ForceMode2D.Impulse);

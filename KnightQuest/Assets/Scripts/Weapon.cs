@@ -21,6 +21,8 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract void ControlAI(EnemyAI enemyAi);
 
+    protected Character Character => m_character;
+
     protected virtual void Awake()
     {
         m_data = GetComponent<WeaponData>();

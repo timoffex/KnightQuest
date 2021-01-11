@@ -7,10 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(CombatStatsModifier))]
 public class SwordAttack : Weapon
 {
-    SwordAttackData m_data;
+    SwordAttackData m_swordAttackData;
     CombatStatsModifier m_combatStatsModifier;
     Animator m_animator;
-    Character m_character;
 
     float m_nextAttackTime;
 
@@ -21,13 +20,17 @@ public class SwordAttack : Weapon
         var attackable = other.GetComponent<Attackable>();
         if (attackable != null)
         {
-            attackable.OnHit(Direction * m_data.attackStrength, m_combatStatsModifier);
+            attackable.Hit(
+                Character.gameObject,
+                Direction * m_swordAttackData.attackStrength,
+                m_combatStatsModifier);
         }
     }
 
     public override void ControlAI(EnemyAI enemyAi)
     {
-        if (enemyAi.DistanceToTarget < m_character.WeaponRadius + m_data.extraAttackRange)
+        if (enemyAi.DistanceToTarget <
+                Character.WeaponRadius + m_swordAttackData.extraAttackRange)
         {
             if (!CoolingDown)
             {
@@ -45,16 +48,9 @@ public class SwordAttack : Weapon
     {
         base.Awake();
 
-        m_data = GetComponent<SwordAttackData>();
+        m_swordAttackData = GetComponent<SwordAttackData>();
         m_combatStatsModifier = GetComponent<CombatStatsModifier>();
         m_animator = GetComponent<Animator>();
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-
-        m_character = GetComponentInParent<Character>();
     }
 
     protected override void Attack()
@@ -69,7 +65,7 @@ public class SwordAttack : Weapon
     {
         Debug.Log("Attacking!");
         m_animator.SetTrigger("attack");
-        m_character.AttackFreezeFrame(Direction);
-        m_nextAttackTime = Time.time + m_data.attackCooldown;
+        Character.AttackFreezeFrame(Direction);
+        m_nextAttackTime = Time.time + m_swordAttackData.attackCooldown;
     }
 }

@@ -213,10 +213,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword
       objectReference: {fileID: 0}
+    - target: {fileID: 6139008061830323876, guid: a550f844b3d00e1488c6b559d267a06d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6139008061830323879, guid: a550f844b3d00e1488c6b559d267a06d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6139008061830323879, guid: a550f844b3d00e1488c6b559d267a06d,
         type: 3}
@@ -275,6 +280,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a550f844b3d00e1488c6b559d267a06d, type: 3}
+--- !u!1001 &403969323
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1762268026}
+    m_Modifications:
+    - target: {fileID: 8825121094829491016, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
+        type: 3}
+      propertyPath: m_Name
+      value: Bow
+      objectReference: {fileID: 0}
+    - target: {fileID: 8825121094829491031, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8825121094829491031, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8825121094829491031, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8825121094829491031, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0a7f180079e57c84d8d4aa5cebdaf456, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +464,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139008061830323876, guid: a550f844b3d00e1488c6b559d267a06d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6139008061830323879, guid: a550f844b3d00e1488c6b559d267a06d,
         type: 3}
@@ -1677,7 +1721,7 @@ PrefabInstance:
     - target: {fileID: 5025637129735927588, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 959c7d7d0af1add4e80c0f252feba291, type: 3}

@@ -6,53 +6,82 @@ using UnityEngine;
 [RequireComponent(typeof(CombatStatsModifier))]
 public class BowAttack : Weapon
 {
-    BowAttackData m_data;
+    BowAttackData m_bowAttackData;
     CombatStatsModifier m_statsModifier;
 
     float m_chargeStartTime = 0;
 
     bool m_charging = false;
 
+    public float MaximumRange => m_bowAttackData.arrowSpeed * m_bowAttackData.arrowLiveTime;
+
     public float ChargePercentage =>
         m_charging
-            ? Mathf.Clamp01((Time.time - m_chargeStartTime) / m_data.chargeTime)
+            ? Mathf.Clamp01((Time.time - m_chargeStartTime) / m_bowAttackData.chargeTime)
             : 0;
 
     public override void ControlAI(EnemyAI enemyAi)
     {
-        throw new System.NotImplementedException();
+        if (enemyAi.DistanceToTarget < 0.8f * MaximumRange)
+        {
+            AlignToward(enemyAi.TargetPosition);
+            if (!m_charging)
+            {
+                BeginCharging();
+            }
+
+            if (ChargePercentage > 0.9f)
+            {
+                ReleaseArrow();
+            }
+        }
+        else
+        {
+            m_charging = false;
+        }
+
+        if (enemyAi.DistanceToTarget > 0.5f * MaximumRange)
+        {
+            enemyAi.MoveTowardTarget();
+        }
     }
 
     public override void OnAttackButtonDown()
     {
-        m_chargeStartTime = Time.time;
-        m_charging = true;
+        BeginCharging();
     }
 
     public override void OnAttackButtonUp()
     {
-        try
-        {
-            Attack();
-        }
-        finally
-        {
-            m_charging = false;
-        }
+        ReleaseArrow();
     }
 
     protected override void Awake()
     {
         base.Awake();
-        m_data = GetComponent<BowAttackData>();
+        m_bowAttackData = GetComponent<BowAttackData>();
         m_statsModifier = GetComponent<CombatStatsModifier>();
     }
 
     protected override void Attack()
     {
-        m_data.arrowSpawner.Spawn(
+        m_bowAttackData.arrowSpawner.Spawn(
+            Character.gameObject,
             transform.position,
-            Direction * m_data.arrowSpeed * ChargePercentage,
+            Direction * m_bowAttackData.arrowSpeed * ChargePercentage,
+            m_bowAttackData.arrowLiveTime,
             m_statsModifier);
+    }
+
+    void BeginCharging()
+    {
+        m_chargeStartTime = Time.time;
+        m_charging = true;
+    }
+
+    void ReleaseArrow()
+    {
+        Attack();
+        m_charging = false;
     }
 }
