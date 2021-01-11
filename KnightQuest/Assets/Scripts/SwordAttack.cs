@@ -12,12 +12,32 @@ public class SwordAttack : Weapon
     Animator m_animator;
     Character m_character;
 
+    float m_nextAttackTime;
+
+    public bool CoolingDown => Time.time < m_nextAttackTime;
+
     public virtual void OnCollidedWith(Collider2D other)
     {
         var attackable = other.GetComponent<Attackable>();
         if (attackable != null)
         {
             attackable.OnHit(Direction * m_data.attackStrength, m_combatStatsModifier);
+        }
+    }
+
+    public override void ControlAI(EnemyAI enemyAi)
+    {
+        if (enemyAi.DistanceToTarget < m_character.WeaponRadius + m_data.extraAttackRange)
+        {
+            if (!CoolingDown)
+            {
+                AlignToward(enemyAi.TargetPosition);
+                AttackNoCooldown();
+            }
+        }
+        else
+        {
+            enemyAi.MoveTowardTarget();
         }
     }
 
@@ -39,7 +59,17 @@ public class SwordAttack : Weapon
 
     protected override void Attack()
     {
+        if (!CoolingDown)
+        {
+            AttackNoCooldown();
+        }
+    }
+
+    void AttackNoCooldown()
+    {
+        Debug.Log("Attacking!");
         m_animator.SetTrigger("attack");
         m_character.AttackFreezeFrame(Direction);
+        m_nextAttackTime = Time.time + m_data.attackCooldown;
     }
 }

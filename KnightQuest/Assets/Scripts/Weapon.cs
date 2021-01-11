@@ -14,61 +14,62 @@ public abstract class Weapon : MonoBehaviour
 {
     WeaponData m_data;
     Character m_character;
-    GameSingletons m_gameSingletons;
 
     Vector2 m_direction;
-    bool m_alignedToMouse = false;
 
     public Vector2 Direction => m_direction;
+
+    public abstract void ControlAI(EnemyAI enemyAi);
 
     protected virtual void Awake()
     {
         m_data = GetComponent<WeaponData>();
+        m_character = GetComponentInParent<Character>();
     }
 
     protected virtual void Start()
     {
-        m_gameSingletons = GameSingletons.Instance;
-        m_character = GetComponentInParent<Character>();
+    }
+
+    protected virtual void OnEnable()
+    {
+        if (m_character.CurrentWeapon != null)
+        {
+            Debug.LogError(
+                $"Multiple enabled weapons on {m_character} (current: {m_character.CurrentWeapon})",
+                this);
+        }
+        else
+        {
+            m_character.CurrentWeapon = this;
+        }
+    }
+
+    protected virtual void OnDisable()
+    {
+        m_character.CurrentWeapon = null;
     }
 
     protected virtual void Update()
     {
-        m_alignedToMouse = false;
-
-        if (m_data.followMouse)
-        {
-            AlignToMouse();
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (!m_alignedToMouse) AlignToMouse();
-            OnAttackButtonDown();
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            OnAttackButtonUp();
-        }
     }
 
-    protected virtual void OnAttackButtonDown()
+    public virtual void OnAttackButtonDown()
     {
         Attack();
     }
 
-    protected virtual void OnAttackButtonUp() { }
+    public virtual void OnAttackButtonUp() { }
 
-    protected abstract void Attack();
-
-    void AlignToMouse()
+    public void AlignToward(Vector2 position)
     {
         AlignToAngleDegrees(
             Vector2.SignedAngle(
                 Vector2.right,
-                m_gameSingletons.MouseWorldPosition - (Vector2)transform.position));
-        m_alignedToMouse = true;
+                position - (Vector2)transform.position));
     }
+
+    protected abstract void Attack();
 
     void AlignToAngleDegrees(float degrees)
     {

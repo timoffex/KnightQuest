@@ -4,5 +4,4 @@ using UnityEngine;
 
 sealed class WeaponData : MonoBehaviour
 {
-    public bool followMouse = true;
 }

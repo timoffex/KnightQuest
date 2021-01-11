@@ -16,6 +16,8 @@ public class Character : MonoBehaviour
 
     public float WeaponRadius => m_data.weaponRadius;
 
+    public Weapon CurrentWeapon { get; set; }
+
     CharacterData m_data;
     CombatStats m_combatStats;
     Rigidbody2D m_rigidbody2D;

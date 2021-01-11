@@ -18,20 +18,18 @@ public class BowAttack : Weapon
             ? Mathf.Clamp01((Time.time - m_chargeStartTime) / m_data.chargeTime)
             : 0;
 
-    protected override void Awake()
+    public override void ControlAI(EnemyAI enemyAi)
     {
-        base.Awake();
-        m_data = GetComponent<BowAttackData>();
-        m_statsModifier = GetComponent<CombatStatsModifier>();
+        throw new System.NotImplementedException();
     }
 
-    protected override void OnAttackButtonDown()
+    public override void OnAttackButtonDown()
     {
         m_chargeStartTime = Time.time;
         m_charging = true;
     }
 
-    protected override void OnAttackButtonUp()
+    public override void OnAttackButtonUp()
     {
         try
         {
@@ -41,6 +39,13 @@ public class BowAttack : Weapon
         {
             m_charging = false;
         }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        m_data = GetComponent<BowAttackData>();
+        m_statsModifier = GetComponent<CombatStatsModifier>();
     }
 
     protected override void Attack()

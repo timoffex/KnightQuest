@@ -14,9 +14,29 @@ public abstract class EnemyAI : MonoBehaviour
     int m_currentWaypoint;
     float m_nextPathfindingTime;
 
+    public Vector2 TargetPosition => m_data.targetGroundPoint.position;
+
+    public float DistanceToTarget =>
+        Vector2.Distance(GroundPoint.position, m_data.targetGroundPoint.position);
+
+    public bool HasTarget => m_data.targetGroundPoint != null;
+
     protected Transform GroundPoint => m_data.groundPoint;
 
     protected float MinimumDistanceToWaypoint => m_data.minimumDistanceToWaypoint;
+
+    public void MoveTowardTarget()
+    {
+        if (m_pathToTarget != null)
+        {
+            m_currentWaypoint =
+                FollowPath(m_pathToTarget, m_currentWaypoint);
+            if (m_currentWaypoint >= m_pathToTarget.vectorPath.Count)
+            {
+                m_pathToTarget = null;
+            }
+        }
+    }
 
     protected virtual void Start()
     {
@@ -27,16 +47,6 @@ public abstract class EnemyAI : MonoBehaviour
     protected virtual void Update()
     {
         UpdatePath();
-
-        if (m_pathToTarget != null)
-        {
-            m_currentWaypoint =
-                FollowPath(m_pathToTarget, m_currentWaypoint);
-            if (m_currentWaypoint >= m_pathToTarget.vectorPath.Count)
-            {
-                m_pathToTarget = null;
-            }
-        }
     }
 
     void UpdatePath()

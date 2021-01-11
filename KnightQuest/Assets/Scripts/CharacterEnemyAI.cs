@@ -14,6 +14,16 @@ public class CharacterEnemyAI : EnemyAI
         m_character = GetComponent<Character>();
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        if (HasTarget)
+        {
+            m_character.CurrentWeapon?.ControlAI(this);
+        }
+    }
+
     protected override int FollowPath(Path path, int waypoint)
     {
         while (waypoint < path.vectorPath.Count &&
@@ -21,7 +31,6 @@ public class CharacterEnemyAI : EnemyAI
                     < MinimumDistanceToWaypoint)
             ++waypoint;
 
-        Debug.Log($"Waypoint: {waypoint}");
         if (waypoint < path.vectorPath.Count)
         {
             var direction = path.vectorPath[waypoint] - GroundPoint.position;

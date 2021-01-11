@@ -156,7 +156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6139008061830323876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7777615, y: -0.7909, z: -0.004699707}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6139008061229840448}
@@ -195,6 +195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackStrength: 1
+  attackCooldown: 1
+  extraAttackRange: 0.1
 --- !u!114 &-6902805227848971226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4357b7aaa53a314d818dc5154e072c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followMouse: 0
 --- !u!114 &-2299941448356412906
 MonoBehaviour:
   m_ObjectHideFlags: 0
