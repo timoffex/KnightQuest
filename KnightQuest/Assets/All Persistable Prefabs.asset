@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04778ec7f75d3414ba1258ee976e029d, type: 3}
+  m_Name: All Persistable Prefabs
+  m_EditorClassIdentifier: 
+  elements:
+  - prefab: {fileID: 2598872426133434837, guid: 959c7d7d0af1add4e80c0f252feba291,
+      type: 3}
+    id: cyberpunk_tribute
+  - prefab: {fileID: 4935736696234886926, guid: f0d0ee89a4fb945469371c32955728af,
+      type: 3}
+    id: knight
+  - prefab: {fileID: 1469823843398245226, guid: 41836876373fece49b5e4a833ef8718f,
+      type: 3}
+    id: basic_arrow
+  - prefab: {fileID: 8825121094829491016, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
+      type: 3}
+    id: basic_bow
+  - prefab: {fileID: 6139008061830323876, guid: a550f844b3d00e1488c6b559d267a06d,
+      type: 3}
+    id: basic_sword

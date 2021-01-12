@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(ArrowData))]
-public class Arrow : MonoBehaviour
+public class Arrow : PersistableComponent
 {
     ArrowData m_data;
     Rigidbody2D m_rigidbody2D;
@@ -31,8 +31,27 @@ public class Arrow : MonoBehaviour
         m_deathTime = Time.time + liveTime;
     }
 
-    protected virtual void Awake()
+    public override void Save(GameDataWriter writer)
     {
+        base.Save(writer);
+
+        // Time to live
+        writer.WriteFloat(m_deathTime - Time.time);
+
+        // TODO: Save/load attacker and stats modifier
+    }
+
+    public override void Load(GameDataReader reader)
+    {
+        base.Load(reader);
+
+        // Time to live
+        m_deathTime = Time.time + reader.ReadFloat();
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
         m_data = GetComponent<ArrowData>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
         m_collider2D = GetComponent<Collider2D>();

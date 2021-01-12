@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -8178372656250913422}
   - component: {fileID: -1192710026149211012}
   - component: {fileID: 5206646406816141828}
+  - component: {fileID: -3974820991411816700}
   m_Layer: 0
   m_Name: Bow
   m_TagString: Untagged
@@ -88,6 +89,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+--- !u!114 &-3974820991411816700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8825121094829491016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d73d8413cc5a94a87c7fbd68ba00a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: basic_bow
+  sceneId: 
 --- !u!1 &9119579927026311017
 GameObject:
   m_ObjectHideFlags: 0

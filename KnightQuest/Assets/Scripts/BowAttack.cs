@@ -56,6 +56,17 @@ public class BowAttack : Weapon
         ReleaseArrow();
     }
 
+    public override void Save(GameDataWriter writer)
+    {
+        base.Save(writer);
+    }
+
+    public override void Load(GameDataReader reader)
+    {
+        base.Load(reader);
+        m_charging = false;
+    }
+
     protected override void Awake()
     {
         base.Awake();

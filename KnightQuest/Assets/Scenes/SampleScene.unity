@@ -278,8 +278,56 @@ PrefabInstance:
       propertyPath: attackCooldown
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8969461963250777270, guid: a550f844b3d00e1488c6b559d267a06d,
+        type: 3}
+      propertyPath: sceneId
+      value: enemy_knight_sword
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a550f844b3d00e1488c6b559d267a06d, type: 3}
+--- !u!1 &308138392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308138394}
+  - component: {fileID: 308138393}
+  m_Layer: 0
+  m_Name: Test Save/Load
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &308138393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308138392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f05a1fe8a567f940823d2052a8c5886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &308138394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308138392}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.85419685, y: -0.47246617, z: -0.6805241}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &403969323
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -287,6 +335,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1762268026}
     m_Modifications:
+    - target: {fileID: -3974820991411816700, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
+        type: 3}
+      propertyPath: sceneId
+      value: enemy_knight_bow
+      objectReference: {fileID: 0}
     - target: {fileID: 8825121094829491016, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
         type: 3}
       propertyPath: m_Name
@@ -525,6 +578,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8969461963250777270, guid: a550f844b3d00e1488c6b559d267a06d,
+        type: 3}
+      propertyPath: sceneId
+      value: cyberpunk_tribute_sword
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a550f844b3d00e1488c6b559d267a06d, type: 3}
 --- !u!1 &1243820785
@@ -653,6 +711,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1065903111790912563, guid: f0d0ee89a4fb945469371c32955728af,
+        type: 3}
+      propertyPath: sceneId
+      value: enemy_knight
+      objectReference: {fileID: 0}
     - target: {fileID: 4935736696234886925, guid: f0d0ee89a4fb945469371c32955728af,
         type: 3}
       propertyPath: m_RootOrder
@@ -789,6 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 519420031}
+  prefabCollection: {fileID: 11400000, guid: f9a092d571e80bb41b5bcd3c4b1761cc, type: 2}
 --- !u!4 &1717718016
 Transform:
   m_ObjectHideFlags: 0
@@ -1658,6 +1722,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 755566496753668503, guid: 959c7d7d0af1add4e80c0f252feba291,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2598872426133434837, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
       propertyPath: m_Name
@@ -1722,6 +1791,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7223027201395137140, guid: 959c7d7d0af1add4e80c0f252feba291,
+        type: 3}
+      propertyPath: sceneId
+      value: cyberpunk_tribute
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579673852111733608, guid: 959c7d7d0af1add4e80c0f252feba291,
+        type: 3}
+      propertyPath: sceneId
+      value: cyberpunk_tribute_bow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 959c7d7d0af1add4e80c0f252feba291, type: 3}

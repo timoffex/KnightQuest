@@ -40,6 +40,69 @@ public sealed class GameSingletons : MonoBehaviour
 
     [SerializeField] Camera mainCamera;
 
+    [SerializeField] PersistablePrefabCollection prefabCollection;
+
+    public PersistablePrefabCollection PrefabCollection => prefabCollection;
+
     public Vector2 MouseWorldPosition =>
         mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+    public void AddRootPersistableObject(PersistablePrefab persistableObject)
+    {
+        if (persistableObject.SceneId != null)
+        {
+            m_sceneIdToPersistableObject.Add(persistableObject.SceneId, persistableObject);
+        }
+
+        m_rootPersistableObjects.Add(persistableObject);
+    }
+
+    public void AddNonRootPersistableObject(PersistablePrefab persistableObject)
+    {
+        Debug.Assert(persistableObject.SceneId != null);
+        m_sceneIdToPersistableObject.Add(persistableObject.SceneId, persistableObject);
+    }
+
+    public void RemovePersistableObject(PersistablePrefab persistableObject)
+    {
+        if (persistableObject.SceneId != null)
+        {
+            m_sceneIdToPersistableObject.Remove(persistableObject.SceneId);
+        }
+
+        m_rootPersistableObjects.Remove(persistableObject);
+    }
+
+    public PersistablePrefab GetPersistableBySceneId(string sceneId)
+    {
+        if (m_sceneIdToPersistableObject.TryGetValue(sceneId, out var obj))
+        {
+            return obj;
+        }
+        return null;
+    }
+
+    public void SaveTo(GameDataWriter writer)
+    {
+        writer.WriteInt16((short)m_rootPersistableObjects.Count);
+        foreach (var obj in m_rootPersistableObjects)
+        {
+            obj.Save(writer);
+        }
+    }
+
+    public void LoadFrom(GameDataReader reader)
+    {
+        var numObjects = reader.ReadInt16();
+        m_rootPersistableObjects.Clear();
+        for (int i = 0; i < numObjects; ++i)
+        {
+            PersistablePrefab.LoadPrefab(reader);
+        }
+    }
+
+    readonly HashSet<PersistablePrefab> m_rootPersistableObjects
+        = new HashSet<PersistablePrefab>();
+    readonly Dictionary<string, PersistablePrefab> m_sceneIdToPersistableObject
+        = new Dictionary<string, PersistablePrefab>();
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CombatStats))]
 [RequireComponent(typeof(CharacterData))]
-public class Character : MonoBehaviour
+public class Character : PersistableComponent
 {
 
     public CharacterDirection Direction { get; private set; }
@@ -52,8 +52,21 @@ public class Character : MonoBehaviour
         m_rigidbody2D.AddForce(normalizedDir * m_data.movementForce, ForceMode2D.Force);
     }
 
-    protected virtual void Awake()
+    public override void Save(GameDataWriter writer)
     {
+        base.Save(writer);
+        writer.WriteInt16((short)Direction);
+    }
+
+    public override void Load(GameDataReader reader)
+    {
+        base.Load(reader);
+        Direction = (CharacterDirection)reader.ReadInt16();
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
         m_data = GetComponent<CharacterData>();
         m_combatStats = GetComponent<CombatStats>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();

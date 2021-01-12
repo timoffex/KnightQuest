@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7361034336212112283}
   - component: {fileID: 913627240724243462}
   - component: {fileID: 7869743933858701467}
+  - component: {fileID: 7223027201395137140}
   m_Layer: 0
   m_Name: Cyberpunk Tribute
   m_TagString: Untagged
@@ -133,6 +134,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61c61c6d4477014a9308b8b571186d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7223027201395137140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598872426133434837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d73d8413cc5a94a87c7fbd68ba00a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: cyberpunk_tribute
+  sceneId: 
 --- !u!1 &3565353685017286413
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,10 +215,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2598872426133434838}
     m_Modifications:
+    - target: {fileID: 2389615820068677661, guid: 5fc2aa083f2172740aa64b3da0abd440,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4361234413463839247, guid: 5fc2aa083f2172740aa64b3da0abd440,
         type: 3}
       propertyPath: m_Name
       value: custom_outline_layer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4361234413463839247, guid: 5fc2aa083f2172740aa64b3da0abd440,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7973730684841639526, guid: 5fc2aa083f2172740aa64b3da0abd440,
         type: 3}
@@ -223,7 +248,7 @@ PrefabInstance:
     - target: {fileID: 7973730684841639526, guid: 5fc2aa083f2172740aa64b3da0abd440,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 7973730684841639526, guid: 5fc2aa083f2172740aa64b3da0abd440,
         type: 3}
@@ -280,6 +305,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: custom_skin_layer
       objectReference: {fileID: 0}
+    - target: {fileID: 2572615253522454161, guid: 10181863d6708c6438d8c7a0b1ba70bb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168894089928518434, guid: 10181863d6708c6438d8c7a0b1ba70bb,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5066126618926978085, guid: 10181863d6708c6438d8c7a0b1ba70bb,
         type: 3}
       propertyPath: m_RootOrder
@@ -298,7 +333,7 @@ PrefabInstance:
     - target: {fileID: 5066126618926978085, guid: 10181863d6708c6438d8c7a0b1ba70bb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 5066126618926978085, guid: 10181863d6708c6438d8c7a0b1ba70bb,
         type: 3}

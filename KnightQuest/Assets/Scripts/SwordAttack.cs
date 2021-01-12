@@ -44,6 +44,22 @@ public class SwordAttack : Weapon
         }
     }
 
+    public override void Save(GameDataWriter writer)
+    {
+        base.Save(writer);
+
+        // Cooldown
+        writer.WriteFloat(m_nextAttackTime - Time.time);
+    }
+
+    public override void Load(GameDataReader reader)
+    {
+        base.Load(reader);
+
+        // Cooldown
+        m_nextAttackTime = Time.time + reader.ReadFloat();
+    }
+
     protected override void Awake()
     {
         base.Awake();

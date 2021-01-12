@@ -10,7 +10,7 @@ using UnityEngine;
 /// you can't reattach a weapon to a different character. Just instantiate a new one.)
 /// </remarks>
 [RequireComponent(typeof(WeaponData))]
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : PersistableComponent
 {
     WeaponData m_data;
     Character m_character;
@@ -23,18 +23,16 @@ public abstract class Weapon : MonoBehaviour
 
     protected Character Character => m_character;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         m_data = GetComponent<WeaponData>();
-        m_character = GetComponentInParent<Character>();
     }
 
     protected virtual void Start()
     {
-    }
+        m_character = GetComponentInParent<Character>();
 
-    protected virtual void OnEnable()
-    {
         if (m_character.CurrentWeapon != null)
         {
             Debug.LogError(
