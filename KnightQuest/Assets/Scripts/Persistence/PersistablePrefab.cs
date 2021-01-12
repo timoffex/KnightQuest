@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public sealed class PersistablePrefab : MonoBehaviour
 {
+    public string PrefabId => prefabId;
+    public string SceneId => sceneId.Length > 0 ? sceneId : null;
+
     [SerializeField]
     [Tooltip("Reference to the prefab to which this component is attached. Set this on the prefab"
             + " and never change it!")]
@@ -29,7 +32,6 @@ public sealed class PersistablePrefab : MonoBehaviour
     /// </summary>
     readonly HashSet<PersistablePrefab> m_subobjects = new HashSet<PersistablePrefab>();
 
-    public string SceneId => sceneId.Length > 0 ? sceneId : null;
 
     /// <summary>
     /// Adds a component from the same object that should be persisted.
@@ -118,8 +120,7 @@ public sealed class PersistablePrefab : MonoBehaviour
         if (persistable == null)
         {
             var prefab = GameSingletons.Instance.PrefabCollection.GetPrefabById(prefabId);
-            var go = Instantiate(prefab);
-            persistable = go.GetComponent<PersistablePrefab>();
+            persistable = Instantiate(prefab);
             persistable.sceneId = sceneId;
         }
 

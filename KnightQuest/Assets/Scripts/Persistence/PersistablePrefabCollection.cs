@@ -11,30 +11,24 @@ public sealed class PersistablePrefabCollection
 {
     [SerializeField] Element[] elements;
 
-    Dictionary<GameObject, string> m_prefabToId;
-    Dictionary<string, GameObject> m_idToPrefab;
+    Dictionary<PersistablePrefab, string> m_prefabToId;
+    Dictionary<string, PersistablePrefab> m_idToPrefab;
 
     void ISerializationCallbackReceiver.OnAfterDeserialize()
     {
-        m_prefabToId = new Dictionary<GameObject, string>();
-        m_idToPrefab = new Dictionary<string, GameObject>();
+        m_prefabToId = new Dictionary<PersistablePrefab, string>();
+        m_idToPrefab = new Dictionary<string, PersistablePrefab>();
 
         foreach (var element in elements)
         {
-            if (m_prefabToId.TryGetValue(element.prefab, out var prefabId))
+            if (m_prefabToId.ContainsKey(element.prefab) ||
+                m_idToPrefab.ContainsKey(element.id))
             {
-                Debug.LogError($"Prefab is already registered for ID '{prefabId}'");
+                continue;
             }
-            else if (m_idToPrefab.TryGetValue(element.id, out var idPrefab))
-            {
-                Debug.LogError(
-                    $"Id '{element.id}' has more than one registered prefab", idPrefab);
-            }
-            else
-            {
-                m_prefabToId.Add(element.prefab, element.id);
-                m_idToPrefab.Add(element.id, element.prefab);
-            }
+
+            m_prefabToId.Add(element.prefab, element.id);
+            m_idToPrefab.Add(element.id, element.prefab);
         }
     }
 
@@ -42,7 +36,7 @@ public sealed class PersistablePrefabCollection
     {
     }
 
-    public string GetPrefabId(GameObject prefab)
+    public string GetPrefabId(PersistablePrefab prefab)
     {
         if (!m_prefabToId.TryGetValue(prefab, out var id))
         {
@@ -53,7 +47,7 @@ public sealed class PersistablePrefabCollection
         return id;
     }
 
-    public GameObject GetPrefabById(string id)
+    public PersistablePrefab GetPrefabById(string id)
     {
         if (!m_idToPrefab.TryGetValue(id, out var prefab))
         {
@@ -64,10 +58,53 @@ public sealed class PersistablePrefabCollection
         return prefab;
     }
 
+    [ContextMenu("Validate Entries")]
+    public void ValidateEntries()
+    {
+        var seenIds = new Dictionary<string, PersistablePrefab>();
+        var seenPrefabs = new Dictionary<PersistablePrefab, string>();
+
+        foreach (var entry in elements)
+        {
+            if (entry.prefab.SceneId != null)
+            {
+                Debug.LogError(
+                    $"Prefab has a scene ID but shouldn't: {entry.prefab}", entry.prefab);
+            }
+
+            if (entry.prefab.PrefabId != entry.id)
+            {
+                Debug.LogError(
+                    $"Prefab {entry.prefab} has a different ID configured than what is in the"
+                    + " collection", entry.prefab);
+            }
+
+            if (seenIds.TryGetValue(entry.id, out var idPrefab))
+            {
+                Debug.LogError(
+                    $"ID {entry.id} is used for more than one prefab: {idPrefab}, {entry.prefab}");
+            }
+            else
+            {
+                seenIds[entry.id] = entry.prefab;
+            }
+
+            if (seenPrefabs.TryGetValue(entry.prefab, out var prefabId))
+            {
+                Debug.LogError(
+                    $"Prefab {entry.prefab} is registered more than once");
+            }
+            else
+            {
+                seenPrefabs[entry.prefab] = entry.id;
+            }
+        }
+    }
+
     [System.Serializable]
     public class Element
     {
-        public GameObject prefab;
+        public PersistablePrefab prefab;
         public string id;
     }
 }
