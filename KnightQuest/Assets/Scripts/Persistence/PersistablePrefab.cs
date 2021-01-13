@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using System.Text.RegularExpressions;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
+
 /// <summary>
 /// Component for GameObjects that can be recreated from a prefab.
 /// </summary>
@@ -197,4 +204,67 @@ public sealed class PersistablePrefab : MonoBehaviour
     {
         m_gameSingletons.RemovePersistableObject(this);
     }
+
+
+#if UNITY_EDITOR
+    /// <summary>
+    /// Ensures that <see cref="PersistablePrefab.SceneId"/> values are unique within the scene.
+    /// </summary>
+    [MenuItem("KnightQuest/Fix IDs on persistable objects in scene")]
+    static void FixIdsInScene()
+    {
+        var scenePersistables =
+            Enumerable.Range(0, EditorSceneManager.sceneCount)
+                .Select(EditorSceneManager.GetSceneAt)
+                .SelectMany((s) => s.GetRootGameObjects())
+                .SelectMany((go) => go.GetComponentsInChildren<PersistablePrefab>())
+                .ToList();
+
+        var seenIds = new HashSet<string>();
+        var repeatedIdRegex = new Regex(@"^(.+) \((\d+)\)$", RegexOptions.Compiled);
+        var numFixed = 0;
+
+        foreach (var persistable in scenePersistables)
+        {
+            if (persistable.SceneId != null)
+            {
+                if (seenIds.Contains(persistable.SceneId))
+                {
+                    var repeatedIdMatch = repeatedIdRegex.Match(persistable.SceneId);
+
+                    string baseId;
+                    int number;
+
+                    if (repeatedIdMatch.Success)
+                    {
+                        baseId = repeatedIdMatch.Groups[1].Value;
+                        number = int.Parse(repeatedIdMatch.Groups[2].Value);
+                    }
+                    else
+                    {
+                        baseId = persistable.sceneId;
+                        number = 1;
+                    }
+
+                    string newId;
+                    do
+                    {
+                        newId = $"{baseId} ({number})";
+                        ++number;
+                    } while (seenIds.Contains(newId));
+
+
+                    Debug.LogWarning($"Changing ID of {persistable} to {newId}", persistable);
+                    Undo.RecordObject(persistable, "Fix PersistablePrefab scene IDs");
+                    persistable.sceneId = newId;
+                    ++numFixed;
+                }
+
+                seenIds.Add(persistable.sceneId);
+            }
+        }
+
+        Debug.Log($"Done. ({(numFixed > 0 ? $"fixed {numFixed}" : "no problems found")})");
+    }
+#endif
 }
