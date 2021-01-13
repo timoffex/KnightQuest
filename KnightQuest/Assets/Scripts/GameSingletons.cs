@@ -93,6 +93,13 @@ public sealed class GameSingletons : MonoBehaviour
 
     public void LoadFrom(GameDataReader reader)
     {
+        // Remove all current root persistable objects that don't have a scene ID
+        foreach (var rootObject in m_rootPersistableObjects)
+        {
+            if (rootObject.SceneId == null)
+                Destroy(rootObject.gameObject);
+        }
+
         var numObjects = reader.ReadInt16();
         m_rootPersistableObjects.Clear();
         for (int i = 0; i < numObjects; ++i)
