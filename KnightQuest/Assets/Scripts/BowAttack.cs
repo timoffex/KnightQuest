@@ -8,6 +8,7 @@ public class BowAttack : Weapon
 {
     BowAttackData m_bowAttackData;
     CombatStatsModifier m_statsModifier;
+    Character.SpeedReductionToken m_speedReductionToken;
 
     float m_chargeStartTime = 0;
 
@@ -37,7 +38,7 @@ public class BowAttack : Weapon
         }
         else
         {
-            m_charging = false;
+            StopCharging();
         }
 
         if (enemyAi.DistanceToTarget > 0.5f * MaximumRange)
@@ -63,8 +64,8 @@ public class BowAttack : Weapon
 
     public override void Load(GameDataReader reader)
     {
+        StopCharging();
         base.Load(reader);
-        m_charging = false;
     }
 
     protected override void Awake()
@@ -72,6 +73,12 @@ public class BowAttack : Weapon
         base.Awake();
         m_bowAttackData = GetComponent<BowAttackData>();
         m_statsModifier = GetComponent<CombatStatsModifier>();
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        m_speedReductionToken?.Cancel();
     }
 
     protected override void Attack()
@@ -87,12 +94,21 @@ public class BowAttack : Weapon
     void BeginCharging()
     {
         m_chargeStartTime = Time.time;
+        m_speedReductionToken?.Cancel();
+        m_speedReductionToken = Character.TemporarilyReduceSpeed();
         m_charging = true;
     }
 
     void ReleaseArrow()
     {
         Attack();
+        StopCharging();
+    }
+
+    void StopCharging()
+    {
         m_charging = false;
+        m_speedReductionToken?.Cancel();
+        m_speedReductionToken = null;
     }
 }

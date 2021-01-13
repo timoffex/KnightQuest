@@ -10,7 +10,15 @@ public class Character : PersistableComponent
 
     public CharacterDirection Direction { get; private set; }
 
+    /// <summary>
+    /// The character's maximum speed, for the purpose of animation.
+    /// </summary>
     public float MaxSpeed => m_data.maxSpeed;
+
+    public float MovementForce =>
+        m_temporarySpeedReductions > 0
+            ? 0.5f * m_data.movementForce
+            : m_data.movementForce;
 
     public Transform WeaponCenterPoint => m_data.weaponCenterPoint;
 
@@ -23,6 +31,11 @@ public class Character : PersistableComponent
     Rigidbody2D m_rigidbody2D;
     GameSingletons m_gameSingletons;
     float m_freezeDirectionUntilTime;
+
+    /// <summary>
+    /// Number of times <see cref="TemporarilyReduceSpeed"/> has been called and not cancelled.
+    /// </summary>
+    int m_temporarySpeedReductions = 0;
 
     /// Momentarily freezes Direction for attack animations.
     public void AttackFreezeFrame(Vector2 direction)
@@ -41,6 +54,15 @@ public class Character : PersistableComponent
         }
     }
 
+    /// <summary>
+    /// Temporarily halves the character's movement force and returns an action that can be
+    /// used to undo this.
+    /// </summary>
+    public SpeedReductionToken TemporarilyReduceSpeed()
+    {
+        return new SpeedReductionToken(this);
+    }
+
     public void Die()
     {
         Debug.Log($"{gameObject.name} died. Congrats! (Or condolences)");
@@ -49,7 +71,7 @@ public class Character : PersistableComponent
 
     public void MoveInDirection(Vector2 normalizedDir)
     {
-        m_rigidbody2D.AddForce(normalizedDir * m_data.movementForce, ForceMode2D.Force);
+        m_rigidbody2D.AddForce(normalizedDir * MovementForce, ForceMode2D.Force);
     }
 
     public override void Save(GameDataWriter writer)
@@ -102,5 +124,29 @@ public class Character : PersistableComponent
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(WeaponCenterPoint.position, WeaponRadius);
+    }
+
+    public sealed class SpeedReductionToken
+    {
+        bool m_didCancel = false;
+        readonly Character m_character;
+
+        internal SpeedReductionToken(Character character)
+        {
+            m_character = character;
+            ++m_character.m_temporarySpeedReductions;
+        }
+
+        /// <summary>
+        /// Undoes the speed reduction.
+        /// </summary>
+        public void Cancel()
+        {
+            if (!m_didCancel)
+            {
+                m_didCancel = true;
+                --m_character.m_temporarySpeedReductions;
+            }
+        }
     }
 }

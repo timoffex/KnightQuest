@@ -302,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8392419}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.15, y: -0.643, z: -10}
+  m_LocalPosition: {x: -1.929, y: 0.141, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2040406221}
@@ -600,7 +600,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.15, y: -0.643, z: -10}
+  m_LocalPosition: {x: -1.929, y: 0.141, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -641,7 +641,7 @@ PrefabInstance:
     - target: {fileID: 6139008061830323876, guid: a550f844b3d00e1488c6b559d267a06d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6139008061830323879, guid: a550f844b3d00e1488c6b559d267a06d,
         type: 3}
@@ -810,7 +810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundPoint: {fileID: 758114742}
-  targetGroundPoint: {fileID: 1511801174947912895}
+  targetGroundPoint: {fileID: 197432}
   pathfindingDelay: 1
   minimumDistanceToWaypoint: 0.05
 --- !u!114 &758114745
@@ -2226,12 +2226,12 @@ PrefabInstance:
     - target: {fileID: 2598872426133434838, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.15
+      value: -1.929
       objectReference: {fileID: 0}
     - target: {fileID: 2598872426133434838, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.643
+      value: 0.141
       objectReference: {fileID: 0}
     - target: {fileID: 2598872426133434838, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
@@ -2276,12 +2276,17 @@ PrefabInstance:
     - target: {fileID: 5025637129735927588, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6511675617714197844, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
       propertyPath: movementForce
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6940825604525254178, guid: 959c7d7d0af1add4e80c0f252feba291,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7223027201395137140, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
