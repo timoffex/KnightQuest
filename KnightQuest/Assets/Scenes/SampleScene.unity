@@ -1792,6 +1792,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6511675617714197844, guid: 959c7d7d0af1add4e80c0f252feba291,
+        type: 3}
+      propertyPath: movementForce
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7223027201395137140, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
       propertyPath: sceneId

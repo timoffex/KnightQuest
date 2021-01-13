@@ -48,6 +48,8 @@ public sealed class PlayerCharacterController : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-        m_character.MoveInDirection(new Vector2(x, y));
+
+        if (x != 0 || y != 0)
+            m_character.MoveInDirection(new Vector2(x, y).normalized);
     }
 }
