@@ -47,6 +47,11 @@ public sealed class GameSingletons : MonoBehaviour
     public Vector2 MouseWorldPosition =>
         mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
+    /// <summary>
+    /// The <see cref="Character"/> the player is currently playing. May be null.
+    /// </summary>
+    public Character PlayerCharacter { get; set; }
+
     public void AddRootPersistableObject(PersistablePrefab persistableObject)
     {
         if (persistableObject.SceneId != null)

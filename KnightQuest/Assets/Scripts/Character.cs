@@ -24,6 +24,11 @@ public class Character : PersistableComponent
 
     public float WeaponRadius => m_data.weaponRadius;
 
+    /// <summary>
+    /// The point representing the "position" of the character. Never null.
+    /// </summary>
+    public Transform GroundPoint => m_data.groundPoint;
+
     public Weapon CurrentWeapon { get; set; }
 
     CharacterData m_data;
@@ -92,6 +97,11 @@ public class Character : PersistableComponent
         m_data = GetComponent<CharacterData>();
         m_combatStats = GetComponent<CombatStats>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
+
+        if (GroundPoint == null)
+        {
+            Debug.LogError("Character GroundPoint not set", this);
+        }
     }
 
     protected virtual void Start()

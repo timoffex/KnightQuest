@@ -309,6 +309,7 @@ MonoBehaviour:
   weaponCenterPoint: {fileID: 761293028980754042}
   weaponRadius: 0.11
   movementForce: 2
+  groundPoint: {fileID: 2068236111}
 --- !u!114 &453151993581348160
 MonoBehaviour:
   m_ObjectHideFlags: 0

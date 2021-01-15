@@ -8,10 +8,6 @@ sealed class EnemyAIData : MonoBehaviour
             + " on the ground and in the center of the character in 3D space.")]
     public Transform groundPoint;
 
-
-    [Tooltip("The 'ground point' of the target that the enemy is chasing (temporary variable)")]
-    public Transform targetGroundPoint;
-
     [Tooltip("Delay in seconds between recalculating a path to the target.")]
     public float pathfindingDelay = 1;
 

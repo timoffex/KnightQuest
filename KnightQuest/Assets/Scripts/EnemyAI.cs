@@ -9,19 +9,20 @@ public abstract class EnemyAI : MonoBehaviour
 {
     EnemyAIData m_data;
     Seeker m_seeker;
+    GameSingletons m_gameSingletons;
 
     Path m_pathToTarget;
     int m_currentWaypoint;
     float m_nextPathfindingTime;
+    Character m_target;
 
-    public Vector2 TargetPosition => m_data.targetGroundPoint.position;
+    public Vector2 TargetPosition => m_target.GroundPoint.position;
 
-    public float DistanceToTarget =>
-        Vector2.Distance(GroundPoint.position, m_data.targetGroundPoint.position);
+    public float DistanceToTarget => Vector2.Distance(GroundPoint.position, TargetPosition);
 
-    public bool HasTarget => m_data.targetGroundPoint != null;
+    public bool HasTarget => m_target != null;
 
-    protected Transform GroundPoint => m_data.groundPoint;
+    protected abstract Transform GroundPoint { get; }
 
     protected float MinimumDistanceToWaypoint => m_data.minimumDistanceToWaypoint;
 
@@ -42,21 +43,30 @@ public abstract class EnemyAI : MonoBehaviour
     {
         m_data = GetComponent<EnemyAIData>();
         m_seeker = GetComponent<Seeker>();
+
+        m_gameSingletons = GameSingletons.Instance;
     }
 
     protected virtual void Update()
     {
+        m_target = m_gameSingletons.PlayerCharacter;
         UpdatePath();
     }
 
     void UpdatePath()
     {
-        if (Time.time < m_nextPathfindingTime || m_data.targetGroundPoint == null)
+        if (!HasTarget)
+        {
+            m_pathToTarget = null;
+            return;
+        }
+
+        if (Time.time < m_nextPathfindingTime)
             return;
 
         m_seeker.StartPath(
-            m_data.groundPoint.position,
-            m_data.targetGroundPoint.position,
+            GroundPoint.position,
+            TargetPosition,
             OnPathCallback);
         m_nextPathfindingTime = Time.time + m_data.pathfindingDelay;
     }

@@ -15,4 +15,7 @@ sealed class CharacterData : MonoBehaviour
 
     [Tooltip("The amount of force to apply to move in a desired direction.")]
     public float movementForce = 1;
+
+    [Tooltip("The middle point between the character's feet.")]
+    public Transform groundPoint;
 }

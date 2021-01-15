@@ -8,6 +8,8 @@ public class CharacterEnemyAI : EnemyAI
 {
     Character m_character;
 
+    protected override Transform GroundPoint => m_character.GroundPoint;
+
     protected override void Start()
     {
         base.Start();

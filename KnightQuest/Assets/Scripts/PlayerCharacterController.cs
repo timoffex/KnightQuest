@@ -18,6 +18,7 @@ public sealed class PlayerCharacterController : MonoBehaviour
     void Start()
     {
         m_gameSingletons = GameSingletons.Instance;
+        m_gameSingletons.PlayerCharacter = m_character;
     }
 
     void Update()
