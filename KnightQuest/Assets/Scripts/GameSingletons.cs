@@ -55,6 +55,11 @@ public sealed class GameSingletons : MonoBehaviour
     /// </summary>
     public Character PlayerCharacter { get; set; }
 
+    /// <summary>
+    /// Information about the current player. May be null.
+    /// </summary>
+    public Player Player { get; set; }
+
     public GameData GameData { get; private set; }
 
     public void SaveTo(GameDataWriter writer)

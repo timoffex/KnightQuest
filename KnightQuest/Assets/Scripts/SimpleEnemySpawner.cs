@@ -6,6 +6,7 @@ public sealed class SimpleEnemySpawner : MonoBehaviour
 {
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject weaponPrefab;
+    [SerializeField] Rigidbody2D lootPrefab;
     [SerializeField] float spawnDelay;
 
     float m_nextSpawnTime;
@@ -38,6 +39,12 @@ public sealed class SimpleEnemySpawner : MonoBehaviour
         if (weaponPrefab != null)
         {
             Instantiate(weaponPrefab, enemy.transform);
+        }
+
+        if (lootPrefab != null)
+        {
+            var lootDropper = enemy.AddComponent<CharacterLootDropper>();
+            lootDropper.Initialize(lootPrefab);
         }
     }
 }

@@ -31,6 +31,12 @@ public class Character : PersistableComponent
 
     public Weapon CurrentWeapon { get; set; }
 
+    /// <summary>
+    /// An event that triggers when the character dies, immediately before the GameObject is
+    /// destroyed.
+    /// </summary>
+    public event System.Action OnDied;
+
     CharacterData m_data;
     CombatStats m_combatStats;
     Rigidbody2D m_rigidbody2D;
@@ -71,6 +77,7 @@ public class Character : PersistableComponent
     public void Die()
     {
         Debug.Log($"{gameObject.name} died. Congrats! (Or condolences)");
+        OnDied?.Invoke();
         Destroy(gameObject);
     }
 

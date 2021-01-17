@@ -135,12 +135,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2068236111, guid: f0d0ee89a4fb945469371c32955728af, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 95345466360611930, guid: f0d0ee89a4fb945469371c32955728af,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 761293028980754042, guid: f0d0ee89a4fb945469371c32955728af,
         type: 3}
@@ -441,6 +441,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1813855606}
     m_Modifications:
+    - target: {fileID: 5206646406816141828, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
+        type: 3}
+      propertyPath: damage
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8825121094829491016, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
         type: 3}
       propertyPath: m_Name
@@ -635,12 +640,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2068236111, guid: f0d0ee89a4fb945469371c32955728af, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 95345466360611930, guid: f0d0ee89a4fb945469371c32955728af,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 761293028980754042, guid: f0d0ee89a4fb945469371c32955728af,
         type: 3}
@@ -913,6 +918,8 @@ MonoBehaviour:
     type: 3}
   weaponPrefab: {fileID: 8825121094829491016, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
     type: 3}
+  lootPrefab: {fileID: 3947040853674282092, guid: 2cf3a7ffd5984e4449a34b3a0069a493,
+    type: 3}
   spawnDelay: 5
 --- !u!4 &1080109352
 Transform:
@@ -1100,12 +1107,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2068236111, guid: f0d0ee89a4fb945469371c32955728af, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 95345466360611930, guid: f0d0ee89a4fb945469371c32955728af,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 761293028980754042, guid: f0d0ee89a4fb945469371c32955728af,
         type: 3}
@@ -1366,6 +1373,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7569a834dc0725442a35896222dd286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1813855601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813855599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ab53f92168234488d58c639a7b98e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1813855606 stripped

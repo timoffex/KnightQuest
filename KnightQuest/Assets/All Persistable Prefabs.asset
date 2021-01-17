@@ -28,3 +28,6 @@ MonoBehaviour:
   - prefab: {fileID: 8969461963250777270, guid: a550f844b3d00e1488c6b559d267a06d,
       type: 3}
     id: basic_sword
+  - prefab: {fileID: 5114772746104089890, guid: 2cf3a7ffd5984e4449a34b3a0069a493,
+      type: 3}
+    id: coin_pickup

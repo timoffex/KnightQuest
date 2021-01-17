@@ -42,8 +42,10 @@ public static class PersistableComponents
         Register<EnemyAI>("EnemyAI");
         Register<EnemyAIData>("EnemyAIData");
         Register<CharacterEnemyAI>("CharacterEnemyAI");
+        Register<CharacterLootDropper>("CharacterLootDropper");
 
         Register<PlayerCharacterController>("PlayerCharacterController");
+        Register<Player>("Player");
     }
 
     static void Register<T>(string id) where T : PersistableComponent
