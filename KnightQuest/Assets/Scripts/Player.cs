@@ -22,6 +22,18 @@ public sealed class Player : PersistableComponent
         GoldAmount = 0;
     }
 
+    public override void Save(GameDataWriter writer)
+    {
+        base.Save(writer);
+        writer.WriteInt16((short)GoldAmount);
+    }
+
+    public override void Load(GameDataReader reader)
+    {
+        base.Load(reader);
+        GoldAmount = reader.ReadInt16();
+    }
+
     void Start()
     {
         m_character = GetComponent<Character>();
