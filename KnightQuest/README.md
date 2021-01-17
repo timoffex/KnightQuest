@@ -7,6 +7,14 @@ generate a pathfinding grid. I can allow for larger characters by creating diffe
 grids (the Seeker component allows a "grid mask" which I can use to separate grids based on the
 target character size).
 
+## Playing the game
+
+Right now, the game is started by opening just the `GameSingletonsScene` and pressing Play. This
+opens the `SampleScene`.
+
+Once I start using multiple scenes, I'll write an editor utility to start the game in a particular
+scene (spawning the player character there).
+
 # Coding notes
 
 ## Thoughts
