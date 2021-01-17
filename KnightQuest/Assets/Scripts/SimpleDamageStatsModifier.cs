@@ -11,4 +11,16 @@ public sealed class SimpleDamageStatsModifier : CombatStatsModifier
     {
         combatStats.TakeDirectDamage(damage);
     }
+
+    public override void Save(GameDataWriter writer)
+    {
+        base.Save(writer);
+        writer.WriteFloat(damage);
+    }
+
+    public override void Load(GameDataReader reader)
+    {
+        base.Load(reader);
+        damage = reader.ReadFloat();
+    }
 }

@@ -6,7 +6,7 @@ public sealed class SimpleEnemySpawner : MonoBehaviour
 {
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject weaponPrefab;
-    [SerializeField] Rigidbody2D lootPrefab;
+    [SerializeField] PersistablePrefab lootPrefab;
     [SerializeField] float spawnDelay;
 
     float m_nextSpawnTime;

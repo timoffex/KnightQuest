@@ -918,7 +918,7 @@ MonoBehaviour:
     type: 3}
   weaponPrefab: {fileID: 8825121094829491016, guid: 0a7f180079e57c84d8d4aa5cebdaf456,
     type: 3}
-  lootPrefab: {fileID: 3947040853674282092, guid: 2cf3a7ffd5984e4449a34b3a0069a493,
+  lootPrefab: {fileID: 5114772746104089890, guid: 2cf3a7ffd5984e4449a34b3a0069a493,
     type: 3}
   spawnDelay: 5
 --- !u!4 &1080109352
