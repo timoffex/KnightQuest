@@ -29,6 +29,8 @@ public class Character : PersistableComponent
     /// </summary>
     public Transform GroundPoint => m_data.groundPoint;
 
+    public float LastHitTime { get; private set; }
+
     public Weapon CurrentWeapon { get; set; }
 
     /// <summary>
@@ -58,6 +60,7 @@ public class Character : PersistableComponent
     public void ApplyStatsModifier(CombatStatsModifier statsModifier)
     {
         statsModifier.Modify(m_combatStats);
+        LastHitTime = Time.time;
 
         if (m_combatStats.CurrentHealth <= 0)
         {
