@@ -133,6 +133,20 @@ PrefabInstance:
       propertyPath: sceneId
       value: enemy_knight (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2068236111, guid: f0d0ee89a4fb945469371c32955728af, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 95345466360611930, guid: f0d0ee89a4fb945469371c32955728af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 761293028980754042, guid: f0d0ee89a4fb945469371c32955728af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4935736696234886925, guid: f0d0ee89a4fb945469371c32955728af,
         type: 3}
       propertyPath: m_RootOrder
@@ -197,6 +211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949368409075272367, guid: f0d0ee89a4fb945469371c32955728af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0d0ee89a4fb945469371c32955728af, type: 3}
@@ -279,7 +298,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 0.89
+    OrthographicSize: 1.0175
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -614,6 +633,20 @@ PrefabInstance:
       propertyPath: sceneId
       value: enemy_knight (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2068236111, guid: f0d0ee89a4fb945469371c32955728af, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 95345466360611930, guid: f0d0ee89a4fb945469371c32955728af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 761293028980754042, guid: f0d0ee89a4fb945469371c32955728af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4935736696234886925, guid: f0d0ee89a4fb945469371c32955728af,
         type: 3}
       propertyPath: m_RootOrder
@@ -678,6 +711,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949368409075272367, guid: f0d0ee89a4fb945469371c32955728af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0d0ee89a4fb945469371c32955728af, type: 3}
@@ -1060,6 +1098,20 @@ PrefabInstance:
       propertyPath: sceneId
       value: enemy_knight
       objectReference: {fileID: 0}
+    - target: {fileID: 2068236111, guid: f0d0ee89a4fb945469371c32955728af, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 95345466360611930, guid: f0d0ee89a4fb945469371c32955728af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 761293028980754042, guid: f0d0ee89a4fb945469371c32955728af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4935736696234886925, guid: f0d0ee89a4fb945469371c32955728af,
         type: 3}
       propertyPath: m_RootOrder
@@ -1124,6 +1176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949368409075272367, guid: f0d0ee89a4fb945469371c32955728af,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0d0ee89a4fb945469371c32955728af, type: 3}
@@ -2166,6 +2223,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471606399457963954, guid: 959c7d7d0af1add4e80c0f252feba291,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8579673852111733608, guid: 959c7d7d0af1add4e80c0f252feba291,
         type: 3}
