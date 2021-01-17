@@ -31,11 +31,19 @@ public static class PersistableComponents
 
     static PersistableComponents()
     {
+        // Don't use nameof because these strings shouldn't change.
+
         Register<Character>("Character");
         Register<CombatStats>("CombatStats");
         Register<Arrow>("Arrow");
         Register<SwordAttack>("SwordAttack");
         Register<BowAttack>("BowAttack");
+
+        Register<EnemyAI>("EnemyAI");
+        Register<EnemyAIData>("EnemyAIData");
+        Register<CharacterEnemyAI>("CharacterEnemyAI");
+
+        Register<PlayerCharacterController>("PlayerCharacterController");
     }
 
     static void Register<T>(string id) where T : PersistableComponent

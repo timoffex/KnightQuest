@@ -66,12 +66,6 @@ public sealed class PersistablePrefabCollection
 
         foreach (var entry in elements)
         {
-            if (entry.prefab.SceneId != null)
-            {
-                Debug.LogError(
-                    $"Prefab has a scene ID but shouldn't: {entry.prefab}", entry.prefab);
-            }
-
             if (entry.prefab.PrefabId != entry.id)
             {
                 Debug.LogError(

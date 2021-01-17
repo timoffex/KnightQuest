@@ -56,4 +56,10 @@ public sealed class GameDataReader
     {
         return new Quaternion(ReadFloat(), ReadFloat(), ReadFloat(), ReadFloat());
     }
+
+    public byte[] ReadByteArray()
+    {
+        var count = m_reader.ReadInt16();
+        return m_reader.ReadBytes(count);
+    }
 }

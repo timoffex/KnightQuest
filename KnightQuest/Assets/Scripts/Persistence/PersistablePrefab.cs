@@ -2,32 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using System.Text.RegularExpressions;
-using System.Linq;
-using UnityEditor;
-using UnityEditor.SceneManagement;
-#endif
-
 /// <summary>
 /// Component for GameObjects that can be recreated from a prefab.
 /// </summary>
 public sealed class PersistablePrefab : MonoBehaviour
 {
     public string PrefabId => prefabId;
-    public string SceneId => sceneId.Length > 0 ? sceneId : null;
+
+    public ISet<PersistablePrefab> Subobjects => m_subobjects;
 
     [SerializeField]
     [Tooltip("Reference to the prefab to which this component is attached. Set this on the prefab"
             + " and never change it!")]
     string prefabId;
 
-    [SerializeField]
-    [Tooltip("A unique ID for this object if it is in a scene. This should be empty on prefabs"
-            + " but set to a unique value on scene objects.")]
-    string sceneId;
-
-    GameSingletons m_gameSingletons;
+    GameData m_gameData;
 
     /// <summary>
     /// The set of registered persistable components.
@@ -49,7 +38,7 @@ public sealed class PersistablePrefab : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds a child object that should be persisted.
+    /// Registers a persisted child object.
     /// </summary>
     public void Add(PersistablePrefab subobject)
     {
@@ -58,33 +47,12 @@ public sealed class PersistablePrefab : MonoBehaviour
 
     public void Save(GameDataWriter writer)
     {
-        // Code corresponding to LoadPrefab()
-        writer.WriteString(prefabId);
-        if (sceneId != null)
-        {
-            writer.WriteBool(true);
-            writer.WriteString(sceneId);
-        }
-        else
-        {
-            writer.WriteBool(false);
-        }
-
-        // Code corresponding to Load()
-
         // Unity components
         SaveUnityComponents(writer);
 
         // Persistable components on the same object
         writer.WriteInt16((short)m_components.Count);
         foreach (var obj in m_components)
-        {
-            obj.Save(writer);
-        }
-
-        // Persistable child objects
-        writer.WriteInt16((short)m_subobjects.Count);
-        foreach (var obj in m_subobjects)
         {
             obj.Save(writer);
         }
@@ -101,38 +69,16 @@ public sealed class PersistablePrefab : MonoBehaviour
         {
             m_components.Add(PersistableComponent.LoadOn(reader, gameObject));
         }
-
-        // Persistable child objects
-        var numChildren = reader.ReadInt16();
-        for (int i = 0; i < numChildren; ++i)
-        {
-            var loaded = LoadPrefab(reader);
-            loaded.transform.parent = transform;
-            m_subobjects.Add(loaded);
-        }
     }
 
-    public static PersistablePrefab LoadPrefab(GameDataReader reader)
+    public static PersistablePrefab InstantiatePrefab(
+        string prefabId, GameDataReader reader, PersistablePrefab parent = null)
     {
-        PersistablePrefab persistable = null;
-        var prefabId = reader.ReadString();
-
-        string sceneId = null;
-        if (reader.ReadBool())
-        {
-            sceneId = reader.ReadString();
-            persistable = GameSingletons.Instance.GetPersistableBySceneId(sceneId);
-        }
-
-        if (persistable == null)
-        {
-            var prefab = GameSingletons.Instance.PrefabCollection.GetPrefabById(prefabId);
-            persistable = Instantiate(prefab);
-            persistable.sceneId = sceneId;
-        }
-
+        var persistable =
+            Instantiate(
+                GameSingletons.Instance.PrefabCollection.GetPrefabById(prefabId),
+                parent?.transform);
         persistable.Load(reader);
-
         return persistable;
     }
 
@@ -174,13 +120,13 @@ public sealed class PersistablePrefab : MonoBehaviour
         }
     }
 
-    void Start()
+    void OnEnable()
     {
-        m_gameSingletons = GameSingletons.Instance;
+        m_gameData = GameSingletons.Instance.GameData;
 
         if (transform.parent == null)
         {
-            m_gameSingletons.AddRootPersistableObject(this);
+            m_gameData.AddRootObjectToCurrentScene(this);
         }
         else
         {
@@ -195,76 +141,12 @@ public sealed class PersistablePrefab : MonoBehaviour
             else
             {
                 parent.Add(this);
-                m_gameSingletons.AddNonRootPersistableObject(this);
             }
         }
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
-        m_gameSingletons.RemovePersistableObject(this);
+        m_gameData.RemoveRootObjectFromCurrentScene(this);
     }
-
-
-#if UNITY_EDITOR
-    /// <summary>
-    /// Ensures that <see cref="PersistablePrefab.SceneId"/> values are unique within the scene.
-    /// </summary>
-    [MenuItem("KnightQuest/Fix IDs on persistable objects in scene")]
-    static void FixIdsInScene()
-    {
-        var scenePersistables =
-            Enumerable.Range(0, EditorSceneManager.sceneCount)
-                .Select(EditorSceneManager.GetSceneAt)
-                .SelectMany((s) => s.GetRootGameObjects())
-                .SelectMany((go) => go.GetComponentsInChildren<PersistablePrefab>())
-                .ToList();
-
-        var seenIds = new HashSet<string>();
-        var repeatedIdRegex = new Regex(@"^(.+) \((\d+)\)$", RegexOptions.Compiled);
-        var numFixed = 0;
-
-        foreach (var persistable in scenePersistables)
-        {
-            if (persistable.SceneId != null)
-            {
-                if (seenIds.Contains(persistable.SceneId))
-                {
-                    var repeatedIdMatch = repeatedIdRegex.Match(persistable.SceneId);
-
-                    string baseId;
-                    int number;
-
-                    if (repeatedIdMatch.Success)
-                    {
-                        baseId = repeatedIdMatch.Groups[1].Value;
-                        number = int.Parse(repeatedIdMatch.Groups[2].Value);
-                    }
-                    else
-                    {
-                        baseId = persistable.sceneId;
-                        number = 1;
-                    }
-
-                    string newId;
-                    do
-                    {
-                        newId = $"{baseId} ({number})";
-                        ++number;
-                    } while (seenIds.Contains(newId));
-
-
-                    Debug.LogWarning($"Changing ID of {persistable} to {newId}", persistable);
-                    Undo.RecordObject(persistable, "Fix PersistablePrefab scene IDs");
-                    persistable.sceneId = newId;
-                    ++numFixed;
-                }
-
-                seenIds.Add(persistable.sceneId);
-            }
-        }
-
-        Debug.Log($"Done. ({(numFixed > 0 ? $"fixed {numFixed}" : "no problems found")})");
-    }
-#endif
 }

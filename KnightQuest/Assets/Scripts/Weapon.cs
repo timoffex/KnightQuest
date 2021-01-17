@@ -47,7 +47,9 @@ public abstract class Weapon : PersistableComponent
 
     protected virtual void OnDisable()
     {
-        m_character.CurrentWeapon = null;
+        // Character may be null if it is being destroyed.
+        if (m_character != null)
+            m_character.CurrentWeapon = null;
     }
 
     protected virtual void Update()

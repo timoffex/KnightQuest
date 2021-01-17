@@ -5,7 +5,7 @@ using Pathfinding;
 
 [RequireComponent(typeof(Seeker))]
 [RequireComponent(typeof(EnemyAIData))]
-public abstract class EnemyAI : MonoBehaviour
+public abstract class EnemyAI : PersistableComponent
 {
     EnemyAIData m_data;
     Seeker m_seeker;

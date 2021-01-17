@@ -29,6 +29,9 @@ public sealed class GameSingletons : MonoBehaviour
             Debug.LogError($"GameSingletons instance already exists: {Instance}", Instance);
         else
             Instance = this;
+
+        GameData = new GameData();
+        StartCoroutine(GameData.StartFresh("SampleScene"));
     }
 
     void OnDestroy()
@@ -52,69 +55,15 @@ public sealed class GameSingletons : MonoBehaviour
     /// </summary>
     public Character PlayerCharacter { get; set; }
 
-    public void AddRootPersistableObject(PersistablePrefab persistableObject)
-    {
-        if (persistableObject.SceneId != null)
-        {
-            m_sceneIdToPersistableObject.Add(persistableObject.SceneId, persistableObject);
-        }
-
-        m_rootPersistableObjects.Add(persistableObject);
-    }
-
-    public void AddNonRootPersistableObject(PersistablePrefab persistableObject)
-    {
-        Debug.Assert(persistableObject.SceneId != null);
-        m_sceneIdToPersistableObject.Add(persistableObject.SceneId, persistableObject);
-    }
-
-    public void RemovePersistableObject(PersistablePrefab persistableObject)
-    {
-        if (persistableObject.SceneId != null)
-        {
-            m_sceneIdToPersistableObject.Remove(persistableObject.SceneId);
-        }
-
-        m_rootPersistableObjects.Remove(persistableObject);
-    }
-
-    public PersistablePrefab GetPersistableBySceneId(string sceneId)
-    {
-        if (m_sceneIdToPersistableObject.TryGetValue(sceneId, out var obj))
-        {
-            return obj;
-        }
-        return null;
-    }
+    public GameData GameData { get; private set; }
 
     public void SaveTo(GameDataWriter writer)
     {
-        writer.WriteInt16((short)m_rootPersistableObjects.Count);
-        foreach (var obj in m_rootPersistableObjects)
-        {
-            obj.Save(writer);
-        }
+        GameData.SaveTo(writer);
     }
 
-    public void LoadFrom(GameDataReader reader)
+    public IEnumerator LoadFromAsync(GameDataReader reader)
     {
-        // Remove all current root persistable objects that don't have a scene ID
-        foreach (var rootObject in m_rootPersistableObjects)
-        {
-            if (rootObject.SceneId == null)
-                Destroy(rootObject.gameObject);
-        }
-
-        var numObjects = reader.ReadInt16();
-        m_rootPersistableObjects.Clear();
-        for (int i = 0; i < numObjects; ++i)
-        {
-            PersistablePrefab.LoadPrefab(reader);
-        }
+        yield return GameData.LoadFromAndStartAsync(reader);
     }
-
-    readonly HashSet<PersistablePrefab> m_rootPersistableObjects
-        = new HashSet<PersistablePrefab>();
-    readonly Dictionary<string, PersistablePrefab> m_sceneIdToPersistableObject
-        = new Dictionary<string, PersistablePrefab>();
 }

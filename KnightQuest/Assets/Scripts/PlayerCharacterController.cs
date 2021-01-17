@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Character))]
-public sealed class PlayerCharacterController : MonoBehaviour
+public sealed class PlayerCharacterController : PersistableComponent
 {
     Character m_character;
 
     Weapon m_attackingWeapon;
     GameSingletons m_gameSingletons;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         m_character = GetComponent<Character>();
     }
 

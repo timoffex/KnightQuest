@@ -16,6 +16,9 @@ public class TestSaveLoad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_isLoading)
+            return;
+
         if (Input.GetKeyDown(KeyCode.J))
         {
             Debug.Log("Saving");
@@ -27,11 +30,19 @@ public class TestSaveLoad : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.L))
         {
             Debug.Log("Loading");
-            var memoryStream = new MemoryStream(m_saveData);
-            GameDataReader reader = new GameDataReader(new BinaryReader(memoryStream));
-            m_gameSingletons.LoadFrom(reader);
+            StartCoroutine(ReloadAsync());
         }
     }
 
+    IEnumerator ReloadAsync()
+    {
+        m_isLoading = true;
+        yield return m_gameSingletons.LoadFromAsync(
+            new GameDataReader(new BinaryReader(new MemoryStream(m_saveData))));
+        m_isLoading = false;
+    }
+
     byte[] m_saveData;
+
+    bool m_isLoading = false;
 }

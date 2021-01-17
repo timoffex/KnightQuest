@@ -46,4 +46,10 @@ public sealed class GameDataWriter
         WriteFloat(quaternion.z);
         WriteFloat(quaternion.w);
     }
+
+    public void WriteByteArray(byte[] bytes)
+    {
+        WriteInt16((short)bytes.Length);
+        m_writer.Write(bytes);
+    }
 }
