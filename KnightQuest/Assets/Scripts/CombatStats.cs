@@ -11,6 +11,8 @@ public sealed class CombatStats : PersistableComponent
 
     public float CurrentHealth => currentHealth;
 
+    public float MaximumHealth => baseMaximumHealth;
+
     /// <summary>
     /// Applies damage directly to health.
     /// </summary>
