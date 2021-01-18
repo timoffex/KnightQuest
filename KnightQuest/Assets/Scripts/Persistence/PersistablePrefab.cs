@@ -99,6 +99,7 @@ public sealed class PersistablePrefab : MonoBehaviour
             {
                 writer.WriteBool(true);
                 writer.WriteVector3(rigidbody.velocity);
+                writer.WriteFloat(rigidbody.angularVelocity);
             }
         }
     }
@@ -113,9 +114,10 @@ public sealed class PersistablePrefab : MonoBehaviour
         {
             if (reader.ReadBool())
             {
-                var rigidbody = GetComponent<Rigidbody2D>();
-                if (rigidbody == null) rigidbody = gameObject.AddComponent<Rigidbody2D>();
+                if (!TryGetComponent<Rigidbody2D>(out var rigidbody))
+                    rigidbody = gameObject.AddComponent<Rigidbody2D>();
                 rigidbody.velocity = reader.ReadVector3();
+                rigidbody.angularVelocity = reader.ReadFloat();
             }
         }
     }

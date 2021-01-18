@@ -31,3 +31,5 @@ MonoBehaviour:
   - prefab: {fileID: 5114772746104089890, guid: 2cf3a7ffd5984e4449a34b3a0069a493,
       type: 3}
     id: coin_pickup
+  - prefab: {fileID: 887269247332929383, guid: b489496a31e2d2b498fca7f27cfbada3, type: 3}
+    id: basic_arrow_remains

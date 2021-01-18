@@ -10,6 +10,7 @@ public class AttackableCharacter : Attackable
         base.OnHit(impactImpulse, statsModifier);
         m_rigidbody2D.AddForce(impactImpulse, ForceMode2D.Impulse);
         m_character.ApplyStatsModifier(statsModifier);
+        m_character.OnHitFreezeFrame();
     }
 
     protected virtual void Start()

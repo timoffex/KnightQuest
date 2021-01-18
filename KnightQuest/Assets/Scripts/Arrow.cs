@@ -31,6 +31,17 @@ public class Arrow : PersistableComponent
         m_deathTime = Time.time + liveTime;
     }
 
+    public void Hit(Attackable attackable)
+    {
+        if (attackable.Hit(
+                m_attacker,
+                m_rigidbody2D.velocity * m_rigidbody2D.mass * m_data.hitImpulseMultiplier,
+                m_statsModifier))
+        {
+            StopBeingDangerous();
+        }
+    }
+
     public override void Save(GameDataWriter writer)
     {
         base.Save(writer);
@@ -60,19 +71,20 @@ public class Arrow : PersistableComponent
     protected virtual void Update()
     {
         if (Time.time > m_deathTime)
-            Destroy(gameObject);
+            StopBeingDangerous();
     }
 
-    protected virtual void OnTriggerEnter2D(Collider2D collider)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        var attackable = collider.GetComponent<Attackable>();
-        if (attackable != null &&
-            attackable.Hit(
-                m_attacker,
-                m_rigidbody2D.velocity * m_rigidbody2D.mass,
-                m_statsModifier))
-        {
-            Destroy(gameObject);
-        }
+        StopBeingDangerous();
+    }
+    protected virtual void StopBeingDangerous()
+    {
+        Destroy(gameObject);
+        m_data.remainsSpawner?.Spawn(
+            position: transform.position,
+            rotation: transform.rotation,
+            velocity: m_rigidbody2D.velocity,
+            angularVelocity: m_rigidbody2D.angularVelocity);
     }
 }

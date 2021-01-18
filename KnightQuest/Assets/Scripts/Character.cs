@@ -50,10 +50,20 @@ public class Character : PersistableComponent
     /// </summary>
     int m_temporarySpeedReductions = 0;
 
-    /// Momentarily freezes Direction for attack animations.
+    /// <summary>
+    /// Momentarily freezes <see cref="Direction"/> for attack animations.
+    /// </summary>
     public void AttackFreezeFrame(Vector2 direction)
     {
         SetLookDirection(direction);
+        m_freezeDirectionUntilTime = Time.time + 0.3f;
+    }
+
+    /// <summary>
+    /// Momentarily freezes <see cref="Direction"/> for when the character is hit.
+    /// </summary>
+    public void OnHitFreezeFrame()
+    {
         m_freezeDirectionUntilTime = Time.time + 0.3f;
     }
 
