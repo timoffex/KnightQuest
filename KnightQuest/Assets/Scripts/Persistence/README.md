@@ -35,6 +35,14 @@ manually enter values in some "initial GameData" object or write your own editor
 Unity's or write a complicated system that parses your scenes to construct an initial GameData and
 then strips dynamic data from those scenes.
 
+> After writing this, I realized that I actually have an old game project on GitHub! What a
+> throwback! Take a look at the monstrosity at the bottom of [this file](https://github.com/timoffex/Birdkeeper/blob/master/Assets/Scripts/SavingAndLoading/Game.cs)
+> which roughly implements that latter "all data in one place" approach. To my credit, I do think
+> it worked. Maybe the worst part about that project is that I used tabs instead of spaces.
+>
+> I also see an attempt at reflection-based saving and loading (the ObjectGraph stuff). It looks
+> terrifying. I don't think I finished that.
+
 I have learned my lesson: **don't fight Unity**. If you're trying to have a "plain C# model of the
 game" and use Unity as "the user interface and the physics engine", you're probably going down the
 wrong path. (Maybe someone has had success doing it this way, but it's been a nightmare for me!)
