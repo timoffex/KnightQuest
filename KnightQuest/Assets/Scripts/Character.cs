@@ -99,7 +99,8 @@ public class Character : PersistableComponent
 
     public void MoveInDirection(Vector2 normalizedDir)
     {
-        m_rigidbody2D.AddForce(normalizedDir * MovementForce, ForceMode2D.Force);
+        m_rigidbody2D.AddForce(
+            normalizedDir * MovementForce * Time.fixedDeltaTime, ForceMode2D.Force);
     }
 
     public override void Save(GameDataWriter writer)

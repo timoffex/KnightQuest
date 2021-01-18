@@ -47,7 +47,7 @@ public abstract class EnemyAI : PersistableComponent
         m_gameSingletons = GameSingletons.Instance;
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         m_target = m_gameSingletons.PlayerCharacter;
         UpdatePath();

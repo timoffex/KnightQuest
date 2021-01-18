@@ -41,6 +41,7 @@ public static class PersistableComponents
         Register<Arrow>("Arrow");
         Register<ArrowRemains>("ArrowRemains");
         Register<SwordAttack>("SwordAttack");
+        Register<SwordAttackData>("SwordAttackData");
         Register<BowAttack>("BowAttack");
         Register<SimpleDamageStatsModifier>("SimpleDamageStatsModifier");
         Register<SwordStatsModifier>("SwordStatsModifier");

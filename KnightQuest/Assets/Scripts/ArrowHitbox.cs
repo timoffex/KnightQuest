@@ -10,7 +10,7 @@ public sealed class ArrowHitbox : MonoBehaviour
 {
     Arrow m_arrow;
 
-    void Start()
+    void Awake()
     {
         m_arrow = GetComponentInParent<Arrow>();
     }

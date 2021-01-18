@@ -24,8 +24,6 @@ public sealed class PlayerCharacterController : PersistableComponent
 
     void Update()
     {
-        Move();
-
         m_character.CurrentWeapon?.AlignToward(m_gameSingletons.MouseWorldPosition);
 
         if (m_attackingWeapon != null)
@@ -44,6 +42,11 @@ public sealed class PlayerCharacterController : PersistableComponent
                 m_attackingWeapon.OnAttackButtonDown();
             }
         }
+    }
+
+    void FixedUpdate()
+    {
+        Move();
     }
 
     void Move()

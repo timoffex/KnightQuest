@@ -16,9 +16,9 @@ public class CharacterEnemyAI : EnemyAI
         m_character = GetComponent<Character>();
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
 
         if (HasTarget)
         {
