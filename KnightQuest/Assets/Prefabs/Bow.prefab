@@ -52,6 +52,8 @@ MonoBehaviour:
   arrowSpeed: 3
   arrowLiveTime: 0.3
   chargeTime: 1
+  bowParticlesPrefab: {fileID: 2949497960077602588, guid: 7322ac79ace5770478e3ebf4b7c6b6c0,
+    type: 3}
 --- !u!114 &-8178372656250913422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabId: basic_bow
-  sceneId: 
 --- !u!1 &9119579927026311017
 GameObject:
   m_ObjectHideFlags: 0

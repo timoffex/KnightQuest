@@ -9,6 +9,7 @@ public class BowAttack : Weapon
     BowAttackData m_bowAttackData;
     CombatStatsModifier m_statsModifier;
     Character.SpeedReductionToken m_speedReductionToken;
+    BowParticles m_bowParticles;
 
     float m_chargeStartTime = 0;
 
@@ -75,10 +76,20 @@ public class BowAttack : Weapon
         m_statsModifier = GetComponent<CombatStatsModifier>();
     }
 
+    protected virtual void OnEnable()
+    {
+        Debug.Assert(m_bowParticles == null);
+        m_bowParticles = Instantiate(m_bowAttackData.bowParticlesPrefab);
+    }
+
     protected override void OnDisable()
     {
         base.OnDisable();
         m_speedReductionToken?.Cancel();
+
+        // Can be null if the scene is being unloaded
+        if (m_bowParticles != null)
+            Destroy(m_bowParticles.gameObject);
     }
 
     protected override void Attack()
@@ -102,6 +113,14 @@ public class BowAttack : Weapon
     void ReleaseArrow()
     {
         Attack();
+
+        if (ChargePercentage > 0.8f)
+        {
+            m_bowParticles.transform.position = transform.position;
+            m_bowParticles.transform.rotation = transform.rotation;
+            m_bowParticles.Activate(Character.Velocity);
+        }
+
         StopCharging();
     }
 

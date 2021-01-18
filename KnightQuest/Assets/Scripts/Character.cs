@@ -10,6 +10,8 @@ public class Character : PersistableComponent
 
     public CharacterDirection Direction { get; private set; }
 
+    public Vector2 Velocity => m_rigidbody2D.velocity;
+
     /// <summary>
     /// The character's maximum speed, for the purpose of animation.
     /// </summary>

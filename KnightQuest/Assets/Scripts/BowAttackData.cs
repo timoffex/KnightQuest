@@ -10,4 +10,6 @@ sealed class BowAttackData : MonoBehaviour
 
     [Tooltip("The time it takes to fully draw the bow, in seconds.")]
     public float chargeTime = 1;
+
+    public BowParticles bowParticlesPrefab;
 }
