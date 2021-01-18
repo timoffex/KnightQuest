@@ -2,6 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(SwordData))]
 [RequireComponent(typeof(CombatOffense))]
 public class Sword : Weapon
@@ -9,6 +10,7 @@ public class Sword : Weapon
     SwordData m_swordAttackData;
     CombatOffense m_combatStatsModifier;
     Animator m_animator;
+    AudioSource m_audioSource;
 
     float m_nextAttackTime;
 
@@ -74,6 +76,7 @@ public class Sword : Weapon
         m_swordAttackData = GetComponent<SwordData>();
         m_combatStatsModifier = GetComponent<CombatOffense>();
         m_animator = GetComponent<Animator>();
+        m_audioSource = GetComponent<AudioSource>();
     }
 
     protected override void Attack()
@@ -87,6 +90,7 @@ public class Sword : Weapon
     void AttackIgnoreCooldown()
     {
         Debug.Log("Attacking!");
+        m_audioSource.Play();
         m_animator.SetTrigger("attack");
         Character.AttackFreezeFrame(Direction);
         m_nextAttackTime = Time.time + m_swordAttackData.attackCooldown;
