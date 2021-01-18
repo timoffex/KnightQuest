@@ -25,4 +25,9 @@ sealed class SwordData : PersistableComponent
         attackCooldown = reader.ReadFloat();
         extraAttackRange = reader.ReadFloat();
     }
+
+    static SwordData()
+    {
+        PersistableComponent.Register<SwordData>("SwordData");
+    }
 }

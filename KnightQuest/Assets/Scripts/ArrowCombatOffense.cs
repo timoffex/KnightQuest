@@ -18,6 +18,11 @@ public sealed class ArrowCombatOffense : CombatOffense
         damage = reader.ReadFloat();
     }
 
+    static ArrowCombatOffense()
+    {
+        PersistableComponent.Register<ArrowCombatOffense>("ArrowCombatOffense");
+    }
+
     new sealed class Modification : CombatOffense.Modification
     {
         readonly float damage;

@@ -18,6 +18,11 @@ public sealed class SwordCombatOffense : CombatOffense
         damage = reader.ReadFloat();
     }
 
+    static SwordCombatOffense()
+    {
+        PersistableComponent.Register<SwordCombatOffense>("SwordCombatOffense");
+    }
+
     new sealed class Modification : CombatOffense.Modification
     {
         readonly float damage;

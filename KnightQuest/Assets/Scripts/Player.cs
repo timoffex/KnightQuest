@@ -41,6 +41,11 @@ public sealed class Player : PersistableComponent
         m_gameSingletons.Player = this;
     }
 
+    static Player()
+    {
+        PersistableComponent.Register<Player>("Player");
+    }
+
     Character m_character;
     GameSingletons m_gameSingletons;
 }

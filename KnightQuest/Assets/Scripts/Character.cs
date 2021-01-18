@@ -185,4 +185,9 @@ public class Character : PersistableComponent
             }
         }
     }
+
+    static Character()
+    {
+        PersistableComponent.Register<Character>("Character");
+    }
 }

@@ -42,4 +42,9 @@ public class CharacterEnemyAI : EnemyAI
 
         return waypoint;
     }
+
+    static CharacterEnemyAI()
+    {
+        PersistableComponent.Register<CharacterEnemyAI>("CharacterEnemyAI");
+    }
 }

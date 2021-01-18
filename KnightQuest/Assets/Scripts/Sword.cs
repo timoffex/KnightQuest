@@ -93,4 +93,9 @@ public class Sword : Weapon
         m_attackablesHitSoFar.Clear();
         FreezeDirectionForAttack(m_swordAttackData.attackCooldown);
     }
+
+    static Sword()
+    {
+        PersistableComponent.Register<Sword>("Sword");
+    }
 }

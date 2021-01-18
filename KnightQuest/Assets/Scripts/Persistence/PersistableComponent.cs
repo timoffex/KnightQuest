@@ -1,14 +1,14 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Base class for components that can be persisted (saved/loaded).
 /// 
-/// Each concrete type implementing this class must be registered in
-/// <see cref="PersistableComponents"/>. A GameObject with a component implementing this class
-/// must also have a <see cref="PersistablePrefab"/> component to support reinstantiating the
-/// GameObject if it is destroyed at runtime.
+/// Each concrete type implementing this class must be registered by using <see cref="Register"/>.
+/// A GameObject with a component implementing this class must also have a
+/// <see cref="PersistablePrefab"/> component to support reinstantiating the GameObject if it is
+/// destroyed at runtime.
 /// 
 /// Persistable components should not be removed from GameObjects at runtime because that would
 /// require explicitly persisting the absence of a component.
@@ -18,7 +18,7 @@ public abstract class PersistableComponent : MonoBehaviour
 {
     PersistablePrefab m_persistable;
 
-    string PersistableComponentId => PersistableComponents.GetId(GetType());
+    string PersistableComponentId => GetId(GetType());
 
     /// <summary>
     /// Saves the data specific to this component to the given writer.
@@ -47,7 +47,7 @@ public abstract class PersistableComponent : MonoBehaviour
     public static PersistableComponent LoadOn(GameDataReader reader, GameObject gameObject)
     {
         var id = reader.ReadString();
-        var self = PersistableComponents.GetOrAddComponent(id, gameObject);
+        var self = GetOrAddComponent(id, gameObject);
         self.Load(reader);
         return self;
     }
@@ -63,4 +63,37 @@ public abstract class PersistableComponent : MonoBehaviour
 
         m_persistable?.Add(this);
     }
+
+    public static void Register<T>(string id) where T : PersistableComponent
+    {
+        m_typeToId.Add(typeof(T), id);
+        m_idToType.Add(id, typeof(T));
+    }
+
+    static string GetId(Type type)
+    {
+        try
+        {
+            return m_typeToId[type];
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new System.InvalidOperationException(
+                $"Type {type} is not registered as a persistable component!", e);
+        }
+    }
+
+    static PersistableComponent GetOrAddComponent(string id, GameObject gameObject)
+    {
+        var type = m_idToType[id];
+        var existing = gameObject.GetComponent(type);
+        if (existing != null)
+            return (PersistableComponent)existing;
+        return (PersistableComponent)gameObject.AddComponent(type);
+    }
+
+    readonly static Dictionary<string, Type> m_idToType
+        = new Dictionary<string, Type>();
+    readonly static Dictionary<Type, string> m_typeToId
+        = new Dictionary<Type, string>();
 }

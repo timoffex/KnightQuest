@@ -49,4 +49,9 @@ public class ArrowRemains : PersistableComponent
         base.Load(reader);
         TimeToLive = reader.ReadFloat();
     }
+
+    static ArrowRemains()
+    {
+        PersistableComponent.Register<ArrowRemains>("ArrowRemains");
+    }
 }

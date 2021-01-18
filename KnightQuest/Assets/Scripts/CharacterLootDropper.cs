@@ -42,4 +42,9 @@ public sealed class CharacterLootDropper : PersistableComponent
         var loot = Instantiate(lootPrefab, m_character.GroundPoint.position, Quaternion.identity);
         loot.GetComponent<Rigidbody2D>().velocity = Random.insideUnitCircle;
     }
+
+    static CharacterLootDropper()
+    {
+        PersistableComponent.Register<CharacterLootDropper>("CharacterLootDropper");
+    }
 }

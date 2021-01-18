@@ -99,4 +99,9 @@ public class Arrow : PersistableComponent
             velocity: m_rigidbody2D.velocity,
             angularVelocity: m_rigidbody2D.angularVelocity);
     }
+
+    static Arrow()
+    {
+        PersistableComponent.Register<Arrow>("Arrow");
+    }
 }

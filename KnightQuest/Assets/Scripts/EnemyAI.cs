@@ -87,4 +87,9 @@ public abstract class EnemyAI : PersistableComponent
     /// Move along the path, returning the index of the next waypoint to follow.
     /// </summary>
     protected abstract int FollowPath(Path path, int waypoint);
+
+    static EnemyAI()
+    {
+        PersistableComponent.Register<EnemyAI>("EnemyAI");
+    }
 }

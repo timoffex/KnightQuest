@@ -43,4 +43,9 @@ public sealed class CombatStats : PersistableComponent
         if (currentHealth >= baseMaximumHealth)
             currentHealth = baseMaximumHealth;
     }
+
+    static CombatStats()
+    {
+        PersistableComponent.Register<CombatStats>("CombatStats");
+    }
 }

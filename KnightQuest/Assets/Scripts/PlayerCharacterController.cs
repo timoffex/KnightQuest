@@ -57,4 +57,9 @@ public sealed class PlayerCharacterController : PersistableComponent
         if (x != 0 || y != 0)
             m_character.MoveInDirection(new Vector2(x, y).normalized);
     }
+
+    static PlayerCharacterController()
+    {
+        PersistableComponent.Register<PlayerCharacterController>("PlayerCharacterController");
+    }
 }

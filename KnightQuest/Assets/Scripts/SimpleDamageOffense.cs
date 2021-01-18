@@ -21,6 +21,11 @@ public sealed class SimpleDamageOffense : CombatOffense
         damage = reader.ReadFloat();
     }
 
+    static SimpleDamageOffense()
+    {
+        PersistableComponent.Register<SimpleDamageOffense>("SimpleDamageOffense");
+    }
+
     new sealed class Modification : CombatOffense.Modification
     {
         readonly float damage;

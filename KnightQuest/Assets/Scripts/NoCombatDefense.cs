@@ -9,4 +9,9 @@
     {
         combatStats.TakeDirectDamage(damage);
     }
+
+    static NoCombatDefense()
+    {
+        PersistableComponent.Register<NoCombatDefense>("NoCombatDefense");
+    }
 }

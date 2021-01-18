@@ -10,4 +10,9 @@
         // attacks.
         combatStats.TakeDirectDamage(0.2f * damage);
     }
+
+    static SwordCombatDefense()
+    {
+        PersistableComponent.Register<SwordCombatDefense>("SwordCombatDefense");
+    }
 }

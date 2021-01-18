@@ -8,4 +8,9 @@ sealed class EnemyAIData : PersistableComponent
     public float pathfindingDelay = 1;
 
     public float minimumDistanceToWaypoint = 0.01f;
+
+    static EnemyAIData()
+    {
+        PersistableComponent.Register<EnemyAIData>("EnemyAIData");
+    }
 }

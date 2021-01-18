@@ -64,4 +64,9 @@ public sealed class TestWeaponSwapper : PersistableComponent
         m_activeWeapon = GetComponentInChildren<Weapon>()?.gameObject;
         InstantiateActiveWeapon();
     }
+
+    static TestWeaponSwapper()
+    {
+        PersistableComponent.Register<TestWeaponSwapper>("TestWeaponSwapper");
+    }
 }

@@ -128,4 +128,9 @@ public class Bow : Weapon
         m_speedReductionToken?.Cancel();
         m_speedReductionToken = null;
     }
+
+    static Bow()
+    {
+        PersistableComponent.Register<Bow>("Bow");
+    }
 }
