@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public sealed class SwordStatsModifier : CombatStatsModifier
+public sealed class SwordCombatOffense : CombatOffense
 {
     [SerializeField] float damage;
 
-    public override CombatStatsModifier.Modification Value => new Modification(damage);
+    public override CombatOffense.Modification Value => new Modification(damage);
 
     public override void Save(GameDataWriter writer)
     {
@@ -18,7 +18,7 @@ public sealed class SwordStatsModifier : CombatStatsModifier
         damage = reader.ReadFloat();
     }
 
-    new sealed class Modification : CombatStatsModifier.Modification
+    new sealed class Modification : CombatOffense.Modification
     {
         readonly float damage;
 
@@ -32,7 +32,7 @@ public sealed class SwordStatsModifier : CombatStatsModifier
             defense.TakeSwordDamage(combatStats, damage);
         }
 
-        public override CombatStatsModifier.Modification WithDamageMultiplier(float multiplier)
+        public override CombatOffense.Modification WithDamageMultiplier(float multiplier)
         {
             return new Modification(damage * multiplier);
         }
@@ -49,7 +49,7 @@ public sealed class SwordStatsModifier : CombatStatsModifier
         static Modification()
         {
             PersistableObject.Register<Modification>(
-                "SwordStatsModifier.Modification",
+                "SwordCombatOffense.Modification",
                 Loader);
         }
     }

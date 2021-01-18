@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 
-public sealed class ArrowStatsModifier : CombatStatsModifier
+/// <summary>
+/// A simple <see cref="CombatOffense"/> that "applies damage", for some definition of doing that.
+/// </summary>
+public sealed class SimpleDamageOffense : CombatOffense
 {
     [SerializeField] float damage;
 
-    public override CombatStatsModifier.Modification Value => new Modification(damage);
+    public override CombatOffense.Modification Value => new Modification(damage);
 
     public override void Save(GameDataWriter writer)
     {
@@ -18,7 +21,7 @@ public sealed class ArrowStatsModifier : CombatStatsModifier
         damage = reader.ReadFloat();
     }
 
-    new sealed class Modification : CombatStatsModifier.Modification
+    new sealed class Modification : CombatOffense.Modification
     {
         readonly float damage;
 
@@ -29,10 +32,10 @@ public sealed class ArrowStatsModifier : CombatStatsModifier
 
         public override void Modify(CombatStats combatStats, CombatDefense defense)
         {
-            defense.TakeArrowDamage(combatStats, damage);
+            combatStats.TakeDirectDamage(damage);
         }
 
-        public override CombatStatsModifier.Modification WithDamageMultiplier(float multiplier)
+        public override CombatOffense.Modification WithDamageMultiplier(float multiplier)
         {
             return new Modification(damage * multiplier);
         }
@@ -49,7 +52,7 @@ public sealed class ArrowStatsModifier : CombatStatsModifier
         static Modification()
         {
             PersistableObject.Register<Modification>(
-                "ArrowStatsModifier.Modification",
+                "SimpleDamageOffense.Modification",
                 Loader);
         }
     }

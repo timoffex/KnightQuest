@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class BowAnimator : MonoBehaviour
 {
     Animator m_animator;
-    BowAttack m_bowAttack;
+    Bow m_bowAttack;
 
     protected virtual void Start()
     {
         m_animator = GetComponent<Animator>();
-        m_bowAttack = GetComponentInParent<BowAttack>();
+        m_bowAttack = GetComponentInParent<Bow>();
     }
 
     protected virtual void Update()

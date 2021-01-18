@@ -15,13 +15,13 @@ public class Arrow : PersistableComponent
     GameObject m_attacker;
     float m_deathTime;
     float m_initialSpeed;
-    CombatStatsModifier.Modification m_statsModification;
+    CombatOffense.Modification m_statsModification;
 
     public virtual void Initialize(
         GameObject attacker,
         Vector2 velocity,
         float liveTime,
-        CombatStatsModifier.Modification statsModification)
+        CombatOffense.Modification statsModification)
     {
         m_attacker = attacker;
         m_statsModification = statsModification;
@@ -69,7 +69,7 @@ public class Arrow : PersistableComponent
         m_deathTime = Time.time + reader.ReadFloat();
 
         m_initialSpeed = reader.ReadFloat();
-        m_statsModification = PersistableObject.Load<CombatStatsModifier.Modification>(reader);
+        m_statsModification = PersistableObject.Load<CombatOffense.Modification>(reader);
     }
 
     protected override void Awake()

@@ -10,7 +10,7 @@ public abstract class Attackable : MonoBehaviour
     public bool Hit(
         GameObject attacker,
         Vector2 impactImpulse,
-        CombatStatsModifier.Modification modification)
+        CombatOffense.Modification modification)
     {
         if (attacker == m_rootGameObject)
             return false;
@@ -21,7 +21,7 @@ public abstract class Attackable : MonoBehaviour
 
     protected virtual void OnHit(
         Vector2 impactImpulse,
-        CombatStatsModifier.Modification modification)
+        CombatOffense.Modification modification)
     {
         Debug.Log($"{gameObject} got hit!");
     }
