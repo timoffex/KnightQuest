@@ -17,6 +17,7 @@ public sealed class PersistablePrefab : MonoBehaviour
     string prefabId;
 
     GameData m_gameData;
+    PersistablePrefab m_parent;
 
     /// <summary>
     /// The set of registered persistable components.
@@ -40,9 +41,17 @@ public sealed class PersistablePrefab : MonoBehaviour
     /// <summary>
     /// Registers a persisted child object.
     /// </summary>
-    public void Add(PersistablePrefab subobject)
+    void Add(PersistablePrefab subobject)
     {
         m_subobjects.Add(subobject);
+    }
+
+    /// <summary>
+    /// Unregisters a persisted child object.
+    /// </summary>
+    void Remove(PersistablePrefab subobject)
+    {
+        m_subobjects.Remove(subobject);
     }
 
     public void Save(GameDataWriter writer)
@@ -132,8 +141,8 @@ public sealed class PersistablePrefab : MonoBehaviour
         }
         else
         {
-            var parent = transform.parent.GetComponent<PersistablePrefab>();
-            if (parent == null)
+            m_parent = transform.parent.GetComponent<PersistablePrefab>();
+            if (m_parent == null)
             {
                 Debug.LogError(
                         "Every persistable object must either be at the root level or have a"
@@ -142,7 +151,7 @@ public sealed class PersistablePrefab : MonoBehaviour
             }
             else
             {
-                parent.Add(this);
+                m_parent.Add(this);
             }
         }
     }
@@ -150,5 +159,6 @@ public sealed class PersistablePrefab : MonoBehaviour
     void OnDisable()
     {
         m_gameData.RemoveRootObjectFromCurrentScene(this);
+        m_parent?.Remove(this);
     }
 }

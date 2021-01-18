@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackStrength: 3
-  attackCooldown: 1
+  attackCooldown: 0.3
   extraAttackRange: 0.1
 --- !u!114 &-6902805227848971226
 MonoBehaviour:

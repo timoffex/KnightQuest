@@ -53,6 +53,8 @@ public static class PersistableComponents
 
         Register<PlayerCharacterController>("PlayerCharacterController");
         Register<Player>("Player");
+
+        Register<TestWeaponSwapper>("TestWeaponSwapper");
     }
 
     static void Register<T>(string id) where T : PersistableComponent
