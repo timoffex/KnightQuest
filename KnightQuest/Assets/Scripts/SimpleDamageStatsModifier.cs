@@ -7,10 +7,7 @@ public sealed class SimpleDamageStatsModifier : CombatStatsModifier
 {
     [SerializeField] float damage;
 
-    public override void Modify(CombatStats combatStats)
-    {
-        combatStats.TakeDirectDamage(damage);
-    }
+    public override CombatStatsModifier.Modification Value => new Modification(damage);
 
     public override void Save(GameDataWriter writer)
     {
@@ -22,5 +19,36 @@ public sealed class SimpleDamageStatsModifier : CombatStatsModifier
     {
         base.Load(reader);
         damage = reader.ReadFloat();
+    }
+
+    new public sealed class Modification : CombatStatsModifier.Modification
+    {
+        readonly float damage;
+
+        public Modification(float damage)
+        {
+            this.damage = damage;
+        }
+
+        public override void Modify(CombatStats combatStats)
+        {
+            combatStats.TakeDirectDamage(damage);
+        }
+
+        public override void Save(GameDataWriter writer)
+        {
+            base.Save(writer);
+            writer.WriteFloat(damage);
+        }
+
+        static Modification Loader(GameDataReader reader) =>
+            new Modification(reader.ReadFloat());
+
+        static Modification()
+        {
+            PersistableObject.Register<Modification>(
+                "SimpleDamageStatsModifier.Modification",
+                Loader);
+        }
     }
 }

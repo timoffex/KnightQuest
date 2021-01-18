@@ -79,7 +79,7 @@ _on prefabs_ can't be removed at runtime because I don't persist the absence of 
 limitation is not fundamental). `PersistableComponent` defines two virtual functions, `Save` and
 `Load`, which subclasses can override to serialize and deserialize their data. Note that this keeps
 component data encapsulated: only the component knows how to save itself and read itself from a
-byte stream.
+byte stream. Persistable components can save complex fields if they extend `PersistableObject`.
 
 Every `PersistableComponent` subclass must be associated to a unique string in the static
 `PersistableComponents` class. While I could identify components by their qualified names,

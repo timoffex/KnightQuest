@@ -69,9 +69,9 @@ public class Character : PersistableComponent
         m_freezeDirectionUntilTime = Time.time + 0.3f;
     }
 
-    public void ApplyStatsModifier(CombatStatsModifier statsModifier)
+    public void ApplyStatsModifier(CombatStatsModifier.Modification modification)
     {
-        statsModifier.Modify(m_combatStats);
+        modification.Modify(m_combatStats);
         LastHitTime = Time.time;
 
         if (m_combatStats.CurrentHealth <= 0)

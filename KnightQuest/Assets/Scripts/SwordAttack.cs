@@ -23,7 +23,7 @@ public class SwordAttack : Weapon
             attackable.Hit(
                 Character.gameObject,
                 Direction * m_swordAttackData.attackStrength,
-                m_combatStatsModifier);
+                m_combatStatsModifier.Value);
         }
     }
 
