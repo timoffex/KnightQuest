@@ -67,6 +67,12 @@ public class Bow : Weapon
         base.Load(reader);
     }
 
+    protected virtual void Update()
+    {
+        if (ChargePercentage > 0.05f)
+            Character.AttackFreezeFrame(Direction);
+    }
+
     protected override void Awake()
     {
         base.Awake();
