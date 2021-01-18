@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   remainsPrefab: {fileID: 2921604058062090609, guid: b489496a31e2d2b498fca7f27cfbada3,
     type: 3}
+  particleEffect: {fileID: 926047192019838359, guid: 4f6cfe7c01ece7541ac9f0c6a8bf08c6,
+    type: 3}
