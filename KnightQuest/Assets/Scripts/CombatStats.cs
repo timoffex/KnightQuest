@@ -9,6 +9,8 @@ public sealed class CombatStats : PersistableComponent
 
     [SerializeField] float currentHealth;
 
+    [SerializeField] float healthRegen;
+
     public float CurrentHealth => currentHealth;
 
     public float MaximumHealth => baseMaximumHealth;
@@ -25,11 +27,20 @@ public sealed class CombatStats : PersistableComponent
     {
         base.Save(writer);
         writer.WriteFloat(currentHealth);
+        writer.WriteFloat(healthRegen);
     }
 
     public override void Load(GameDataReader reader)
     {
         base.Load(reader);
         currentHealth = reader.ReadFloat();
+        healthRegen = reader.ReadFloat();
+    }
+
+    void Update()
+    {
+        currentHealth += healthRegen * Time.deltaTime;
+        if (currentHealth >= baseMaximumHealth)
+            currentHealth = baseMaximumHealth;
     }
 }
