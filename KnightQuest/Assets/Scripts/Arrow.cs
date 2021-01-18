@@ -16,6 +16,7 @@ public class Arrow : PersistableComponent
     float m_deathTime;
     float m_initialSpeed;
     CombatOffense.Modification m_statsModification;
+    bool m_isNeutralized = false;
 
     public virtual void Initialize(
         GameObject attacker,
@@ -92,6 +93,10 @@ public class Arrow : PersistableComponent
     }
     protected virtual void StopBeingDangerous(bool randomAngularVelocity)
     {
+        if (m_isNeutralized)
+            return;
+
+        m_isNeutralized = true;
         Destroy(gameObject);
         m_data.remainsSpawner?.Spawn(
             position: transform.position,
