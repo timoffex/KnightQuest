@@ -24,7 +24,10 @@ public sealed class TestWeaponSwapper : PersistableComponent
         if (Input.GetKeyDown(KeyCode.X))
         {
             if (m_activeWeapon != null)
+            {
                 Destroy(m_activeWeapon);
+                m_activeWeapon = null;
+            }
 
             m_activeIndex = (m_activeIndex + 1) % weaponPrefabs.Length;
             InstantiateActiveWeapon();
