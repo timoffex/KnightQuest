@@ -18,6 +18,7 @@ public abstract class Weapon : PersistableComponent
     Character m_character;
 
     Vector2 m_direction;
+    float m_unfreezeDirectionTime = float.NegativeInfinity;
 
     public Vector2 Direction => m_direction;
 
@@ -60,10 +61,6 @@ public abstract class Weapon : PersistableComponent
             m_character.CurrentWeapon = null;
     }
 
-    protected virtual void Update()
-    {
-    }
-
     public virtual void OnAttackButtonDown()
     {
         Attack();
@@ -73,10 +70,18 @@ public abstract class Weapon : PersistableComponent
 
     public void AlignToward(Vector2 position)
     {
-        AlignToAngleDegrees(
-            Vector2.SignedAngle(
-                Vector2.right,
-                position - (Vector2)transform.position));
+        if (Time.time > m_unfreezeDirectionTime)
+        {
+            AlignToAngleDegrees(
+                Vector2.SignedAngle(
+                    Vector2.right,
+                    position - (Vector2)transform.position));
+        }
+    }
+
+    protected void FreezeDirectionForAttack(float duration)
+    {
+        m_unfreezeDirectionTime = Time.time + duration;
     }
 
     protected abstract void Attack();

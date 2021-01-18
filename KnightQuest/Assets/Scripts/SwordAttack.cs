@@ -13,17 +13,25 @@ public class SwordAttack : Weapon
 
     float m_nextAttackTime;
 
+    /// <summary>
+    /// Set of attackables that the sword has hit in its current attack.
+    /// 
+    /// Used to avoid duplicate damage.
+    /// </summary>
+    readonly HashSet<Attackable> m_attackablesHitSoFar = new HashSet<Attackable>();
+
     public bool CoolingDown => Time.time < m_nextAttackTime;
 
     public virtual void OnCollidedWith(Collider2D other)
     {
         var attackable = other.GetComponent<Attackable>();
-        if (attackable != null)
+        if (attackable != null && !m_attackablesHitSoFar.Contains(attackable))
         {
-            attackable.Hit(
-                Character.gameObject,
-                Direction * m_swordAttackData.attackStrength,
-                m_combatStatsModifier.Value);
+            if (attackable.Hit(
+                    Character.gameObject,
+                    Direction * m_swordAttackData.attackStrength,
+                    m_combatStatsModifier.Value))
+                m_attackablesHitSoFar.Add(attackable);
         }
     }
 
@@ -83,5 +91,7 @@ public class SwordAttack : Weapon
         m_animator.SetTrigger("attack");
         Character.AttackFreezeFrame(Direction);
         m_nextAttackTime = Time.time + m_swordAttackData.attackCooldown;
+        m_attackablesHitSoFar.Clear();
+        FreezeDirectionForAttack(m_swordAttackData.attackCooldown);
     }
 }
