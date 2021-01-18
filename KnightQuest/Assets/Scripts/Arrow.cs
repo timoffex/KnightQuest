@@ -44,7 +44,7 @@ public class Arrow : PersistableComponent
                 m_rigidbody2D.velocity * m_rigidbody2D.mass * m_data.hitImpulseMultiplier,
                 modificationWithSpeed))
         {
-            StopBeingDangerous();
+            StopBeingDangerous(randomAngularVelocity: true);
         }
     }
 
@@ -83,21 +83,30 @@ public class Arrow : PersistableComponent
     protected virtual void Update()
     {
         if (Time.time > m_deathTime)
-            StopBeingDangerous();
+            StopBeingDangerous(randomAngularVelocity: true);
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        StopBeingDangerous();
+        StopBeingDangerous(randomAngularVelocity: false);
     }
-    protected virtual void StopBeingDangerous()
+    protected virtual void StopBeingDangerous(bool randomAngularVelocity)
     {
         Destroy(gameObject);
         m_data.remainsSpawner?.Spawn(
             position: transform.position,
             rotation: transform.rotation,
             velocity: m_rigidbody2D.velocity,
-            angularVelocity: m_rigidbody2D.angularVelocity);
+            angularVelocity:
+                randomAngularVelocity
+                    ? RandomFinishingAngularVelocity()
+                    : m_rigidbody2D.angularVelocity);
+    }
+
+    float RandomFinishingAngularVelocity()
+    {
+        bool direction = Random.value > 0.5f;
+        return (direction ? 1 : -1) * Random.Range(150, 360) * m_rigidbody2D.velocity.magnitude / 5;
     }
 
     static Arrow()
