@@ -6,8 +6,10 @@ using UnityEngine;
 /// The base for every weapon's main script.
 /// </summary>
 /// <remarks>
-/// A weapon is configured by attaching it to a <see cref="Character"/>. (Note to self: obviously
+/// A weapon must be instantiated with a <see cref="Character"/> parent. (Note to self: obviously
 /// you can't reattach a weapon to a different character. Just instantiate a new one.)
+/// 
+/// Weapons can provide a <see cref="CombatDefense"/>.
 /// </remarks>
 [RequireComponent(typeof(WeaponData))]
 public abstract class Weapon : PersistableComponent
@@ -18,6 +20,11 @@ public abstract class Weapon : PersistableComponent
     Vector2 m_direction;
 
     public Vector2 Direction => m_direction;
+
+    /// <summary>
+    /// The effect of this weapon on a character's defenses. May be null.
+    /// </summary>
+    public CombatDefense CombatDefense { get; private set; }
 
     public abstract void ControlAI(EnemyAI enemyAi);
 
@@ -31,6 +38,7 @@ public abstract class Weapon : PersistableComponent
 
     protected virtual void Start()
     {
+        CombatDefense = GetComponent<CombatDefense>();
         m_character = GetComponentInParent<Character>();
 
         if (m_character.CurrentWeapon != null)

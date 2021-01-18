@@ -35,11 +35,16 @@ public static class PersistableComponents
 
         Register<Character>("Character");
         Register<CombatStats>("CombatStats");
+        Register<NoCombatDefense>("NoCombatDefense");
+        Register<SwordCombatDefense>("SwordCombatDefense");
+
         Register<Arrow>("Arrow");
         Register<ArrowRemains>("ArrowRemains");
         Register<SwordAttack>("SwordAttack");
         Register<BowAttack>("BowAttack");
         Register<SimpleDamageStatsModifier>("SimpleDamageStatsModifier");
+        Register<SwordStatsModifier>("SwordStatsModifier");
+        Register<ArrowStatsModifier>("ArrowStatsModifier");
 
         Register<EnemyAI>("EnemyAI");
         Register<EnemyAIData>("EnemyAIData");

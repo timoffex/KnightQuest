@@ -35,7 +35,7 @@ public class SwordAttack : Weapon
             if (!CoolingDown)
             {
                 AlignToward(enemyAi.TargetPosition);
-                AttackNoCooldown();
+                AttackIgnoreCooldown();
             }
         }
         else
@@ -73,11 +73,11 @@ public class SwordAttack : Weapon
     {
         if (!CoolingDown)
         {
-            AttackNoCooldown();
+            AttackIgnoreCooldown();
         }
     }
 
-    void AttackNoCooldown()
+    void AttackIgnoreCooldown()
     {
         Debug.Log("Attacking!");
         m_animator.SetTrigger("attack");

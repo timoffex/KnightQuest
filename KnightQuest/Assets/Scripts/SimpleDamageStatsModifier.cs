@@ -21,7 +21,7 @@ public sealed class SimpleDamageStatsModifier : CombatStatsModifier
         damage = reader.ReadFloat();
     }
 
-    new public sealed class Modification : CombatStatsModifier.Modification
+    new sealed class Modification : CombatStatsModifier.Modification
     {
         readonly float damage;
 
@@ -30,7 +30,7 @@ public sealed class SimpleDamageStatsModifier : CombatStatsModifier
             this.damage = damage;
         }
 
-        public override void Modify(CombatStats combatStats)
+        public override void Modify(CombatStats combatStats, CombatDefense defense)
         {
             combatStats.TakeDirectDamage(damage);
         }

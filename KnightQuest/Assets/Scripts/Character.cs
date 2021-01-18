@@ -43,6 +43,7 @@ public class Character : PersistableComponent
 
     CharacterData m_data;
     CombatStats m_combatStats;
+    CombatDefense m_combatDefense;
     Rigidbody2D m_rigidbody2D;
     GameSingletons m_gameSingletons;
     float m_freezeDirectionUntilTime;
@@ -71,7 +72,7 @@ public class Character : PersistableComponent
 
     public void ApplyStatsModifier(CombatStatsModifier.Modification modification)
     {
-        modification.Modify(m_combatStats);
+        modification.Modify(m_combatStats, CurrentWeapon?.CombatDefense ?? m_combatDefense);
         LastHitTime = Time.time;
 
         if (m_combatStats.CurrentHealth <= 0)
@@ -118,6 +119,8 @@ public class Character : PersistableComponent
         base.Awake();
         m_data = GetComponent<CharacterData>();
         m_combatStats = GetComponent<CombatStats>();
+        m_combatDefense = GetComponent<CombatDefense>() ??
+            gameObject.AddComponent<NoCombatDefense>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
 
         if (GroundPoint == null)

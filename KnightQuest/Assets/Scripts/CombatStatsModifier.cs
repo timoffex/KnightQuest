@@ -16,7 +16,7 @@ public abstract class CombatStatsModifier : PersistableComponent
     /// </summary>
     public abstract class Modification : PersistableObject
     {
-        public abstract void Modify(CombatStats combatStats);
+        public abstract void Modify(CombatStats combatStats, CombatDefense defense);
 
         public abstract Modification WithDamageMultiplier(float multiplier);
     }

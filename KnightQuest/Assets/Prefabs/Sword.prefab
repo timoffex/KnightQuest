@@ -140,7 +140,8 @@ GameObject:
   - component: {fileID: 6784287413849331053}
   - component: {fileID: -6902805227848971226}
   - component: {fileID: -2299941448356412906}
-  - component: {fileID: 7056241265444546555}
+  - component: {fileID: 7859088219477404287}
+  - component: {fileID: 6920641136021562428}
   - component: {fileID: 8969461963250777270}
   m_Layer: 0
   m_Name: Sword
@@ -195,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5201bb4fb509f934eac12937e68fd611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackStrength: 1
+  attackStrength: 3
   attackCooldown: 1
   extraAttackRange: 0.1
 --- !u!114 &-6902805227848971226
@@ -222,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9b3583176797f439a1efe2f8c80b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7056241265444546555
+--- !u!114 &7859088219477404287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,10 +232,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 6139008061830323876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 550d042e4e0168a438f89dd8b8fa2921, type: 3}
+  m_Script: {fileID: 11500000, guid: 308533cb37a86814b8e527b142580030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 80
+--- !u!114 &6920641136021562428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6139008061830323876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b3a1f6c57603ee4584dc3e839eac368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8969461963250777270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,4 +261,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabId: basic_sword
-  sceneId: 

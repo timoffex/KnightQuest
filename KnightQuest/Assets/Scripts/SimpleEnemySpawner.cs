@@ -5,7 +5,7 @@ using UnityEngine;
 public sealed class SimpleEnemySpawner : MonoBehaviour
 {
     [SerializeField] GameObject enemyPrefab;
-    [SerializeField] GameObject weaponPrefab;
+    [SerializeField] GameObject[] weaponPrefabs;
     [SerializeField] PersistablePrefab lootPrefab;
     [SerializeField] float spawnDelay;
 
@@ -36,8 +36,9 @@ public sealed class SimpleEnemySpawner : MonoBehaviour
         enemyAiData.minimumDistanceToWaypoint = 0.05f;
         enemy.AddComponent<CharacterEnemyAI>();
 
-        if (weaponPrefab != null)
+        if (weaponPrefabs.Length > 0)
         {
+            var weaponPrefab = weaponPrefabs[Random.Range(0, weaponPrefabs.Length)];
             Instantiate(weaponPrefab, enemy.transform);
         }
 
