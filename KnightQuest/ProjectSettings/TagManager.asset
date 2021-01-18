@@ -47,6 +47,9 @@ TagManager:
   - name: Weapons
     uniqueID: 3032657893
     locked: 0
+  - name: World UI
+    uniqueID: 2290533583
+    locked: 0
   - name: Attack Particles
     uniqueID: 3054355245
     locked: 0
