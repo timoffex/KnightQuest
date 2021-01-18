@@ -35,6 +35,11 @@ public sealed class SimpleDamageStatsModifier : CombatStatsModifier
             combatStats.TakeDirectDamage(damage);
         }
 
+        public override CombatStatsModifier.Modification WithDamageMultiplier(float multiplier)
+        {
+            return new Modification(damage * multiplier);
+        }
+
         public override void Save(GameDataWriter writer)
         {
             base.Save(writer);

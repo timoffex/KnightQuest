@@ -17,5 +17,7 @@ public abstract class CombatStatsModifier : PersistableComponent
     public abstract class Modification : PersistableObject
     {
         public abstract void Modify(CombatStats combatStats);
+
+        public abstract Modification WithDamageMultiplier(float multiplier);
     }
 }

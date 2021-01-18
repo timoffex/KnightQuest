@@ -14,6 +14,7 @@ public class Arrow : PersistableComponent
 
     GameObject m_attacker;
     float m_deathTime;
+    float m_initialSpeed;
     CombatStatsModifier.Modification m_statsModification;
 
     public virtual void Initialize(
@@ -27,16 +28,21 @@ public class Arrow : PersistableComponent
 
         transform.rotation = Quaternion.FromToRotation(Vector2.right, velocity);
         m_rigidbody2D.velocity = velocity;
+        m_initialSpeed = velocity.magnitude;
 
         m_deathTime = Time.time + liveTime;
     }
 
     public void Hit(Attackable attackable)
     {
+        var modificationWithSpeed =
+            m_statsModification.WithDamageMultiplier(
+                Mathf.Clamp01(m_rigidbody2D.velocity.magnitude / m_initialSpeed));
+
         if (attackable.Hit(
                 m_attacker,
                 m_rigidbody2D.velocity * m_rigidbody2D.mass * m_data.hitImpulseMultiplier,
-                m_statsModification))
+                modificationWithSpeed))
         {
             StopBeingDangerous();
         }
@@ -49,6 +55,7 @@ public class Arrow : PersistableComponent
         // Time to live
         writer.WriteFloat(m_deathTime - Time.time);
 
+        writer.WriteFloat(m_initialSpeed);
         m_statsModification.Save(writer);
 
         // TODO: Save/load attacker
@@ -61,6 +68,7 @@ public class Arrow : PersistableComponent
         // Time to live
         m_deathTime = Time.time + reader.ReadFloat();
 
+        m_initialSpeed = reader.ReadFloat();
         m_statsModification = PersistableObject.Load<CombatStatsModifier.Modification>(reader);
     }
 

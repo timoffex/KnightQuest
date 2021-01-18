@@ -99,7 +99,7 @@ public class BowAttack : Weapon
             transform.position,
             Direction * m_bowAttackData.arrowSpeed * ChargePercentage,
             m_bowAttackData.arrowLiveTime,
-            m_statsModifier.Value);
+            m_statsModifier.Value.WithDamageMultiplier(ChargePercentage));
     }
 
     void BeginCharging()
