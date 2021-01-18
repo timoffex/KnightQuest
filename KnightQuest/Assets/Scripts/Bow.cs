@@ -2,22 +2,24 @@
 
 [RequireComponent(typeof(BowData))]
 [RequireComponent(typeof(CombatOffense))]
+[RequireComponent(typeof(AudioSource))]
 public class Bow : Weapon
 {
-    BowData m_bowAttackData;
+    BowData m_bowData;
     CombatOffense m_statsModifier;
     Character.SpeedReductionToken m_speedReductionToken;
     BowParticles m_bowParticles;
+    AudioSource m_drawAudioSource;
 
     float m_chargeStartTime = 0;
 
     bool m_charging = false;
 
-    public float MaximumRange => m_bowAttackData.arrowSpeed * m_bowAttackData.arrowLiveTime;
+    public float MaximumRange => m_bowData.arrowSpeed * m_bowData.arrowLiveTime;
 
     public float ChargePercentage =>
         m_charging
-            ? Mathf.Clamp01((Time.time - m_chargeStartTime) / m_bowAttackData.chargeTime)
+            ? Mathf.Clamp01((Time.time - m_chargeStartTime) / m_bowData.chargeTime)
             : 0;
 
     public override void ControlAI(EnemyAI enemyAi)
@@ -76,14 +78,15 @@ public class Bow : Weapon
     protected override void Awake()
     {
         base.Awake();
-        m_bowAttackData = GetComponent<BowData>();
+        m_bowData = GetComponent<BowData>();
         m_statsModifier = GetComponent<CombatOffense>();
+        m_drawAudioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void OnEnable()
     {
         Debug.Assert(m_bowParticles == null);
-        m_bowParticles = Instantiate(m_bowAttackData.bowParticlesPrefab);
+        m_bowParticles = Instantiate(m_bowData.bowParticlesPrefab);
     }
 
     protected override void OnDisable()
@@ -98,12 +101,14 @@ public class Bow : Weapon
 
     protected override void Attack()
     {
-        m_bowAttackData.arrowSpawner.Spawn(
+        m_bowData.arrowSpawner.Spawn(
             Character.gameObject,
             transform.position,
-            Direction * m_bowAttackData.arrowSpeed * ChargePercentage,
-            m_bowAttackData.arrowLiveTime,
+            Direction * m_bowData.arrowSpeed * ChargePercentage,
+            m_bowData.arrowLiveTime,
             m_statsModifier.Value.WithDamageMultiplier(ChargePercentage));
+
+        m_bowData.releaseAudioSource.Play();
     }
 
     void BeginCharging()
@@ -112,6 +117,8 @@ public class Bow : Weapon
         m_speedReductionToken?.Cancel();
         m_speedReductionToken = Character.TemporarilyReduceSpeed();
         m_charging = true;
+
+        m_drawAudioSource.Play();
     }
 
     void ReleaseArrow()
@@ -130,6 +137,7 @@ public class Bow : Weapon
 
     void StopCharging()
     {
+        m_drawAudioSource.Stop();
         m_charging = false;
         m_speedReductionToken?.Cancel();
         m_speedReductionToken = null;

@@ -95,7 +95,7 @@ MonoBehaviour:
   maxSpeed: 0.2
   weaponCenterPoint: {fileID: 7709855892026192033}
   weaponRadius: 0.11
-  movementForce: 700
+  movementForce: 500
   groundPoint: {fileID: 2501903277747393493}
 --- !u!114 &7361034336212112283
 MonoBehaviour:

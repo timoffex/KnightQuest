@@ -10,4 +10,6 @@ sealed class BowData : MonoBehaviour
     public float chargeTime = 1;
 
     public BowParticles bowParticlesPrefab;
+
+    public AudioSource releaseAudioSource;
 }
