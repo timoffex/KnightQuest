@@ -8,6 +8,7 @@ public class ArrowRemains : PersistableComponent, IIgnitable
     Rigidbody2D m_rigidbody;
 
     float m_deathTime;
+    bool m_isIgnited;
 
     /// <summary>
     /// The child fire controller. This should only be set by the
@@ -35,6 +36,7 @@ public class ArrowRemains : PersistableComponent, IIgnitable
     public void Ignite()
     {
         FireAttachment.Ignite();
+        m_isIgnited = true;
     }
 
     protected override void Awake()
@@ -53,12 +55,15 @@ public class ArrowRemains : PersistableComponent, IIgnitable
     {
         base.Save(writer);
         writer.WriteFloat(TimeToLive);
+        writer.WriteBool(m_isIgnited);
     }
 
     public override void Load(GameDataReader reader)
     {
         base.Load(reader);
         TimeToLive = reader.ReadFloat();
+        if (reader.ReadBool())
+            Ignite();
     }
 
     static ArrowRemains()

@@ -13,7 +13,7 @@ public class ArrowSpawner : ScriptableObject
         Vector2 position,
         Vector2 velocity,
         float liveTime,
-        CombatOffense.Modification statsModifier)
+        ArrowCombatOffense.Modification statsModifier)
     {
         Arrow arrow = Instantiate(prefab, position, Quaternion.identity);
         arrow.Initialize(attacker, velocity, liveTime, statsModifier);

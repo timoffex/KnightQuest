@@ -15,7 +15,7 @@ public class Arrow : PersistableComponent, IIgnitable
     GameObject m_attacker;
     float m_deathTime;
     float m_initialSpeed;
-    CombatOffense.Modification m_statsModification;
+    ArrowCombatOffense.Modification m_statsModification;
     bool m_isNeutralized = false;
 
     bool m_isIgnited = false;
@@ -30,7 +30,7 @@ public class Arrow : PersistableComponent, IIgnitable
         GameObject attacker,
         Vector2 velocity,
         float liveTime,
-        CombatOffense.Modification statsModification)
+        ArrowCombatOffense.Modification statsModification)
     {
         m_attacker = attacker;
         m_statsModification = statsModification;
@@ -44,9 +44,9 @@ public class Arrow : PersistableComponent, IIgnitable
 
     public void Hit(Attackable attackable)
     {
-        var modificationWithSpeed =
-            m_statsModification.WithDamageMultiplier(
-                Mathf.Clamp01(m_rigidbody2D.velocity.magnitude / m_initialSpeed));
+        var modificationWithSpeed = m_statsModification
+            .WithSpeedMultiplier(Mathf.Clamp01(m_rigidbody2D.velocity.magnitude / m_initialSpeed))
+            .WithFireDamage(m_isIgnited ? m_data.fireDamage : 0);
 
         if (attackable.Hit(
                 m_attacker,
@@ -73,6 +73,8 @@ public class Arrow : PersistableComponent, IIgnitable
         writer.WriteFloat(m_initialSpeed);
         m_statsModification.Save(writer);
 
+        writer.WriteBool(m_isIgnited);
+
         // TODO: Save/load attacker
     }
 
@@ -84,7 +86,12 @@ public class Arrow : PersistableComponent, IIgnitable
         m_deathTime = Time.time + reader.ReadFloat();
 
         m_initialSpeed = reader.ReadFloat();
-        m_statsModification = PersistableObject.Load<CombatOffense.Modification>(reader);
+        m_statsModification = PersistableObject.Load<ArrowCombatOffense.Modification>(reader);
+
+        if (reader.ReadBool())
+        {
+            Ignite();
+        }
     }
 
     protected override void Awake()

@@ -3,11 +3,24 @@
 /// </summary>
 public abstract class CombatDefense : PersistableComponent
 {
-    public abstract void TakeSwordDamage(
+    public virtual void TakeSwordDamage(
         CombatStats combatStats,
-        float damage);
+        float damage)
+    {
+        combatStats.TakeDirectDamage(damage);
+    }
 
-    public abstract void TakeArrowDamage(
+    public virtual void TakeArrowDamage(
         CombatStats combatStats,
-        float damage);
+        float damage)
+    {
+        combatStats.TakeDirectDamage(damage);
+    }
+
+    public virtual void TakeFireDamage(
+        CombatStats combatStats,
+        float damage)
+    {
+        combatStats.TakeDirectDamage(damage);
+    }
 }

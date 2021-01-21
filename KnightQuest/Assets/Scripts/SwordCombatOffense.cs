@@ -37,11 +37,6 @@ public sealed class SwordCombatOffense : CombatOffense
             defense.TakeSwordDamage(combatStats, damage);
         }
 
-        public override CombatOffense.Modification WithDamageMultiplier(float multiplier)
-        {
-            return new Modification(damage * multiplier);
-        }
-
         public override void Save(GameDataWriter writer)
         {
             base.Save(writer);

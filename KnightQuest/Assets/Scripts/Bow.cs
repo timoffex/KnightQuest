@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(BowData))]
-[RequireComponent(typeof(CombatOffense))]
+[RequireComponent(typeof(ArrowCombatOffense))]
 [RequireComponent(typeof(AudioSource))]
 public class Bow : Weapon
 {
     BowData m_bowData;
-    CombatOffense m_statsModifier;
+    ArrowCombatOffense m_statsModifier;
     Character.SpeedReductionToken m_speedReductionToken;
     BowParticles m_bowParticles;
     AudioSource m_drawAudioSource;
@@ -79,7 +79,7 @@ public class Bow : Weapon
     {
         base.Awake();
         m_bowData = GetComponent<BowData>();
-        m_statsModifier = GetComponent<CombatOffense>();
+        m_statsModifier = GetComponent<ArrowCombatOffense>();
         m_drawAudioSource = GetComponent<AudioSource>();
     }
 
@@ -106,7 +106,7 @@ public class Bow : Weapon
             transform.position,
             Direction * m_bowData.arrowSpeed * ChargePercentage,
             m_bowData.arrowLiveTime,
-            m_statsModifier.Value.WithDamageMultiplier(ChargePercentage));
+            m_statsModifier.ArrowValue.WithBowChargePercentage(ChargePercentage));
 
         m_bowData.releaseAudioSource.Play();
     }
