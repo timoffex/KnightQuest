@@ -36,12 +36,13 @@ public sealed class ArrowCombatOffense : CombatOffense
             this.fireDamage = fireDamage;
         }
 
-        public override void Modify(CombatStats combatStats, CombatDefense defense)
+        public override void Attack(ICombatReceiver receiver)
         {
-            defense.TakeArrowDamage(combatStats, damage);
+            receiver.TakeArrowDamage(damage);
             if (fireDamage > 0)
             {
-                defense.TakeFireDamage(combatStats, fireDamage);
+                receiver.TakeFireDamage(fireDamage);
+                receiver.SetOnFire();
             }
         }
 

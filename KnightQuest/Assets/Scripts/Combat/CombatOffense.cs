@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public abstract class CombatOffense : PersistableComponent
 {
     /// <summary>
@@ -10,12 +8,11 @@ public abstract class CombatOffense : PersistableComponent
     public abstract Modification Value { get; }
 
     /// <summary>
-    /// A modification to <see cref="CombatStats"/>.
-    /// 
-    /// Subclasses should be immutable.
+    /// A snapshot of a <see cref="CombatOffense"/> that can be passed around (and, for example,
+    /// carried by an arrow).
     /// </summary>
     public abstract class Modification : PersistableObject
     {
-        public abstract void Modify(CombatStats combatStats, CombatDefense defense);
+        public abstract void Attack(ICombatReceiver receiver);
     }
 }

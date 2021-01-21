@@ -32,9 +32,9 @@ public sealed class SwordCombatOffense : CombatOffense
             this.damage = damage;
         }
 
-        public override void Modify(CombatStats combatStats, CombatDefense defense)
+        public override void Attack(ICombatReceiver receiver)
         {
-            defense.TakeSwordDamage(combatStats, damage);
+            receiver.TakeSwordDamage(damage);
         }
 
         public override void Save(GameDataWriter writer)

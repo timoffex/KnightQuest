@@ -4,7 +4,7 @@
 [RequireComponent(typeof(CombatStats))]
 [RequireComponent(typeof(CharacterAnimationController))]
 [RequireComponent(typeof(CharacterData))]
-public class Character : PersistableComponent, IIgnitable
+public class Character : PersistableComponent, IIgnitable, ICombatReceiver
 {
 
     public CharacterDirection Direction { get; private set; }
@@ -31,6 +31,8 @@ public class Character : PersistableComponent, IIgnitable
     public Transform GroundPoint => m_data.groundPoint;
 
     public Weapon CurrentWeapon { get; set; }
+
+    protected CombatDefense CombatDefense => CurrentWeapon?.CombatDefense ?? m_combatDefense;
 
     public bool IsOnFire { get; private set; }
 
@@ -70,11 +72,22 @@ public class Character : PersistableComponent, IIgnitable
         m_freezeDirectionUntilTime = Time.time + 0.3f;
     }
 
-    public void ApplyStatsModifier(CombatOffense.Modification modification)
+    public void ReceiveAttack(CombatOffense.Modification modification)
     {
-        modification.Modify(m_combatStats, CurrentWeapon?.CombatDefense ?? m_combatDefense);
+        modification.Attack(this);
         m_characterAnimationController.TakeHit();
     }
+
+    public void TakeSwordDamage(float damage) =>
+        CombatDefense.TakeSwordDamage(m_combatStats, damage);
+
+    public void TakeArrowDamage(float damage) =>
+        CombatDefense.TakeArrowDamage(m_combatStats, damage);
+
+    public void TakeFireDamage(float damage) =>
+        CombatDefense.TakeFireDamage(m_combatStats, damage);
+
+    public void SetOnFire() => Ignite();
 
     /// <summary>
     /// Temporarily halves the character's movement force and returns an action that can be

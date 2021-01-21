@@ -12,7 +12,7 @@ public class AttackableCharacter : Attackable
     {
         base.OnHit(impactImpulse, statsModification);
         m_rigidbody2D.AddForce(impactImpulse, ForceMode2D.Impulse);
-        m_character.ApplyStatsModifier(statsModification);
+        m_character.ReceiveAttack(statsModification);
         m_character.OnHitFreezeFrame();
 
         m_audioSource.Play();
