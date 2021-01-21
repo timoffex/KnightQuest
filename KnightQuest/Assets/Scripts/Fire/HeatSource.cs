@@ -4,6 +4,7 @@
 public abstract class HeatSource : MonoBehaviour
 {
     GameSingletons m_gameSingletons;
+    bool m_started;
 
     /// <summary>
     /// Heats the <paramref name="receiver"/>. Called in Update().
@@ -13,12 +14,16 @@ public abstract class HeatSource : MonoBehaviour
     protected virtual void Start()
     {
         m_gameSingletons = GameSingletons.Instance;
+        m_started = true;
     }
 
     protected virtual void OnTriggerStay2D(Collider2D collider)
     {
         // Disabled components still receive trigger events
         if (!enabled)
+            return;
+        // Even components that haven't started receive these events
+        if (!m_started)
             return;
 
         Debug.Log($"{gameObject} is heating {collider.gameObject}");
