@@ -40,7 +40,9 @@ public sealed class ArrowCombatOffense : CombatOffense
         {
             defense.TakeArrowDamage(combatStats, damage);
             if (fireDamage > 0)
+            {
                 defense.TakeFireDamage(combatStats, fireDamage);
+            }
         }
 
         /// <summary>

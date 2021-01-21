@@ -1,21 +1,44 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class CharacterAnimator : MonoBehaviour
+public sealed class CharacterAnimator : MonoBehaviour
 {
     Animator m_animator;
     SpriteRenderer m_spriteRenderer;
     Rigidbody2D m_rigidbody2D;
     Character m_character;
 
+    Color m_defaultTint = Color.white;
     bool m_isSpriteWhite = false;
     Shader m_whiteShader;
     Shader m_defaultShader;
 
-    void Start()
+    public void FlashWhite()
+    {
+        StartCoroutine(FlashWhiteCR());
+    }
+
+    public void TintRedForFire()
+    {
+        m_defaultTint = Color.red;
+        if (!m_isSpriteWhite)
+            m_spriteRenderer.color = m_defaultTint;
+    }
+
+    IEnumerator FlashWhiteCR()
+    {
+        // Don't flash while already flashing.
+        if (m_isSpriteWhite)
+            yield break;
+
+        UseWhiteSprite();
+        yield return new WaitForSeconds(0.1f);
+        UseNormalSprite();
+    }
+
+    void Awake()
     {
         m_animator = GetComponent<Animator>();
         m_spriteRenderer = GetComponent<SpriteRenderer>();
@@ -25,6 +48,8 @@ public class CharacterAnimator : MonoBehaviour
         // https://answers.unity.com/questions/582145/is-there-a-way-to-set-a-sprites-color-solid-white.html
         m_whiteShader = Shader.Find("GUI/Text Shader");
         m_defaultShader = m_spriteRenderer.material.shader;
+
+        GetComponentInParent<CharacterAnimationController>().RegisterCharacterAnimator(this);
     }
 
     void LateUpdate()
@@ -33,11 +58,6 @@ public class CharacterAnimator : MonoBehaviour
             "speedPercentage",
             Mathf.Clamp01(m_rigidbody2D.velocity.magnitude / m_character.MaxSpeed));
         m_animator.SetInteger("direction", m_character.Direction.ToInteger());
-
-        if (Time.time < m_character.LastHitTime + 0.1f)
-            UseWhiteSprite();
-        else
-            UseNormalSprite();
     }
 
     void UseWhiteSprite()
@@ -56,7 +76,7 @@ public class CharacterAnimator : MonoBehaviour
             return;
 
         m_spriteRenderer.material.shader = m_defaultShader;
-        m_spriteRenderer.color = Color.white;
+        m_spriteRenderer.color = m_defaultTint;
         m_isSpriteWhite = false;
     }
 }

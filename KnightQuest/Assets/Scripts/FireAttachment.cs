@@ -60,6 +60,7 @@ public abstract class FireAttachment : MonoBehaviour
     {
         m_fireParticles = GetComponent<ParticleSystem>();
         m_heatSource = GetComponent<HeatSource>();
+        m_heatSource.enabled = false;
     }
 
     IEnumerator DestroyAfterParticlesFinishCR()

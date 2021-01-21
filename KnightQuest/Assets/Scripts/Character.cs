@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CombatStats))]
+[RequireComponent(typeof(CharacterAnimationController))]
 [RequireComponent(typeof(CharacterData))]
-public class Character : PersistableComponent
+public class Character : PersistableComponent, IIgnitable
 {
 
     public CharacterDirection Direction { get; private set; }
@@ -31,9 +30,9 @@ public class Character : PersistableComponent
     /// </summary>
     public Transform GroundPoint => m_data.groundPoint;
 
-    public float LastHitTime { get; private set; }
-
     public Weapon CurrentWeapon { get; set; }
+
+    public bool IsOnFire { get; private set; }
 
     /// <summary>
     /// An event that triggers when the character dies, immediately before the GameObject is
@@ -46,6 +45,7 @@ public class Character : PersistableComponent
     CombatDefense m_combatDefense;
     Rigidbody2D m_rigidbody2D;
     GameSingletons m_gameSingletons;
+    CharacterAnimationController m_characterAnimationController;
     float m_freezeDirectionUntilTime;
 
     /// <summary>
@@ -73,12 +73,7 @@ public class Character : PersistableComponent
     public void ApplyStatsModifier(CombatOffense.Modification modification)
     {
         modification.Modify(m_combatStats, CurrentWeapon?.CombatDefense ?? m_combatDefense);
-        LastHitTime = Time.time;
-
-        if (m_combatStats.CurrentHealth <= 0)
-        {
-            Die();
-        }
+        m_characterAnimationController.TakeHit();
     }
 
     /// <summary>
@@ -90,29 +85,35 @@ public class Character : PersistableComponent
         return new SpeedReductionToken(this);
     }
 
-    public void Die()
-    {
-        Debug.Log($"{gameObject.name} died. Congrats! (Or condolences)");
-        OnDied?.Invoke();
-        Destroy(gameObject);
-    }
-
     public void MoveInDirection(Vector2 normalizedDir)
     {
         m_rigidbody2D.AddForce(
             normalizedDir * MovementForce * Time.fixedDeltaTime, ForceMode2D.Force);
     }
 
+    public void Ignite()
+    {
+        if (IsOnFire)
+            return;
+
+        IsOnFire = true;
+        m_characterAnimationController.BeginFireAnimation();
+        m_combatStats.SetOnFire();
+    }
+
     public override void Save(GameDataWriter writer)
     {
         base.Save(writer);
         writer.WriteInt16((short)Direction);
+        writer.WriteBool(IsOnFire);
     }
 
     public override void Load(GameDataReader reader)
     {
         base.Load(reader);
         Direction = (CharacterDirection)reader.ReadInt16();
+        if (reader.ReadBool())
+            Ignite();
     }
 
     protected override void Awake()
@@ -123,6 +124,9 @@ public class Character : PersistableComponent
         m_combatDefense = GetComponent<CombatDefense>() ??
             gameObject.AddComponent<NoCombatDefense>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
+        m_characterAnimationController = GetComponent<CharacterAnimationController>();
+
+        m_combatStats.OnDied += DoDeath;
 
         if (GroundPoint == null)
         {
@@ -160,6 +164,13 @@ public class Character : PersistableComponent
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(WeaponCenterPoint.position, WeaponRadius);
+    }
+
+    void DoDeath()
+    {
+        Debug.Log($"{gameObject.name} died. Congrats! (Or condolences)");
+        OnDied?.Invoke();
+        Destroy(gameObject);
     }
 
     public sealed class SpeedReductionToken
