@@ -24,13 +24,34 @@ public sealed class CharacterAnimationController : MonoBehaviour
 {
     public void BeginFireAnimation()
     {
+        if (m_isOnFire)
+            return;
+
+        m_isOnFire = true;
+
         foreach (var animator in m_animators)
         {
             animator.TintRedForFire();
         }
 
-        StartCoroutine(FireAnimationCR());
+        m_fireAnimationCR = StartCoroutine(FireAnimationCR());
         m_fireAttachment?.Ignite();
+    }
+
+    public void EndFireAnimation()
+    {
+        if (!m_isOnFire)
+            return;
+
+        m_isOnFire = false;
+
+        foreach (var animator in m_animators)
+        {
+            animator.UseNormalTint();
+        }
+
+        StopCoroutine(m_fireAnimationCR);
+        m_fireAttachment?.Extinguish();
     }
 
     public void TakeHit()
@@ -70,4 +91,6 @@ public sealed class CharacterAnimationController : MonoBehaviour
 
     readonly HashSet<CharacterAnimator> m_animators = new HashSet<CharacterAnimator>();
     CharacterFireAttachment m_fireAttachment;
+    Coroutine m_fireAnimationCR;
+    bool m_isOnFire;
 }

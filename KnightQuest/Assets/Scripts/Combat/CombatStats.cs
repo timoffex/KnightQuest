@@ -32,6 +32,11 @@ public sealed class CombatStats : PersistableComponent
         m_isOnFire = true;
     }
 
+    public void StopFire()
+    {
+        m_isOnFire = false;
+    }
+
     public void Die()
     {
         if (IsDead)

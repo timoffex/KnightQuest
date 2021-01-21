@@ -35,6 +35,7 @@ public abstract class FireAttachment : MonoBehaviour
         if (!m_wasIgnited)
             return;
         m_wasIgnited = false;
+        OnExtinguished();
     }
 
     public virtual void DetachAndDestroyWhenParticlesFinish()

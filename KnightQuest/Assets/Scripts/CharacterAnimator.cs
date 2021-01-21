@@ -11,7 +11,7 @@ public sealed class CharacterAnimator : MonoBehaviour
     Character m_character;
 
     Color m_defaultTint = Color.white;
-    bool m_isSpriteWhite = false;
+    bool m_isFlashing = false;
     Shader m_whiteShader;
     Shader m_defaultShader;
 
@@ -23,14 +23,21 @@ public sealed class CharacterAnimator : MonoBehaviour
     public void TintRedForFire()
     {
         m_defaultTint = Color.red;
-        if (!m_isSpriteWhite)
+        if (!m_isFlashing)
+            m_spriteRenderer.color = m_defaultTint;
+    }
+
+    public void UseNormalTint()
+    {
+        m_defaultTint = Color.white;
+        if (!m_isFlashing)
             m_spriteRenderer.color = m_defaultTint;
     }
 
     IEnumerator FlashWhiteCR()
     {
         // Don't flash while already flashing.
-        if (m_isSpriteWhite)
+        if (m_isFlashing)
             yield break;
 
         UseWhiteSprite();
@@ -62,21 +69,21 @@ public sealed class CharacterAnimator : MonoBehaviour
 
     void UseWhiteSprite()
     {
-        if (m_isSpriteWhite)
+        if (m_isFlashing)
             return;
 
         m_spriteRenderer.material.shader = m_whiteShader;
         m_spriteRenderer.color = Color.white;
-        m_isSpriteWhite = true;
+        m_isFlashing = true;
     }
 
     void UseNormalSprite()
     {
-        if (!m_isSpriteWhite)
+        if (!m_isFlashing)
             return;
 
         m_spriteRenderer.material.shader = m_defaultShader;
         m_spriteRenderer.color = m_defaultTint;
-        m_isSpriteWhite = false;
+        m_isFlashing = false;
     }
 }

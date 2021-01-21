@@ -34,8 +34,6 @@ public class Character : PersistableComponent, IIgnitable, ICombatReceiver
 
     protected CombatDefense CombatDefense => CurrentWeapon?.CombatDefense ?? m_combatDefense;
 
-    public bool IsOnFire { get; private set; }
-
     /// <summary>
     /// An event that triggers when the character dies, immediately before the GameObject is
     /// destroyed.
@@ -49,6 +47,8 @@ public class Character : PersistableComponent, IIgnitable, ICombatReceiver
     GameSingletons m_gameSingletons;
     CharacterAnimationController m_characterAnimationController;
     float m_freezeDirectionUntilTime;
+    float m_fireEndTime;
+    public bool m_isOnFire;
 
     /// <summary>
     /// Number of times <see cref="TemporarilyReduceSpeed"/> has been called and not cancelled.
@@ -87,7 +87,7 @@ public class Character : PersistableComponent, IIgnitable, ICombatReceiver
     public void TakeFireDamage(float damage) =>
         CombatDefense.TakeFireDamage(m_combatStats, damage);
 
-    public void SetOnFire() => Ignite();
+    void ICombatReceiver.SetOnFire() => Ignite();
 
     /// <summary>
     /// Temporarily halves the character's movement force and returns an action that can be
@@ -106,27 +106,38 @@ public class Character : PersistableComponent, IIgnitable, ICombatReceiver
 
     public void Ignite()
     {
-        if (IsOnFire)
+        m_fireEndTime = Time.time + 5;
+        if (m_isOnFire)
             return;
 
-        IsOnFire = true;
+        m_isOnFire = true;
         m_characterAnimationController.BeginFireAnimation();
         m_combatStats.SetOnFire();
+    }
+
+    public void Extinguish()
+    {
+        if (!m_isOnFire)
+            return;
+
+        m_isOnFire = false;
+        m_characterAnimationController.EndFireAnimation();
+        m_combatStats.StopFire();
     }
 
     public override void Save(GameDataWriter writer)
     {
         base.Save(writer);
         writer.WriteInt16((short)Direction);
-        writer.WriteBool(IsOnFire);
+        writer.WriteFloat(m_fireEndTime - Time.time);
     }
 
     public override void Load(GameDataReader reader)
     {
         base.Load(reader);
         Direction = (CharacterDirection)reader.ReadInt16();
-        if (reader.ReadBool())
-            Ignite();
+        m_fireEndTime = Time.time + reader.ReadFloat();
+        if (Time.time < m_fireEndTime) Ignite();
     }
 
     protected override void Awake()
@@ -157,6 +168,11 @@ public class Character : PersistableComponent, IIgnitable, ICombatReceiver
         if (Time.time > m_freezeDirectionUntilTime)
         {
             SetLookDirection(m_rigidbody2D.velocity);
+        }
+
+        if (Time.time >= m_fireEndTime)
+        {
+            Extinguish();
         }
     }
 
