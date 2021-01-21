@@ -45,7 +45,11 @@ public sealed class GameSingletons : MonoBehaviour
 
     [SerializeField] PersistablePrefabCollection prefabCollection;
 
+    [SerializeField] FireSystem fireSystem;
+
     public PersistablePrefabCollection PrefabCollection => prefabCollection;
+
+    public FireSystem FireSystem => fireSystem;
 
     public Vector2 MouseWorldPosition =>
         mainCamera.ScreenToWorldPoint(Input.mousePosition);

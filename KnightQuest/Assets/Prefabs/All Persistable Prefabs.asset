@@ -33,3 +33,8 @@ MonoBehaviour:
     id: coin_pickup
   - prefab: {fileID: 887269247332929383, guid: b489496a31e2d2b498fca7f27cfbada3, type: 3}
     id: basic_arrow_remains
+  - prefab: {fileID: 8592518522069632752, guid: 765012639810e214f9df47e6c579b27c,
+      type: 3}
+    id: campfire
+  - prefab: {fileID: 301639684201131643, guid: d45bd2298cb9a7448a56cd422c4be22f, type: 3}
+    id: radial_heat_source

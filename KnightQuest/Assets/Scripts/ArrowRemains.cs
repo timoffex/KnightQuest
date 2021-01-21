@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class ArrowRemains : PersistableComponent
+public class ArrowRemains : PersistableComponent, IIgnitable
 {
     Rigidbody2D m_rigidbody;
 
     float m_deathTime;
+
+    /// <summary>
+    /// The child fire controller. This should only be set by the
+    /// <see cref="ArrowRemainsFireAttachment"/> class.
+    /// </summary>
+    public ArrowRemainsFireAttachment FireAttachment { private get; set; }
 
     protected float TimeToLive
     {
@@ -24,6 +30,11 @@ public class ArrowRemains : PersistableComponent
         m_rigidbody.velocity = velocity;
         m_rigidbody.angularVelocity = angularVelocity;
         TimeToLive = 5f;
+    }
+
+    public void Ignite()
+    {
+        FireAttachment.Ignite();
     }
 
     protected override void Awake()

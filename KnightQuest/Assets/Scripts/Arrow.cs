@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(ArrowData))]
-public class Arrow : PersistableComponent
+public class Arrow : PersistableComponent, IIgnitable
 {
     ArrowData m_data;
     Rigidbody2D m_rigidbody2D;
@@ -17,6 +17,14 @@ public class Arrow : PersistableComponent
     float m_initialSpeed;
     CombatOffense.Modification m_statsModification;
     bool m_isNeutralized = false;
+
+    bool m_isIgnited = false;
+
+    /// <summary>
+    /// The child fire controller. This should only be set by the
+    /// <see cref="ArrowFireAttachment"/> class.
+    /// </summary>
+    public ArrowFireAttachment FireAttachment { private get; set; }
 
     public virtual void Initialize(
         GameObject attacker,
@@ -47,6 +55,12 @@ public class Arrow : PersistableComponent
         {
             StopBeingDangerous(randomAngularVelocity: true);
         }
+    }
+
+    public void Ignite()
+    {
+        FireAttachment.Ignite();
+        m_isIgnited = true;
     }
 
     public override void Save(GameDataWriter writer)
@@ -97,8 +111,15 @@ public class Arrow : PersistableComponent
             return;
 
         m_isNeutralized = true;
+
+        // Let fire effect finish
+        FireAttachment.DetachAndDestroyWhenParticlesFinish();
+
+        // Destroy self
         Destroy(gameObject);
-        m_data.remainsSpawner?.Spawn(
+
+        // Spawn remains
+        var remains = m_data.remainsSpawner?.Spawn(
             position: transform.position,
             rotation: transform.rotation,
             velocity: m_rigidbody2D.velocity,
@@ -106,6 +127,11 @@ public class Arrow : PersistableComponent
                 randomAngularVelocity
                     ? RandomFinishingAngularVelocity()
                     : m_rigidbody2D.angularVelocity);
+
+        if (m_isIgnited)
+        {
+            remains.Ignite();
+        }
     }
 
     float RandomFinishingAngularVelocity()

@@ -1,5 +1,76 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &351353208085662867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6625249839893955304}
+  - component: {fileID: 3699683403487768468}
+  - component: {fileID: 6030146447635016948}
+  m_Layer: 10
+  m_Name: Arrow Remains Heat Receiver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6625249839893955304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351353208085662867}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1993825403383000663}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &3699683403487768468
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351353208085662867}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.005, y: -0.0051430464}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.11, y: 0.03}
+  m_EdgeRadius: 0
+--- !u!114 &6030146447635016948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351353208085662867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e88fd0b30777e0409264a812e55218f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignitionTemperature: 70
 --- !u!1 &5545517578301338201
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,6 +103,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7440568510129031975}
+  - {fileID: 8682367024313105767}
+  - {fileID: 6625249839893955304}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -105,6 +178,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68872329a10a3984ba8662758d273b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4512616388530629676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6036766535797762338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb589773c990433449bd3c87eb7a7141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7816054728803305818
@@ -188,3 +273,84 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &5079639280801827746
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1993825403383000663}
+    m_Modifications:
+    - target: {fileID: 1565113215470314112, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_Name
+      value: Arrow Remains Fire Attachment
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0317
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0061
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e3aa57956b02ef46925e7cfd4ea68a7, type: 3}
+--- !u!1 &6036766535797762338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1565113215470314112, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5079639280801827746}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8682367024313105767 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4468546981709428421, guid: 6e3aa57956b02ef46925e7cfd4ea68a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5079639280801827746}
+  m_PrefabAsset: {fileID: 0}

@@ -144,7 +144,7 @@ public sealed class PersistablePrefab : MonoBehaviour
             m_parent = transform.parent.GetComponent<PersistablePrefab>();
             if (m_parent == null)
             {
-                Debug.LogError(
+                Debug.LogWarning(
                         "Every persistable object must either be at the root level or have a"
                         + $" persistable parent. {gameObject.name} will not be persisted.",
                     gameObject);
