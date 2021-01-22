@@ -18,6 +18,7 @@ using UnityEngine;
 [RequireComponent(typeof(HeatSource))]
 public abstract class FireAttachment : MonoBehaviour
 {
+    [SerializeField] GameObject attachedLight;
     ParticleSystem m_fireParticles;
     HeatSource m_heatSource;
     bool m_wasIgnited;
@@ -41,18 +42,20 @@ public abstract class FireAttachment : MonoBehaviour
     public virtual void DetachAndDestroyWhenParticlesFinish()
     {
         transform.parent = null;
-        m_fireParticles.Stop();
+        Extinguish();
         StartCoroutine(DestroyAfterParticlesFinishCR());
     }
 
     protected virtual void OnIgnited()
     {
+        attachedLight.SetActive(true);
         m_fireParticles.Play();
         m_heatSource.enabled = true;
     }
 
     protected virtual void OnExtinguished()
     {
+        attachedLight.SetActive(false);
         m_fireParticles.Stop();
         m_heatSource.enabled = false;
     }
@@ -62,6 +65,7 @@ public abstract class FireAttachment : MonoBehaviour
         m_fireParticles = GetComponent<ParticleSystem>();
         m_heatSource = GetComponent<HeatSource>();
         m_heatSource.enabled = false;
+        attachedLight.SetActive(false);
     }
 
     IEnumerator DestroyAfterParticlesFinishCR()
