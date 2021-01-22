@@ -26,7 +26,6 @@ public abstract class HeatSource : MonoBehaviour
         if (!m_started)
             return;
 
-        Debug.Log($"{gameObject} is heating {collider.gameObject}");
         m_gameSingletons.FireSystem.AddHeat(collider.gameObject, this);
     }
 
