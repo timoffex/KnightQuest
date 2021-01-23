@@ -72,6 +72,14 @@ public sealed class PersistablePrefab : MonoBehaviour
         // Unity components
         LoadUnityComponents(reader);
 
+        // Destroy all subobjects before loading new ones. This is necessary for prefabs that
+        // reference other prefabs (or else the child objects will be duplicated).
+        var subobjectsCopy = new HashSet<PersistablePrefab>(m_subobjects);
+        foreach (var subobject in subobjectsCopy)
+        {
+            Destroy(subobject.gameObject);
+        }
+
         // Persistable components on the same object
         var numComponents = reader.ReadInt16();
         for (int i = 0; i < numComponents; ++i)
