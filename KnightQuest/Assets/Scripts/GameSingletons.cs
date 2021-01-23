@@ -26,12 +26,11 @@ public sealed class GameSingletons : MonoBehaviour
     void Awake()
     {
         if (Instance != null)
-            Debug.LogError($"GameSingletons instance already exists: {Instance}", Instance);
+            Debug.LogError($"GameSingletons instance already exists: {Instance}", gameObject);
         else
             Instance = this;
 
         GameData = new GameData();
-        StartCoroutine(GameData.StartFresh("SampleScene"));
     }
 
     void OnDestroy()
@@ -66,6 +65,21 @@ public sealed class GameSingletons : MonoBehaviour
 
     public GameData GameData { get; private set; }
 
+    public IEnumerator StartNewGameAsync()
+    {
+        return GameData.StartFresh("SampleScene");
+    }
+
+    public void ActivateGameCamera()
+    {
+        foreach (var virtualCamera in m_sceneCameras)
+        {
+            virtualCamera.Enable();
+        }
+
+        mainCamera.gameObject.SetActive(true);
+    }
+
     public void SaveTo(GameDataWriter writer)
     {
         GameData.SaveTo(writer);
@@ -75,4 +89,16 @@ public sealed class GameSingletons : MonoBehaviour
     {
         yield return GameData.LoadFromAndStartAsync(reader);
     }
+
+    public void AddGameSceneCamera(GameSceneVirtualCamera virtualCamera)
+    {
+        m_sceneCameras.Add(virtualCamera);
+    }
+
+    public void RemoveGameSceneCamera(GameSceneVirtualCamera virtualCamera)
+    {
+        m_sceneCameras.Remove(virtualCamera);
+    }
+
+    readonly HashSet<GameSceneVirtualCamera> m_sceneCameras = new HashSet<GameSceneVirtualCamera>();
 }

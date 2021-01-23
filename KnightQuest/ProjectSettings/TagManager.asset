@@ -17,7 +17,7 @@ TagManager:
   - Projectile
   - Heat
   - AI Obstacle
-  - 
+  - Loading
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Attack Particles
     uniqueID: 3054355245
+    locked: 0
+  - name: Overlay UI
+    uniqueID: 3575019465
     locked: 0
