@@ -21,8 +21,9 @@ public class RadialHeatSource : HeatSource
         }
     }
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         m_radialHeatSourceData = GetComponent<RadialHeatSourceData>();
         m_collider = GetComponent<CircleCollider2D>();
     }
@@ -47,4 +48,9 @@ public class RadialHeatSource : HeatSource
             m_radialHeatSourceData.constantHeatRadiusRatio * m_collider.radius);
     }
 #endif
+
+    static RadialHeatSource()
+    {
+        PersistableComponent.Register<RadialHeatSource>("RadialHeatSource");
+    }
 }

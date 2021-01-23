@@ -70,6 +70,36 @@ public sealed class GameSingletons : MonoBehaviour
         return GameData.StartFresh("SampleScene");
     }
 
+    public IEnumerator MovePlayerToAndStartSceneAsync(string sceneName, Vector3 position)
+    {
+        if (PlayerCharacter != null)
+        {
+            PlayerCharacter.transform.position = position;
+            GameData.MoveToOtherScene(
+                PlayerCharacter.GetComponent<PersistablePrefab>(),
+                sceneName);
+        }
+
+        MainSingletons.Instance.UseLoadingCamera();
+        yield return GameData.LoadSceneAsync(sceneName);
+        MainSingletons.Instance.UseGameCamera();
+    }
+
+    public void SaveTo(GameDataWriter writer)
+    {
+        GameData.SaveTo(writer);
+    }
+
+    /// <summary>
+    /// Loads the game from the given <paramref name="reader"/> and opens its game scenes.
+    /// </summary>
+    public IEnumerator LoadFromAsync(GameDataReader reader)
+    {
+        MainSingletons.Instance.UseLoadingCamera();
+        yield return GameData.LoadFromAndStartAsync(reader);
+        MainSingletons.Instance.UseGameCamera();
+    }
+
     public void ActivateGameCamera()
     {
         foreach (var virtualCamera in m_sceneCameras)
@@ -80,14 +110,14 @@ public sealed class GameSingletons : MonoBehaviour
         mainCamera.gameObject.SetActive(true);
     }
 
-    public void SaveTo(GameDataWriter writer)
+    public void DeactivateGameCamera()
     {
-        GameData.SaveTo(writer);
-    }
+        foreach (var virtualCamera in m_sceneCameras)
+        {
+            virtualCamera.Disable();
+        }
 
-    public IEnumerator LoadFromAsync(GameDataReader reader)
-    {
-        yield return GameData.LoadFromAndStartAsync(reader);
+        mainCamera.gameObject.SetActive(false);
     }
 
     public void AddGameSceneCamera(GameSceneVirtualCamera virtualCamera)

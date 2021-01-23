@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public abstract class HeatSource : MonoBehaviour
+public abstract class HeatSource : PersistableComponent
 {
     GameSingletons m_gameSingletons;
     bool m_started;

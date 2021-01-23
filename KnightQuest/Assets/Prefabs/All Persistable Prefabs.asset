@@ -38,3 +38,6 @@ MonoBehaviour:
     id: campfire
   - prefab: {fileID: 301639684201131643, guid: d45bd2298cb9a7448a56cd422c4be22f, type: 3}
     id: radial_heat_source
+  - prefab: {fileID: 2117613699321479345, guid: e6e94ac7b35f8bc4aa605cf7957a27b8,
+      type: 3}
+    id: campfire_dimmer

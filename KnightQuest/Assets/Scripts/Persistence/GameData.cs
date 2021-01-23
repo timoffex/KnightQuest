@@ -16,6 +16,19 @@ public sealed class GameData
         m_currentSceneData.Remove(rootObject);
     }
 
+    /// <summary>
+    /// Moves a root object from the current scene to a new scene.
+    /// </summary>
+    public void MoveToOtherScene(PersistablePrefab rootObject, string sceneName)
+    {
+        Debug.Assert(!rootObject.HasParent);
+        SaveToScene(sceneName, rootObject);
+        Object.Destroy(rootObject.gameObject);
+    }
+
+    /// <summary>
+    /// Saves the current game scene and loads a new one.
+    /// </summary>
     public IEnumerator LoadSceneAsync(string sceneName)
     {
         Debug.Assert(sceneName != null);
@@ -39,6 +52,13 @@ public sealed class GameData
         SaveCurrentScene();
 
         writer.WriteString(m_currentScene);
+
+        writer.WriteInt16((short)m_initializedScenes.Count);
+        foreach (var scene in m_initializedScenes)
+        {
+            writer.WriteString(scene);
+        }
+
         writer.WriteInt16((short)m_savedSceneData.Count);
         foreach (var entry in m_savedSceneData)
         {
@@ -52,9 +72,17 @@ public sealed class GameData
     public IEnumerator LoadFromAndStartAsync(GameDataReader reader)
     {
         // Clear all saved data so that we don't mix old saved data and new saved data.
+        m_initializedScenes.Clear();
         m_savedSceneData.Clear();
 
         var newScene = reader.ReadString();
+
+        var numSavedScenes = reader.ReadInt16();
+        foreach (var _ in Enumerable.Range(0, numSavedScenes))
+        {
+            m_initializedScenes.Add(reader.ReadString());
+        }
+
         var numSceneData = reader.ReadInt16();
         foreach (var _ in Enumerable.Range(0, numSceneData))
         {
@@ -79,7 +107,8 @@ public sealed class GameData
     {
         if (m_currentScene != null)
         {
-            // TODO: Do this asynchronously!
+            // TODO: Do this concurrently with loading the new scene?
+            // (watch out for concurrent modifications to data)
             yield return CloseCurrentSceneWithoutSavingAsync();
         }
 
@@ -92,8 +121,10 @@ public sealed class GameData
 
         // If we have saved data, then destroy any saved objects loaded by the scene and instantiate
         // the saved data.
-        if (m_savedSceneData.TryGetValue(sceneName, out var savedData))
+        if (m_initializedScenes.Contains(sceneName))
         {
+            var savedData = m_savedSceneData[sceneName];
+
             var currentSceneData = new HashSet<PersistablePrefab>(m_currentSceneData);
             m_currentSceneData.Clear();
 
@@ -129,10 +160,29 @@ public sealed class GameData
         if (m_currentScene == null)
             return;
 
-        m_savedSceneData[m_currentScene] =
-            m_currentSceneData
-                .Select(ObjectData.Serialize)
-                .ToList();
+        m_initializedScenes.Add(m_currentScene);
+        m_savedSceneData[m_currentScene] = new List<ObjectData>();
+        foreach (var obj in m_currentSceneData)
+        {
+            SaveToScene(m_currentScene, obj);
+        }
+    }
+
+    void SaveToScene(string sceneName, PersistablePrefab rootObject)
+    {
+        if (rootObject.HasParent)
+        {
+            Debug.LogError("Tried to move non-root object to a new scene, which is not supported",
+                rootObject.gameObject);
+            return;
+        }
+
+        if (!m_savedSceneData.TryGetValue(sceneName, out var sceneData))
+        {
+            m_savedSceneData[sceneName] = sceneData = new List<ObjectData>();
+        }
+
+        sceneData.Add(ObjectData.Serialize(rootObject));
     }
 
     HashSet<PersistablePrefab> m_currentSceneData;
@@ -140,4 +190,11 @@ public sealed class GameData
 
     readonly Dictionary<string, List<ObjectData>> m_savedSceneData =
         new Dictionary<string, List<ObjectData>>();
+
+    /// <summary>
+    /// Scenes that have been initialized.
+    /// 
+    /// Every scene in this set has an entry in <see cref="m_savedSceneData"/>.
+    /// </summary>
+    readonly HashSet<string> m_initializedScenes = new HashSet<string>();
 }

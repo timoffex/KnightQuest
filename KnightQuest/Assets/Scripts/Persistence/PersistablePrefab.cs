@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,6 +7,8 @@ using UnityEngine;
 public sealed class PersistablePrefab : MonoBehaviour
 {
     public string PrefabId => prefabId;
+
+    public bool HasParent => m_parent != null;
 
     public ISet<PersistablePrefab> Subobjects => m_subobjects;
 

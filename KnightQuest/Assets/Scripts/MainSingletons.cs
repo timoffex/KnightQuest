@@ -45,18 +45,14 @@ public sealed class MainSingletons : MonoBehaviour
         UseGameCamera();
     }
 
-    void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void UseLoadingCamera()
+    public void UseLoadingCamera()
     {
         mainCamera.gameObject.SetActive(false);
         loadingCamera.gameObject.SetActive(true);
+        GameSingletons.Instance?.DeactivateGameCamera();
     }
 
-    void UseGameCamera()
+    public void UseGameCamera()
     {
         mainCamera.gameObject.SetActive(false);
         loadingCamera.gameObject.SetActive(false);
@@ -66,6 +62,11 @@ public sealed class MainSingletons : MonoBehaviour
     IEnumerator LoadGameSingletonsSceneAsync()
     {
         yield return SceneManager.LoadSceneAsync("GameSingletonsScene", LoadSceneMode.Additive);
+    }
+
+    void Start()
+    {
+        DontDestroyOnLoad(gameObject);
     }
 
     bool m_isInGame = false;

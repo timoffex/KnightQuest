@@ -6,9 +6,8 @@ using UnityEngine;
 /// Base class for components that can be persisted (saved/loaded).
 /// 
 /// Each concrete type implementing this class must be registered by using <see cref="Register"/>.
-/// A GameObject with a component implementing this class must also have a
-/// <see cref="PersistablePrefab"/> component to support reinstantiating the GameObject if it is
-/// destroyed at runtime.
+/// A GameObject with a component implementing this class should have a
+/// <see cref="PersistablePrefab"/> component for data to be persisted.
 /// 
 /// Persistable components should not be removed from GameObjects at runtime because that would
 /// require explicitly persisting the absence of a component.
@@ -16,6 +15,10 @@ using UnityEngine;
 [RequireComponent(typeof(PersistablePrefab))]
 public abstract class PersistableComponent : MonoBehaviour
 {
+    /// <summary>
+    /// The persistable prefab to which this is attached. May be null (in which case this component
+    /// is not saved).
+    /// </summary>
     PersistablePrefab m_persistable;
 
     string PersistableComponentId => GetId(GetType());
@@ -55,12 +58,6 @@ public abstract class PersistableComponent : MonoBehaviour
     protected virtual void Awake()
     {
         m_persistable = GetComponent<PersistablePrefab>();
-        if (m_persistable == null)
-        {
-            Debug.LogError(
-                "A PersistablePrefab component is required for saving and loading.", this);
-        }
-
         m_persistable?.Add(this);
     }
 

@@ -19,6 +19,8 @@ public sealed class Player : PersistableComponent
     protected override void Awake()
     {
         base.Awake();
+        m_gameSingletons = GameSingletons.Instance;
+        m_character = GetComponent<Character>();
         GoldAmount = 0;
     }
 
@@ -34,11 +36,14 @@ public sealed class Player : PersistableComponent
         GoldAmount = reader.ReadInt16();
     }
 
-    void Start()
+    void OnEnable()
     {
-        m_character = GetComponent<Character>();
-        m_gameSingletons = GameSingletons.Instance;
         m_gameSingletons.Player = this;
+    }
+
+    void OnDisable()
+    {
+        m_gameSingletons.Player = null;
     }
 
     static Player()

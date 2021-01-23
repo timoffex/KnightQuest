@@ -9,11 +9,21 @@ target character size).
 
 ## Playing the game
 
-Right now, the game is started by opening just the `GameSingletonsScene` and pressing Play. This
-opens the `SampleScene`.
+Right now, the game is started by opening the `MainScene` and pressing Play. The play button in the
+scene opens the `SampleScene`.
 
 Once I start using multiple scenes, I'll write an editor utility to start the game in a particular
 scene (spawning the player character there).
+
+## Cameras and canvases
+
+Every `Canvas` should either be world-space or camera-space. Camera-space canvases should be
+parented to their camera (I'll need to think about this more if I add more UI elements).
+
+The only EventSystem is in MainScene.
+
+"Game scenes" (that is scenes containing playable content) should only have Cinemachine virtual
+cameras with the `GameSceneVirtualCamera` component.
 
 # Coding notes
 
@@ -43,6 +53,17 @@ this could break random Unity things and the fact that filling references to com
 same object is massively inconvenient, this would also force me to remember how my code works when
 I'm adding those components in the inspector. This implicit rule helped a lot with the 30-second
 refactor to create separate hitbox colliders.
+
+## Persistence quirks
+
+Scene versions of persistable prefabs shouldn't have any overrides because those will get lost
+when the prefab is instantiated. For now I can just create prefab variants, but this doesn't scale
+for nested prefabs (it means I have to create a prefab variant for every modified prefab nested
+within a different prefab).
+
+I should have some kind of "optional persistent component". Or I should make all persistable
+components optional? I want to modify `HeatSource` data on nested prefab variants but I also want
+to be able to place down environmental heat sources that don't have associated prefabs.
 
 ## Rules
 
