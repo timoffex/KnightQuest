@@ -640,6 +640,7 @@ GameObject:
   m_Component:
   - component: {fileID: 47686070}
   - component: {fileID: 47686071}
+  - component: {fileID: 47686072}
   m_Layer: 8
   m_Name: Western Barrier
   m_TagString: Untagged
@@ -728,6 +729,18 @@ PolygonCollider2D:
       - {x: -0.8928617, y: -1.7502099}
       - {x: -0.13271415, y: -1.9189754}
       - {x: 0.7303629, y: -1.6966972}
+--- !u!114 &47686072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47686069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df0671169cb4947bb6495a75b0b9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &63204335
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 186063667}
   - component: {fileID: 186063668}
+  - component: {fileID: 186063669}
   m_Layer: 8
   m_Name: Eastern Barrier
   m_TagString: Untagged
@@ -1636,6 +1650,18 @@ PolygonCollider2D:
       - {x: -0.9967176, y: -1.4840796}
       - {x: -0.13271415, y: -1.9189754}
       - {x: 0.7303629, y: -1.6966972}
+--- !u!114 &186063669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186063666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df0671169cb4947bb6495a75b0b9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &193840704
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,6 +1918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 237790316}
   - component: {fileID: 237790317}
+  - component: {fileID: 237790318}
   m_Layer: 8
   m_Name: Northern Barrier
   m_TagString: Untagged
@@ -1989,6 +2016,18 @@ PolygonCollider2D:
       - {x: -1.7800255, y: -0.16482258}
       - {x: 2.886906, y: -0.10530555}
       - {x: 3.0830948, y: 0.65952855}
+--- !u!114 &237790318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237790315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df0671169cb4947bb6495a75b0b9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &242302636
 GameObject:
   m_ObjectHideFlags: 0
@@ -4622,6 +4661,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 550572722}
+  - component: {fileID: 550572723}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -4661,6 +4701,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &550572723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550572721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df0671169cb4947bb6495a75b0b9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &587115944
 GameObject:
   m_ObjectHideFlags: 0
@@ -11650,6 +11702,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1660139828}
   - component: {fileID: 1660139829}
+  - component: {fileID: 1660139830}
   m_Layer: 8
   m_Name: Southern Barrier
   m_TagString: Untagged
@@ -11749,6 +11802,18 @@ PolygonCollider2D:
       - {x: 3.1055212, y: -0.35454464}
       - {x: 2.4540966, y: 0.6112695}
       - {x: 2.158379, y: 0.38690925}
+--- !u!114 &1660139830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660139827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61df0671169cb4947bb6495a75b0b9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1694947180
 GameObject:
   m_ObjectHideFlags: 0

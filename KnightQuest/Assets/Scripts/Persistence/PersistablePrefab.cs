@@ -135,13 +135,30 @@ public sealed class PersistablePrefab : MonoBehaviour
     {
         m_gameData = GameSingletons.Instance.GameData;
 
-        if (transform.parent == null)
+        var parentTransform = transform.parent;
+        while (parentTransform != null &&
+                parentTransform.GetComponent<IgnoreForPersistence>() != null)
+        {
+#if UNITY_EDITOR
+            if (parentTransform.GetComponent<PersistablePrefab>() != null)
+            {
+                Debug.LogError(
+                    $"{parentTransform.gameObject} has both a PersistablePrefab and an"
+                    + " IgnoreForPersistence component, which is not supported!",
+                    gameObject);
+            }
+#endif
+            parentTransform = parentTransform.parent;
+        }
+
+        if (parentTransform == null)
         {
             m_gameData.AddRootObjectToCurrentScene(this);
         }
         else
         {
-            m_parent = transform.parent.GetComponent<PersistablePrefab>();
+            m_parent = parentTransform.GetComponent<PersistablePrefab>();
+
             if (m_parent == null)
             {
                 Debug.LogWarning(
