@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 913627240724243462}
   - component: {fileID: 7223027201395137140}
   - component: {fileID: -4060176686140332790}
+  - component: {fileID: 5995247321504214268}
   m_Layer: 0
   m_Name: Cyberpunk Tribute
   m_TagString: Untagged
@@ -164,6 +165,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68f22bf08fe0b104e966bdfb7240de93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5995247321504214268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598872426133434837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465c08664b020d8488e41233af66bf70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3565353685017286413

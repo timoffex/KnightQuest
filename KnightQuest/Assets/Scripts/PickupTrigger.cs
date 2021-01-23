@@ -1,28 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// An attachment to a <see cref="Pickup"/> that activates it when a player walks into a trigger
 /// collider.
 /// </summary>
-[RequireComponent(typeof(Collider2D))]
-public sealed class PickupTrigger : MonoBehaviour
+public sealed class PickupTrigger : PlayerTriggerZone
 {
     Pickup m_pickup;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         m_pickup = GetComponentInParent<Pickup>();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected override void OnPlayerEntered(Player player)
     {
-        var player = other.GetComponent<Player>();
-
-        if (player != null)
-        {
-            m_pickup.GetPickedUpBy(player);
-        }
+        m_pickup.GetPickedUpBy(player);
     }
 }

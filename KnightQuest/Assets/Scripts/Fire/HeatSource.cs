@@ -19,11 +19,8 @@ public abstract class HeatSource : PersistableComponent
 
     protected virtual void OnTriggerStay2D(Collider2D collider)
     {
-        // Disabled components still receive trigger events
-        if (!enabled)
-            return;
-        // Even components that haven't started receive these events
-        if (!m_started)
+        // Disabled components / unstarted components can receive these events
+        if (!enabled || !m_started)
             return;
 
         m_gameSingletons.FireSystem.AddHeat(collider.gameObject, this);
