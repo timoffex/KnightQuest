@@ -135,5 +135,10 @@ public sealed class GameSingletons : MonoBehaviour
         m_sceneCameras.Remove(virtualCamera);
     }
 
+    public void SetGameSceneBackgroundColor(Color color)
+    {
+        mainCamera.backgroundColor = color;
+    }
+
     readonly HashSet<GameSceneVirtualCamera> m_sceneCameras = new HashSet<GameSceneVirtualCamera>();
 }
