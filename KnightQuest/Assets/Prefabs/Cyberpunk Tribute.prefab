@@ -30,6 +30,9 @@ GameObject:
   - component: {fileID: 7223027201395137140}
   - component: {fileID: -4060176686140332790}
   - component: {fileID: 5995247321504214268}
+  - component: {fileID: 1813855600}
+  - component: {fileID: 1813855601}
+  - component: {fileID: 1813855602}
   m_Layer: 0
   m_Name: Cyberpunk Tribute
   m_TagString: Untagged
@@ -53,8 +56,8 @@ Transform:
   - {fileID: 7838763994833270597}
   - {fileID: 7709855892026192033}
   - {fileID: 2501903277747393493}
-  - {fileID: 4194740803343825518}
   - {fileID: 6471606399457963954}
+  - {fileID: 4194740803343825518}
   - {fileID: 4421519321557735002}
   - {fileID: 4055493128950601984}
   m_Father: {fileID: 0}
@@ -141,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMaximumHealth: 100
   currentHealth: 100
-  healthRegen: 0
+  healthRegen: 2
 --- !u!114 &7223027201395137140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +182,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 465c08664b020d8488e41233af66bf70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1813855600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598872426133434837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7569a834dc0725442a35896222dd286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1813855601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598872426133434837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ab53f92168234488d58c639a7b98e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1813855602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598872426133434837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ddb348cd37c73c48bfebf55afc135c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponPrefabs:
+  - {fileID: -3974820991411816700, guid: 0a7f180079e57c84d8d4aa5cebdaf456, type: 3}
+  - {fileID: 8969461963250777270, guid: a550f844b3d00e1488c6b559d267a06d, type: 3}
 --- !u!1 &3565353685017286413
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +383,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2598872426133434838}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &3727521400338491317
 AudioSource:
@@ -798,7 +840,7 @@ PrefabInstance:
     - target: {fileID: 8210453919481090590, guid: a830661b8edfb3b4a98ed2e4eb634913,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8210453919481090590, guid: a830661b8edfb3b4a98ed2e4eb634913,
         type: 3}

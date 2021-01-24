@@ -22,7 +22,7 @@ public sealed class GameData
     public void MoveToOtherScene(PersistablePrefab rootObject, string sceneName)
     {
         Debug.Assert(!rootObject.HasParent);
-        SaveToScene(sceneName, rootObject);
+        AppendToScene(sceneName, rootObject);
         Object.Destroy(rootObject.gameObject);
     }
 
@@ -95,7 +95,7 @@ public sealed class GameData
         }
 
         // Don't save current scene (there might be one) to avoid mixing old and new data.
-        yield return LoadNewSceneWithoutSavingCurrentAsync(m_currentScene);
+        yield return LoadNewSceneWithoutSavingCurrentAsync(newScene);
     }
 
     public IEnumerator StartFresh(string sceneName)
@@ -119,12 +119,10 @@ public sealed class GameData
         Debug.Log($"Done loading {sceneName}");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
 
-        // If we have saved data, then destroy any saved objects loaded by the scene and instantiate
-        // the saved data.
+        // If we've already initialized this scene, then destroy any persistable objects loaded by
+        // it (since they are used for initialization).
         if (m_initializedScenes.Contains(sceneName))
         {
-            var savedData = m_savedSceneData[sceneName];
-
             var currentSceneData = new HashSet<PersistablePrefab>(m_currentSceneData);
             m_currentSceneData.Clear();
 
@@ -135,7 +133,11 @@ public sealed class GameData
 
             Debug.Assert(m_currentSceneData.Count == 0,
                 "Expected no new PersistablePrefab instances to be added while destroying objects");
+        }
 
+        // Load any data saved for the scene already.
+        if (m_savedSceneData.TryGetValue(sceneName, out var savedData))
+        {
             foreach (var savedObject in savedData)
             {
                 savedObject.Instantiate();
@@ -164,11 +166,11 @@ public sealed class GameData
         m_savedSceneData[m_currentScene] = new List<ObjectData>();
         foreach (var obj in m_currentSceneData)
         {
-            SaveToScene(m_currentScene, obj);
+            AppendToScene(m_currentScene, obj);
         }
     }
 
-    void SaveToScene(string sceneName, PersistablePrefab rootObject)
+    void AppendToScene(string sceneName, PersistablePrefab rootObject)
     {
         if (rootObject.HasParent)
         {

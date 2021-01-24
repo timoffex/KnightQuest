@@ -70,7 +70,12 @@ public sealed class GameSingletons : MonoBehaviour
         return GameData.StartFresh("SampleScene");
     }
 
-    public IEnumerator MovePlayerToAndStartSceneAsync(string sceneName, Vector3 position)
+    public void MovePlayerToAndStartScene(string sceneName, Vector3 position)
+    {
+        StartCoroutine(MovePlayerToAndStartSceneAsync(sceneName, position));
+    }
+
+    IEnumerator MovePlayerToAndStartSceneAsync(string sceneName, Vector3 position)
     {
         if (PlayerCharacter != null)
         {

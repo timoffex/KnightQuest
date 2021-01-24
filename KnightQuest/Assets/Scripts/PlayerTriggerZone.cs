@@ -3,12 +3,10 @@
 [RequireComponent(typeof(Collider2D))]
 public abstract class PlayerTriggerZone : MonoBehaviour
 {
-    GameSingletons m_gameSingletons;
     bool m_started;
 
     protected virtual void Start()
     {
-        m_gameSingletons = GameSingletons.Instance;
         m_started = true;
     }
 
