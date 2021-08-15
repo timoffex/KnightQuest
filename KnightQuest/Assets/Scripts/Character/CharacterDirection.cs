@@ -51,4 +51,32 @@ public static class CharacterDirectionUtils
 
         return (CharacterDirection)direction;
     }
+
+    public static CharacterDirection FlipHorizontally(this CharacterDirection self)
+    {
+        switch (self)
+        {
+            case CharacterDirection.Right:
+                return CharacterDirection.Left;
+            case CharacterDirection.RightUp:
+                return CharacterDirection.LeftUp;
+            case CharacterDirection.RightDown:
+                return CharacterDirection.LeftDown;
+
+            case CharacterDirection.LeftUp:
+                return CharacterDirection.RightUp;
+            case CharacterDirection.Left:
+                return CharacterDirection.Right;
+            case CharacterDirection.LeftDown:
+                return CharacterDirection.RightDown;
+
+            case CharacterDirection.Down:
+                return CharacterDirection.Down;
+            case CharacterDirection.Up:
+                return CharacterDirection.Up;
+
+            default:
+                throw new System.ArgumentException($"Invalid direction {self}");
+        }
+    }
 }

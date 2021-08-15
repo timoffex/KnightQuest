@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712c8c21c908ef94a96da4bddfe6f8ea, type: 3}
+  m_Name: KnightSkin_Walk
+  m_EditorClassIdentifier: 
+  m_animationName: Walk
+  m_frontUpFrames:
+  - {fileID: -8170910183046785221, guid: e105a3792352caa4787fdc04ac606045, type: 3}
+  - {fileID: -7178744435855066956, guid: e105a3792352caa4787fdc04ac606045, type: 3}
+  - {fileID: -5603355413418275574, guid: e105a3792352caa4787fdc04ac606045, type: 3}
+  m_frontDownFrames:
+  - {fileID: -4764448006157667236, guid: e105a3792352caa4787fdc04ac606045, type: 3}
+  - {fileID: 7686334529567419395, guid: e105a3792352caa4787fdc04ac606045, type: 3}
+  - {fileID: -5810579333359328211, guid: e105a3792352caa4787fdc04ac606045, type: 3}
+  m_frontLeftFrames: []
+  m_frontRightFrames:
+  - {fileID: 6024836805100192318, guid: e105a3792352caa4787fdc04ac606045, type: 3}
+  - {fileID: -6512067252813316117, guid: e105a3792352caa4787fdc04ac606045, type: 3}
+  - {fileID: 7818889440630447319, guid: e105a3792352caa4787fdc04ac606045, type: 3}
+  m_backUpFrames: []
+  m_backDownFrames: []
+  m_backLeftFrames: []
+  m_backRightFrames: []

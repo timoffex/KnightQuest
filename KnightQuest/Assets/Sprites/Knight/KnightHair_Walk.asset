@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712c8c21c908ef94a96da4bddfe6f8ea, type: 3}
+  m_Name: KnightHair_Walk
+  m_EditorClassIdentifier: 
+  m_animationName: Walk
+  m_frontUpFrames:
+  - {fileID: 2440261217456393528, guid: bf15c987ca753af4fa6b060354159a18, type: 3}
+  - {fileID: -8179484323572022061, guid: bf15c987ca753af4fa6b060354159a18, type: 3}
+  - {fileID: 523333200821006762, guid: bf15c987ca753af4fa6b060354159a18, type: 3}
+  m_frontDownFrames:
+  - {fileID: -8196854225599742536, guid: bf15c987ca753af4fa6b060354159a18, type: 3}
+  - {fileID: -5742515533181804152, guid: bf15c987ca753af4fa6b060354159a18, type: 3}
+  - {fileID: -538924171245564768, guid: bf15c987ca753af4fa6b060354159a18, type: 3}
+  m_frontLeftFrames: []
+  m_frontRightFrames:
+  - {fileID: 8716294519579063456, guid: bf15c987ca753af4fa6b060354159a18, type: 3}
+  - {fileID: 7705665586428015645, guid: bf15c987ca753af4fa6b060354159a18, type: 3}
+  - {fileID: -485600971330991122, guid: bf15c987ca753af4fa6b060354159a18, type: 3}
+  m_backUpFrames: []
+  m_backDownFrames: []
+  m_backLeftFrames: []
+  m_backRightFrames: []
