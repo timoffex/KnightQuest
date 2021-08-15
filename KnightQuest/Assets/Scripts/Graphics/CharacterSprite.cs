@@ -72,6 +72,8 @@ public sealed class CharacterSprite : MonoBehaviour
         return SpriteLayer.Create(name, transform, layerIndex);
     }
 
+    // Used by Preview(); should not be set otherwise.
+    // Apparently it's a bad idea to guard serialized fields by UNITY_EDITOR
     [SerializeField] AnimatedSprite m_previewHair;
     [SerializeField] AnimatedSprite m_previewOutline;
     [SerializeField] AnimatedSprite m_previewSkin;

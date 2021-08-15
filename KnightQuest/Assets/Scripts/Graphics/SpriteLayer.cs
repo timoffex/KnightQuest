@@ -2,6 +2,9 @@
 
 /// <summary>
 /// A component that displays a given <see cref="AnimatedSprite"/>.
+///
+/// This should be created programmatically with <see cref="Create"/> and destroyed with
+/// the <see cref="Destroy"/> method on this class.
 /// </summary>
 public sealed class SpriteLayer : MonoBehaviour
 {
