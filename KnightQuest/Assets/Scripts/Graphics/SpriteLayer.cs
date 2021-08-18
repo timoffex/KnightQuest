@@ -12,6 +12,10 @@ public sealed class SpriteLayer : MonoBehaviour
 
     SpriteRenderer m_backSpriteRenderer;
     SpriteRenderer m_frontSpriteRenderer;
+    Shader m_defaultShader;
+
+    // https://answers.unity.com/questions/582145/is-there-a-way-to-set-a-sprites-color-solid-white.html
+    static readonly Shader m_whiteShader = Shader.Find("GUI/Text Shader");
 
     void Initialize()
     {
@@ -22,6 +26,8 @@ public sealed class SpriteLayer : MonoBehaviour
         var frontGo = new GameObject("Front");
         frontGo.transform.SetParent(transform);
         m_frontSpriteRenderer = frontGo.AddComponent<SpriteRenderer>();
+
+        m_defaultShader = m_frontSpriteRenderer.material.shader;
     }
 
     public static SpriteLayer Create(string name, Transform parent, int layerIndex)
@@ -44,6 +50,10 @@ public sealed class SpriteLayer : MonoBehaviour
         m_animatedSprite = animatedSprite;
     }
 
+    /// <summary>
+    /// Sets the layer's index, which is used to adjust the back and front renderer positions so
+    /// that they display in the correct order in relation to other layers.
+    /// </summary>
     public void SetLayerIndex(int index)
     {
         Debug.Assert(index >= 0);
@@ -61,5 +71,37 @@ public sealed class SpriteLayer : MonoBehaviour
             direction,
             backRenderer: m_backSpriteRenderer,
             frontRenderer: m_frontSpriteRenderer);
+    }
+
+    /// <summary>
+    /// Sets a tint on the layer's sprite renderers.
+    /// </summary>
+    public void MakeTinted(Color color)
+    {
+        ResetShader();
+        SetTint(color);
+    }
+
+    public void MakePureColor(Color color)
+    {
+        SetShader(m_whiteShader);
+        SetTint(color);
+    }
+
+    void SetTint(Color color)
+    {
+        m_backSpriteRenderer.color = color;
+        m_frontSpriteRenderer.color = color;
+    }
+
+    void SetShader(Shader shader)
+    {
+        m_backSpriteRenderer.material.shader = shader;
+        m_frontSpriteRenderer.material.shader = shader;
+    }
+
+    void ResetShader()
+    {
+        SetShader(m_defaultShader);
     }
 }

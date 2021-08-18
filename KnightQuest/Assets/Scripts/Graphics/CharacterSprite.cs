@@ -67,6 +67,30 @@ public sealed class CharacterSprite : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Tints all layers of this sprite.
+    /// </summary>
+    public void MakeTinted(Color color)
+    {
+        foreach (var layer in AllLayers)
+        {
+            // Note: eventually I'll allow setting hair and skin colors; when I do, I'll need to
+            // multiply their colors by the given tint
+            layer.MakeTinted(color);
+        }
+    }
+
+    /// <summary>
+    /// Turns this sprite a single color (in the shape of the sprite).
+    /// </summary>
+    public void MakePureColor(Color color)
+    {
+        foreach (var layer in AllLayers)
+        {
+            layer.MakePureColor(color);
+        }
+    }
+
     SpriteLayer NewSpriteLayer(string name, int layerIndex)
     {
         return SpriteLayer.Create(name, transform, layerIndex);
