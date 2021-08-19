@@ -15,7 +15,10 @@ public sealed class SpriteLayer : MonoBehaviour
     Shader m_defaultShader;
 
     // https://answers.unity.com/questions/582145/is-there-a-way-to-set-a-sprites-color-solid-white.html
-    static readonly Shader m_whiteShader = Shader.Find("GUI/Text Shader");
+    static Shader m_whiteShader => m_whiteShaderCached != null
+        ? m_whiteShaderCached
+        : m_whiteShaderCached = Shader.Find("GUI/Text Shader");
+    static Shader m_whiteShaderCached;
 
     void Initialize()
     {
@@ -31,12 +34,13 @@ public sealed class SpriteLayer : MonoBehaviour
         frontGo.transform.localRotation = Quaternion.identity;
         m_frontSpriteRenderer = frontGo.AddComponent<SpriteRenderer>();
 
-        m_defaultShader = m_frontSpriteRenderer.material.shader;
+        m_defaultShader = m_frontSpriteRenderer.sharedMaterial.shader;
     }
 
     public static SpriteLayer Create(string name, Transform parent, int layerIndex)
     {
         var layerGo = new GameObject(name);
+        layerGo.hideFlags = HideFlags.HideAndDontSave;
         layerGo.transform.parent = parent;
         layerGo.transform.localPosition = Vector3.zero;
         layerGo.transform.localRotation = Quaternion.identity;
@@ -48,6 +52,13 @@ public sealed class SpriteLayer : MonoBehaviour
 
     public void Destroy()
     {
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            UnityEditor.EditorApplication.delayCall += () => DestroyImmediate(gameObject);
+            return;
+        }
+#endif
         Destroy(gameObject);
     }
 

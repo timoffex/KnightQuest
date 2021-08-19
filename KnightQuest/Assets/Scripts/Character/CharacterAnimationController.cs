@@ -19,6 +19,7 @@ using UnityEngine;
 /// I am avoiding using C# events because the direct imperative code is much easier to follow in
 /// this case.
 /// </remarks>
+[ExecuteAlways]
 public sealed class CharacterAnimationController : MonoBehaviour
 {
     // TODO: Remove these! CharacterAnimationController should be created by Character with the
@@ -100,6 +101,14 @@ public sealed class CharacterAnimationController : MonoBehaviour
 
     void LateUpdate()
     {
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            m_characterSprite.ShowAnimationFrame("Walk", 0, CharacterDirection.Down);
+            return;
+        }
+#endif
+
         m_characterSprite.ShowAnimationFrame("Walk", (int)m_animationFrame, m_character.Direction);
 
         m_animationFrame += 10 * Time.deltaTime *
@@ -115,11 +124,38 @@ public sealed class CharacterAnimationController : MonoBehaviour
     {
         m_character = GetComponent<Character>();
         m_rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
+#if UNITY_EDITOR
+        if (UnityEditor.PrefabUtility.IsPartOfPrefabAsset(this)) return;
+#endif
         m_characterSprite = CharacterSprite.Create("CharacterSprite", transform);
         m_characterSprite.SetHairSprite(m_hairSprite);
         m_characterSprite.SetSkinSprite(m_skinSprite);
         m_characterSprite.SetOutlineSprite(m_outlineSprite);
     }
+
+#if UNITY_EDITOR
+    void OnValidate()
+    {
+        if (UnityEditor.PrefabUtility.IsPartOfPrefabAsset(this)) return;
+        UnityEditor.EditorApplication.delayCall += () =>
+        {
+            // Weird, but can happen when changing scenes in Play Mode in the editor
+            if (this == null) return;
+            if (m_characterSprite == null)
+            {
+                m_characterSprite = CharacterSprite.Create("CharacterSprite", transform);
+            }
+
+            m_characterSprite.SetHairSprite(m_hairSprite);
+            m_characterSprite.SetSkinSprite(m_skinSprite);
+            m_characterSprite.SetOutlineSprite(m_outlineSprite);
+        };
+    }
+#endif
 
     Character m_character;
     Rigidbody2D m_rigidbody2D;

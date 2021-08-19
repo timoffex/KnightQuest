@@ -28,6 +28,7 @@ public sealed class CharacterSprite : MonoBehaviour
             Transform parent)
     {
         var go = new GameObject(name);
+        go.hideFlags = HideFlags.HideAndDontSave;
         go.transform.parent = parent;
         go.transform.localPosition = Vector3.zero;
         go.transform.localRotation = Quaternion.identity;
@@ -36,6 +37,13 @@ public sealed class CharacterSprite : MonoBehaviour
 
     public void Destroy()
     {
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            UnityEditor.EditorApplication.delayCall += () => DestroyImmediate(gameObject);
+            return;
+        }
+#endif
         Destroy(gameObject);
     }
 
