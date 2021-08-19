@@ -5,6 +5,7 @@ using System.IO;
 
 public sealed class SpriteAnimationGenerator : MonoBehaviour
 {
+#if UNITY_EDITOR
     [Tooltip("A spritesheet for a single motion. This should have a name like Knight_Walk.png or " +
              "Sword_Attack_Front.png / Sword_Attack_Back.png")]
     public Texture2D spritesheet;
@@ -154,4 +155,5 @@ public sealed class SpriteAnimationGenerator : MonoBehaviour
             .Range(0, NumFrames)
             .Select(r => sheet[r * directions.Length + c])
             .ToArray();
+#endif
 }
