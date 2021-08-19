@@ -71,12 +71,12 @@ public sealed class SpriteAnimationGenerator : MonoBehaviour
                 name: AnimationName,
                 frontDownFrames: GetDirection(FrontSprites, CharacterDirection.Down),
                 frontUpFrames: GetDirection(FrontSprites, CharacterDirection.Up),
-                frontRightFrames: GetDirection(FrontSprites, CharacterDirection.RightUp),
-                frontLeftFrames: GetDirection(FrontSprites, CharacterDirection.LeftUp),
+                frontRightFrames: GetDirection(FrontSprites, CharacterDirection.Right),
+                frontLeftFrames: GetDirection(FrontSprites, CharacterDirection.Left),
                 backDownFrames: GetDirection(BackSprites, CharacterDirection.Down),
                 backUpFrames: GetDirection(BackSprites, CharacterDirection.Up),
-                backRightFrames: GetDirection(BackSprites, CharacterDirection.RightUp),
-                backLeftFrames: GetDirection(BackSprites, CharacterDirection.LeftUp));
+                backRightFrames: GetDirection(BackSprites, CharacterDirection.Right),
+                backLeftFrames: GetDirection(BackSprites, CharacterDirection.Left));
 
         AssetDatabase.CreateAsset(spriteAnimation, OutputPath);
         AssetDatabase.SaveAssets();

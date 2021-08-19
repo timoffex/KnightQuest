@@ -379,6 +379,8 @@ MonoBehaviour:
   m_hairSprite: {fileID: 11400000, guid: 079e8d213fb5aba47b53c8b823cab0ae, type: 2}
   m_skinSprite: {fileID: 11400000, guid: c6f535071d676df4d8c56486b829213a, type: 2}
   m_outlineSprite: {fileID: 11400000, guid: d9a4c608b653fdd43910805a47abaf51, type: 2}
+  m_extraLayers:
+  - {fileID: 11400000, guid: 8fa8b247158e479469e180ad8c7e4b62, type: 2}
 --- !u!1 &5842541617857733078
 GameObject:
   m_ObjectHideFlags: 0

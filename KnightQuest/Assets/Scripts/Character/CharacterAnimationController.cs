@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -27,6 +29,7 @@ public sealed class CharacterAnimationController : MonoBehaviour
     [SerializeField] AnimatedSprite m_hairSprite;
     [SerializeField] AnimatedSprite m_skinSprite;
     [SerializeField] AnimatedSprite m_outlineSprite;
+    [SerializeField] AnimatedSprite[] m_extraLayers;
 
     public void BeginFireAnimation()
     {
@@ -105,11 +108,19 @@ public sealed class CharacterAnimationController : MonoBehaviour
         if (!Application.isPlaying)
         {
             m_characterSprite.ShowAnimationFrame("Walk", 0, CharacterDirection.Down);
+            foreach (var layer in m_extraSpriteLayers)
+            {
+                layer.ShowAnimationFrame("Walk", 0, CharacterDirection.Down);
+            }
             return;
         }
 #endif
 
         m_characterSprite.ShowAnimationFrame("Walk", (int)m_animationFrame, m_character.Direction);
+        foreach (var layer in m_extraSpriteLayers)
+        {
+            layer.ShowAnimationFrame("Walk", (int)m_animationFrame, m_character.Direction);
+        }
 
         m_animationFrame += 10 * Time.deltaTime *
                 Mathf.Clamp01(m_rigidbody2D.velocity.magnitude / m_character.MaxSpeed);
@@ -132,9 +143,7 @@ public sealed class CharacterAnimationController : MonoBehaviour
         if (UnityEditor.PrefabUtility.IsPartOfPrefabAsset(this)) return;
 #endif
         m_characterSprite = CharacterSprite.Create("CharacterSprite", transform);
-        m_characterSprite.SetHairSprite(m_hairSprite);
-        m_characterSprite.SetSkinSprite(m_skinSprite);
-        m_characterSprite.SetOutlineSprite(m_outlineSprite);
+        UpdateLayers();
     }
 
 #if UNITY_EDITOR
@@ -150,16 +159,41 @@ public sealed class CharacterAnimationController : MonoBehaviour
                 m_characterSprite = CharacterSprite.Create("CharacterSprite", transform);
             }
 
-            m_characterSprite.SetHairSprite(m_hairSprite);
-            m_characterSprite.SetSkinSprite(m_skinSprite);
-            m_characterSprite.SetOutlineSprite(m_outlineSprite);
+            UpdateLayers();
         };
     }
 #endif
 
+    void UpdateLayers()
+    {
+        m_characterSprite.SetHairSprite(m_hairSprite);
+        m_characterSprite.SetSkinSprite(m_skinSprite);
+        m_characterSprite.SetOutlineSprite(m_outlineSprite);
+
+        foreach (var existingLayer in m_extraSpriteLayers)
+        {
+            if (existingLayer != null)
+            {
+                existingLayer.Destroy();
+            }
+        }
+
+        var extraSpriteLayers = new List<SpriteLayer>();
+        var layerIndex = 3;
+        foreach (var layer in m_extraLayers)
+        {
+            if (layer == null) continue;
+            var layerObj = SpriteLayer.Create("ExtraLayer", transform, layerIndex++);
+            layerObj.SetAnimatedSprite(layer);
+            extraSpriteLayers.Add(layerObj);
+        }
+        m_extraSpriteLayers = extraSpriteLayers.ToArray();
+    }
+
     Character m_character;
     Rigidbody2D m_rigidbody2D;
     CharacterSprite m_characterSprite;
+    SpriteLayer[] m_extraSpriteLayers = new SpriteLayer[] { };
 
     float m_animationFrame = 0;
 
