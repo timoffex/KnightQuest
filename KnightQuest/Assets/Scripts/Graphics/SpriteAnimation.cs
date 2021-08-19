@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// A collection of sprites corresponding to frames and directions of a motion.
@@ -20,6 +21,56 @@ public sealed class SpriteAnimation : ScriptableObject
     [SerializeField] Sprite[] m_backDownFrames;
     [SerializeField] Sprite[] m_backLeftFrames;
     [SerializeField] Sprite[] m_backRightFrames;
+
+    public static int FrameCountInAnimation(string animation)
+    {
+        Debug.Assert(animation.Length > 0, "Got empty animation name");
+        if (!m_animationFrameCount.TryGetValue(animation, out var frameCount))
+        {
+            Debug.LogError($"No known '{animation}' animation");
+            return 0;
+        }
+
+        return frameCount;
+    }
+
+#if UNITY_EDITOR
+    public static SpriteAnimation CreateInstance(
+        string name,
+        Sprite[] frontUpFrames,
+        Sprite[] frontDownFrames,
+        Sprite[] frontLeftFrames,
+        Sprite[] frontRightFrames,
+        Sprite[] backUpFrames,
+        Sprite[] backDownFrames,
+        Sprite[] backLeftFrames,
+        Sprite[] backRightFrames
+    )
+    {
+        var spriteAnimation = CreateInstance<SpriteAnimation>();
+
+        spriteAnimation.m_animationName = name;
+        spriteAnimation.m_frontUpFrames = frontUpFrames;
+        spriteAnimation.m_frontUpFrames = frontUpFrames;
+        spriteAnimation.m_frontDownFrames = frontDownFrames;
+        spriteAnimation.m_frontLeftFrames = frontLeftFrames;
+        spriteAnimation.m_frontRightFrames = frontRightFrames;
+        spriteAnimation.m_backUpFrames = backUpFrames;
+        spriteAnimation.m_backDownFrames = backDownFrames;
+        spriteAnimation.m_backLeftFrames = backLeftFrames;
+        spriteAnimation.m_backRightFrames = backRightFrames;
+
+        spriteAnimation.Awake();
+
+        return spriteAnimation;
+    }
+#endif
+
+    /// <summary>
+    /// The number of frames in the animation.
+    /// </summary>
+    public int FrameCount => CachedFrameCount;
+    int CachedFrameCount;
 
     /// <summary>
     /// Configures the back and front SpriteRenderers to display a frame of this animation.
@@ -113,4 +164,51 @@ public sealed class SpriteAnimation : ScriptableObject
                 return new Sprite[0];
         }
     }
+
+    void Awake()
+    {
+        // This happens in CreateInstance()
+        if (Name == null) return;
+
+        CachedFrameCount = CalculateFrameCount();
+        if (m_animationFrameCount.TryGetValue(Name, out var existingFrameCount))
+        {
+            if (existingFrameCount != CachedFrameCount)
+            {
+                Debug.LogError(
+                    $"Inconsistent frame counts for animation {Name}: " +
+                    $"{existingFrameCount} vs {CachedFrameCount}. Using the smaller one.");
+                m_animationFrameCount[Name] = Mathf.Min(existingFrameCount, CachedFrameCount);
+            }
+        }
+        else
+        {
+            m_animationFrameCount[Name] = CachedFrameCount;
+        }
+    }
+
+    void OnValidate()
+    {
+        CachedFrameCount = CalculateFrameCount();
+        m_animationFrameCount[Name] = CachedFrameCount;
+    }
+
+    int CalculateFrameCount()
+    {
+        // All directions must have the same number of frames, but some directions might be
+        // unset
+        if (m_frontDownFrames.Length > 0) return m_frontDownFrames.Length;
+        if (m_frontUpFrames.Length > 0) return m_frontUpFrames.Length;
+        if (m_frontLeftFrames.Length > 0) return m_frontLeftFrames.Length;
+        if (m_frontRightFrames.Length > 0) return m_frontRightFrames.Length;
+
+        if (m_backDownFrames.Length > 0) return m_backDownFrames.Length;
+        if (m_backUpFrames.Length > 0) return m_backUpFrames.Length;
+        if (m_backLeftFrames.Length > 0) return m_backLeftFrames.Length;
+        if (m_backRightFrames.Length > 0) return m_backRightFrames.Length;
+
+        return 0;
+    }
+
+    readonly static Dictionary<string, int> m_animationFrameCount = new Dictionary<string, int>();
 }

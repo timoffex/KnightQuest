@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a011a1d2cce6fe04ebcd1b132bf690f1, type: 3}
   m_Name: KnightHair
   m_EditorClassIdentifier: 
-  m_animations: []
+  m_animations:
+  - {fileID: 11400000, guid: d80395618d641bf4f96b9f6ae8c39e2f, type: 2}

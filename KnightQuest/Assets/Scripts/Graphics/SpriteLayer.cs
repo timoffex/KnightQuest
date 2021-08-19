@@ -20,11 +20,15 @@ public sealed class SpriteLayer : MonoBehaviour
     void Initialize()
     {
         var backGo = new GameObject("Back");
-        backGo.transform.SetParent(transform);
+        backGo.transform.parent = transform;
+        backGo.transform.localPosition = Vector3.zero;
+        backGo.transform.localRotation = Quaternion.identity;
         m_backSpriteRenderer = backGo.AddComponent<SpriteRenderer>();
 
         var frontGo = new GameObject("Front");
-        frontGo.transform.SetParent(transform);
+        frontGo.transform.parent = transform;
+        frontGo.transform.localPosition = Vector3.zero;
+        frontGo.transform.localRotation = Quaternion.identity;
         m_frontSpriteRenderer = frontGo.AddComponent<SpriteRenderer>();
 
         m_defaultShader = m_frontSpriteRenderer.material.shader;
@@ -33,7 +37,9 @@ public sealed class SpriteLayer : MonoBehaviour
     public static SpriteLayer Create(string name, Transform parent, int layerIndex)
     {
         var layerGo = new GameObject(name);
-        layerGo.transform.SetParent(parent);
+        layerGo.transform.parent = parent;
+        layerGo.transform.localPosition = Vector3.zero;
+        layerGo.transform.localRotation = Quaternion.identity;
         var layer = layerGo.AddComponent<SpriteLayer>();
         layer.Initialize();
         layer.SetLayerIndex(layerIndex);
@@ -57,8 +63,10 @@ public sealed class SpriteLayer : MonoBehaviour
     public void SetLayerIndex(int index)
     {
         Debug.Assert(index >= 0);
-        m_backSpriteRenderer.transform.position = new Vector3(0, 0, index * 0.0001f);
-        m_frontSpriteRenderer.transform.position = new Vector3(0, 0, -index * 0.0001f);
+        m_backSpriteRenderer.transform.localPosition =
+                new Vector3(0, 0, index * 0.0001f);
+        m_frontSpriteRenderer.transform.localPosition =
+                new Vector3(0, 0, -index * 0.0001f);
     }
 
     public void ShowAnimationFrame(string animation, int frame, CharacterDirection direction)

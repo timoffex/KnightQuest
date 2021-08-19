@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a011a1d2cce6fe04ebcd1b132bf690f1, type: 3}
   m_Name: KnightSkin
   m_EditorClassIdentifier: 
-  m_animations: []
+  m_animations:
+  - {fileID: 11400000, guid: f510c3e5cb2ae1f44ac775fbb6d4ec0c, type: 2}

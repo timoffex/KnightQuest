@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -22,17 +21,19 @@ using UnityEngine;
 /// </remarks>
 public sealed class CharacterAnimationController : MonoBehaviour
 {
+    // TODO: Remove these! CharacterAnimationController should be created by Character with the
+    // correct values
+    [SerializeField] AnimatedSprite m_hairSprite;
+    [SerializeField] AnimatedSprite m_skinSprite;
+    [SerializeField] AnimatedSprite m_outlineSprite;
+
     public void BeginFireAnimation()
     {
         if (m_isOnFire)
             return;
 
         m_isOnFire = true;
-
-        foreach (var animator in m_animators)
-        {
-            animator.TintRedForFire();
-        }
+        SetRestingTint(Color.red);
 
         m_fireAnimationCR = StartCoroutine(FireAnimationCR());
         m_fireAttachment?.Ignite();
@@ -44,33 +45,13 @@ public sealed class CharacterAnimationController : MonoBehaviour
             return;
 
         m_isOnFire = false;
-
-        foreach (var animator in m_animators)
-        {
-            animator.UseNormalTint();
-        }
+        SetRestingTint(Color.white);
 
         StopCoroutine(m_fireAnimationCR);
         m_fireAttachment?.Extinguish();
     }
 
-    public void TakeHit()
-    {
-        foreach (var animator in m_animators)
-        {
-            animator.FlashWhite();
-        }
-    }
-
-    /// <summary>
-    /// Registers the <see cref="CharacterAnimator"/> to be controlled by this object.
-    /// 
-    /// Should only be called from within <see cref="CharacterAnimator"/>.
-    /// </summary>
-    public void RegisterCharacterAnimator(CharacterAnimator animator)
-    {
-        m_animators.Add(animator);
-    }
+    public void TakeHit() => FlashWhite();
 
     public void RegisterFireAttachment(CharacterFireAttachment fireAttachment)
     {
@@ -82,14 +63,75 @@ public sealed class CharacterAnimationController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
-            foreach (var animator in m_animators)
-            {
-                animator.FlashWhite();
-            }
+            FlashWhite();
         }
     }
 
-    readonly HashSet<CharacterAnimator> m_animators = new HashSet<CharacterAnimator>();
+    void SetRestingTint(Color tint)
+    {
+        m_defaultTint = tint;
+        if (!m_isFlashing)
+        {
+            m_characterSprite.MakeTinted(m_defaultTint);
+        }
+    }
+
+    void FlashWhite()
+    {
+        StartCoroutine(FlashWhiteCR());
+    }
+
+    IEnumerator FlashWhiteCR()
+    {
+        if (m_isFlashing) yield break;
+        m_isFlashing = true;
+
+        try
+        {
+            m_characterSprite.MakePureColor(Color.white);
+            yield return new WaitForSeconds(0.1f);
+            m_characterSprite.MakeTinted(m_defaultTint);
+        }
+        finally
+        {
+            m_isFlashing = false;
+        }
+    }
+
+    void LateUpdate()
+    {
+        m_characterSprite.ShowAnimationFrame("Walk", (int)m_animationFrame, m_character.Direction);
+
+        m_animationFrame += 10 * Time.deltaTime *
+                Mathf.Clamp01(m_rigidbody2D.velocity.magnitude / m_character.MaxSpeed);
+
+        if (m_animationFrame >= SpriteAnimation.FrameCountInAnimation("Walk"))
+        {
+            m_animationFrame -= SpriteAnimation.FrameCountInAnimation("Walk");
+        }
+    }
+
+    void Awake()
+    {
+        m_character = GetComponent<Character>();
+        m_rigidbody2D = GetComponent<Rigidbody2D>();
+        m_characterSprite = CharacterSprite.Create("CharacterSprite", transform);
+        m_characterSprite.SetHairSprite(m_hairSprite);
+        m_characterSprite.SetSkinSprite(m_skinSprite);
+        m_characterSprite.SetOutlineSprite(m_outlineSprite);
+    }
+
+    Character m_character;
+    Rigidbody2D m_rigidbody2D;
+    CharacterSprite m_characterSprite;
+
+    float m_animationFrame = 0;
+
+    // Flashing white on damage / tinting red for fire
+    Color m_defaultTint = Color.white;
+    bool m_isFlashing = false;
+
+    // Fire
     CharacterFireAttachment m_fireAttachment;
     Coroutine m_fireAnimationCR;
     bool m_isOnFire;

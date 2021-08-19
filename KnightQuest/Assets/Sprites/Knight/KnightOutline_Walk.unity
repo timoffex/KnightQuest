@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712c8c21c908ef94a96da4bddfe6f8ea, type: 3}
+  m_Name: KnightOutline_Walk
+  m_EditorClassIdentifier: 
+  m_animationName: 
+  m_frontUpFrames:
+  - {fileID: -3864799352493441465, guid: 2e984df98ea721646bd5f3f677d54c0c, type: 3}
+  - {fileID: -8490403225339700559, guid: 2e984df98ea721646bd5f3f677d54c0c, type: 3}
+  - {fileID: 6737255944531425266, guid: 2e984df98ea721646bd5f3f677d54c0c, type: 3}
+  m_frontDownFrames:
+  - {fileID: -3851312411034006780, guid: 2e984df98ea721646bd5f3f677d54c0c, type: 3}
+  - {fileID: 4959329276218431866, guid: 2e984df98ea721646bd5f3f677d54c0c, type: 3}
+  - {fileID: -7011966285140580561, guid: 2e984df98ea721646bd5f3f677d54c0c, type: 3}
+  m_frontLeftFrames: []
+  m_frontRightFrames:
+  - {fileID: -2747611455946493267, guid: 2e984df98ea721646bd5f3f677d54c0c, type: 3}
+  - {fileID: -7921193184672248693, guid: 2e984df98ea721646bd5f3f677d54c0c, type: 3}
+  - {fileID: 7070727376736921749, guid: 2e984df98ea721646bd5f3f677d54c0c, type: 3}
+  m_backUpFrames: []
+  m_backDownFrames: []
+  m_backLeftFrames: []
+  m_backRightFrames: []

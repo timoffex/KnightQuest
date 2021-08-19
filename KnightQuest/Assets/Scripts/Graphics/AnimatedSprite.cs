@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -43,6 +44,12 @@ public sealed class AnimatedSprite : ScriptableObject
     {
         return m_animations.Where(x => x.Name == animation).Any();
     }
+
+    /// <summary>
+    /// Enumerates the names of all animations supported by this sprite.
+    /// </summary>
+    public IEnumerable<string> SupportedAnimations =>
+        m_animations.Select(animation => animation.Name);
 
     SpriteAnimation AnimationByName(string animation)
     {

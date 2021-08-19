@@ -10,6 +10,9 @@ public sealed class CharacterSprite : MonoBehaviour
     SpriteLayer m_outline;
     SpriteLayer m_skin;
 
+    Color m_hairTint = Color.white;
+    Color m_skinTint = Color.white;
+
     IEnumerable<SpriteLayer> AllLayers
     {
         get
@@ -18,6 +21,32 @@ public sealed class CharacterSprite : MonoBehaviour
             if (m_outline != null) yield return m_outline;
             if (m_skin != null) yield return m_skin;
         }
+    }
+
+    public static CharacterSprite Create(
+            string name,
+            Transform parent)
+    {
+        var go = new GameObject(name);
+        go.transform.parent = parent;
+        go.transform.localPosition = Vector3.zero;
+        go.transform.localRotation = Quaternion.identity;
+        return go.AddComponent<CharacterSprite>();
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
+
+    public void SetHairTint(Color tint)
+    {
+        m_hairTint = tint;
+    }
+
+    public void SetSkinTint(Color tint)
+    {
+        m_skinTint = tint;
     }
 
     public void SetHairSprite(AnimatedSprite sprite)
@@ -72,12 +101,9 @@ public sealed class CharacterSprite : MonoBehaviour
     /// </summary>
     public void MakeTinted(Color color)
     {
-        foreach (var layer in AllLayers)
-        {
-            // Note: eventually I'll allow setting hair and skin colors; when I do, I'll need to
-            // multiply their colors by the given tint
-            layer.MakeTinted(color);
-        }
+        if (m_hair != null) m_hair.MakeTinted(color * m_hairTint);
+        if (m_skin != null) m_skin.MakeTinted(color * m_skinTint);
+        if (m_outline != null) m_outline.MakeTinted(color);
     }
 
     /// <summary>
@@ -95,22 +121,4 @@ public sealed class CharacterSprite : MonoBehaviour
     {
         return SpriteLayer.Create(name, transform, layerIndex);
     }
-
-    // Used by Preview(); should not be set otherwise.
-    // Apparently it's a bad idea to guard serialized fields by UNITY_EDITOR
-    [SerializeField] AnimatedSprite m_previewHair;
-    [SerializeField] AnimatedSprite m_previewOutline;
-    [SerializeField] AnimatedSprite m_previewSkin;
-    [SerializeField] string m_previewAnimation;
-
-#if UNITY_EDITOR
-    [ContextMenu("Preview Character")]
-    public void Preview()
-    {
-        SetHairSprite(m_previewHair);
-        SetOutlineSprite(m_previewOutline);
-        SetSkinSprite(m_previewSkin);
-        ShowAnimationFrame(m_previewAnimation, 0, CharacterDirection.Down);
-    }
-#endif
 }
