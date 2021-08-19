@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Armor
   m_EditorClassIdentifier: 
   m_animations:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: a5d1321d488a8774c8b44590790c339d, type: 2}

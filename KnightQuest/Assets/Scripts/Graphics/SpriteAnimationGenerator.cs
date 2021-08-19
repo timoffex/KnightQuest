@@ -78,7 +78,15 @@ public sealed class SpriteAnimationGenerator : MonoBehaviour
                 backRightFrames: GetDirection(BackSprites, CharacterDirection.Right),
                 backLeftFrames: GetDirection(BackSprites, CharacterDirection.Left));
 
-        AssetDatabase.CreateAsset(spriteAnimation, OutputPath);
+        var existingAsset = AssetDatabase.LoadMainAssetAtPath(OutputPath);
+        if (existingAsset != null)
+        {
+            EditorUtility.CopySerialized(spriteAnimation, existingAsset);
+        }
+        else
+        {
+            AssetDatabase.CreateAsset(spriteAnimation, OutputPath);
+        }
         AssetDatabase.SaveAssets();
     }
 
