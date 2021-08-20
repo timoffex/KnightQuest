@@ -23,29 +23,12 @@ public sealed class CharacterSprite : MonoBehaviour
         }
     }
 
-    public static CharacterSprite Create(
-            string name,
-            Transform parent)
+    public static CharacterSprite Create(string name, Transform parent)
     {
-        var go = new GameObject(name);
-        go.hideFlags = HideFlags.HideAndDontSave;
-        go.transform.parent = parent;
-        go.transform.localPosition = Vector3.zero;
-        go.transform.localRotation = Quaternion.identity;
-        return go.AddComponent<CharacterSprite>();
+        return GameObjectUtility.CreateChild(name, parent).AddComponent<CharacterSprite>();
     }
 
-    public void Destroy()
-    {
-#if UNITY_EDITOR
-        if (!Application.isPlaying)
-        {
-            UnityEditor.EditorApplication.delayCall += () => DestroyImmediate(gameObject);
-            return;
-        }
-#endif
-        Destroy(gameObject);
-    }
+    public void Destroy() => GameObjectUtility.Destroy(gameObject);
 
     public void SetHairTint(Color tint)
     {

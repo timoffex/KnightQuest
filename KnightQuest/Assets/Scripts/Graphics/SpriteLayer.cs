@@ -22,45 +22,28 @@ public sealed class SpriteLayer : MonoBehaviour
 
     void Initialize()
     {
-        var backGo = new GameObject("Back");
-        backGo.transform.parent = transform;
-        backGo.transform.localPosition = Vector3.zero;
-        backGo.transform.localRotation = Quaternion.identity;
-        m_backSpriteRenderer = backGo.AddComponent<SpriteRenderer>();
+        m_backSpriteRenderer =
+            GameObjectUtility
+                .CreateChild("Back", transform)
+                .AddComponent<SpriteRenderer>();
 
-        var frontGo = new GameObject("Front");
-        frontGo.transform.parent = transform;
-        frontGo.transform.localPosition = Vector3.zero;
-        frontGo.transform.localRotation = Quaternion.identity;
-        m_frontSpriteRenderer = frontGo.AddComponent<SpriteRenderer>();
+        m_frontSpriteRenderer =
+            GameObjectUtility
+                .CreateChild("Front", transform)
+                .AddComponent<SpriteRenderer>();
 
         m_defaultShader = m_frontSpriteRenderer.sharedMaterial.shader;
     }
 
     public static SpriteLayer Create(string name, Transform parent, int layerIndex)
     {
-        var layerGo = new GameObject(name);
-        layerGo.hideFlags = HideFlags.HideAndDontSave;
-        layerGo.transform.parent = parent;
-        layerGo.transform.localPosition = Vector3.zero;
-        layerGo.transform.localRotation = Quaternion.identity;
-        var layer = layerGo.AddComponent<SpriteLayer>();
+        var layer = GameObjectUtility.CreateChild(name, parent).AddComponent<SpriteLayer>();
         layer.Initialize();
         layer.SetLayerIndex(layerIndex);
         return layer;
     }
 
-    public void Destroy()
-    {
-#if UNITY_EDITOR
-        if (!Application.isPlaying)
-        {
-            UnityEditor.EditorApplication.delayCall += () => DestroyImmediate(gameObject);
-            return;
-        }
-#endif
-        Destroy(gameObject);
-    }
+    public void Destroy() => GameObjectUtility.Destroy(gameObject);
 
     public void SetAnimatedSprite(AnimatedSprite animatedSprite)
     {
