@@ -26,11 +26,13 @@ public sealed class SpriteLayer : MonoBehaviour
             GameObjectUtility
                 .CreateChild("Back", transform)
                 .AddComponent<SpriteRenderer>();
+        m_backSpriteRenderer.spriteSortPoint = SpriteSortPoint.Pivot;
 
         m_frontSpriteRenderer =
             GameObjectUtility
                 .CreateChild("Front", transform)
                 .AddComponent<SpriteRenderer>();
+        m_frontSpriteRenderer.spriteSortPoint = SpriteSortPoint.Pivot;
 
         m_defaultShader = m_frontSpriteRenderer.sharedMaterial.shader;
     }
